@@ -1,0 +1,29 @@
+﻿<Window x:Class="TimetableManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimetableManager"
+        mc:Ignorable="d"
+        Title="Timetable Manager" Height="700" Width="1200">
+    <Window.Resources>
+        <Color x:Key="btn_blue">#FF2196F3</Color>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="#FF2196F3"/>
+        <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="0,35,0,0">
+            <Button x:Name="btnDaysHours" Uid="0" Width="132" Content="Days and Hours" Height="40" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click" Background="{x:Null}"/>
+            <Button x:Name="btnLecturer" Uid="1" Width="132" Content="Lecturer" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnSubject" Uid="2" Width="132" Content="Subject" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnStudent" Uid="3" Width="132" Content="Student" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnTags" Uid="4" Width="132" Content="Tags" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnLocations" Uid="5" Width="132" Content="Locations" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnStats" Uid="6" Width="132" Content="Statics" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnSession" Uid="7" Width="132" Content="Sessions" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+            <Button x:Name="btnTimetable" Uid="8" Width="132" Content="Timetables" Height="40" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF2196F3" Click="Button_Click"/>
+        </StackPanel>
+        <Frame x:Name="Main" Margin="0,75,0,0" NavigationUIVisibility="Hidden"/>
+
+
+    </Grid>
+</Window>

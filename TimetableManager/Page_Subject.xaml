@@ -1,0 +1,14 @@
+﻿<Page x:Class="TimetableManager.Page_Subject"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimetableManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="620" d:DesignWidth="1190"
+      Title="Page_Subject">
+
+    <Grid Background="White">
+        <TextBlock HorizontalAlignment="Left" Margin="543,151,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Height="41" Width="100" FontSize="25"/>
+    </Grid>
+</Page>
