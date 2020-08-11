@@ -4,151 +4,94 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TimetableManager"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="TimetableManager.Page_DaysHours"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="TimetableManager.Page_DaysHours"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1190"
       Title="Page_DaysHours" Background="White">
-    <Page.Resources>
-        <Style x:Key="CheckBoxStyle1" TargetType="{x:Type CheckBox}">
-            <Setter Property="FocusVisualStyle">
-                <Setter.Value>
-                    <Style>
-                        <Setter Property="Control.Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
-            <Setter Property="Foreground" Value="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type FrameworkElement}}}"/>
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type CheckBox}">
-                        <ControlTemplate.Resources>
-                            <Storyboard x:Key="Click">
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="InteractionEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="InteractionEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="InteractionEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="InteractionEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
-                                </DoubleAnimationUsingKeyFrames>
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="InteractionEllipse">
-                                    <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </ControlTemplate.Resources>
-                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Viewbox FlowDirection="LeftToRight" Height="{Binding (materialDesign:CheckBoxAssist.CheckBoxSize), RelativeSource={RelativeSource TemplatedParent}}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="{Binding (materialDesign:CheckBoxAssist.CheckBoxSize), RelativeSource={RelativeSource TemplatedParent}}">
-                                <Canvas Height="24" Width="24">
-                                    <Path x:Name="Graphic" Data="M19,3L5,3C3.89,3,3,3.89,3,5L3,19A2,2,0,0,0,5,21L19,21A2,2,0,0,0,21,19L21,5C21,3.89,20.1,3,19,3 M19,5L19,19 5,19 5,5 19,5z" Fill="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}"/>
-                                    <Ellipse x:Name="InteractionEllipse" Fill="{TemplateBinding Foreground}" Height="0" IsHitTestVisible="False" Canvas.Left="12" Opacity="0" RenderTransformOrigin="0.5,0.5" Canvas.Top="12" Width="0">
-                                        <Ellipse.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </Ellipse.RenderTransform>
-                                    </Ellipse>
-                                </Canvas>
-                            </Viewbox>
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <EventTrigger RoutedEvent="ButtonBase.Click">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="InteractionEllipse">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="InteractionEllipse">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="InteractionEllipse">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="InteractionEllipse">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-24"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="InteractionEllipse">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.3"/>
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <Trigger Property="HasContent" Value="True">
-                                <Setter Property="FocusVisualStyle">
-                                    <Setter.Value>
-                                        <Style>
-                                            <Setter Property="Control.Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate>
-                                                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Setter.Value>
-                                </Setter>
-                                <Setter Property="Padding" Value="4,2,0,0"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True"/>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Data" TargetName="Graphic" Value="M10,17L5,12 6.41,10.58 10,14.17 17.59,6.58 19,8 M19,3L5,3C3.89,3,3,3.89,3,5L3,19A2,2,0,0,0,5,21L19,21A2,2,0,0,0,21,19L21,5C21,3.89,20.1,3,19,3z"/>
-                                <Setter Property="Fill" TargetName="Graphic" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Fill" TargetName="Graphic" Value="{DynamicResource MaterialDesignCheckBoxDisabled}"/>
-                                <Setter Property="Opacity" Value="0.56"/>
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="{x:Null}">
-                                <Setter Property="Data" TargetName="Graphic" Value="M6,13L6,11 18,11 18,13 M19,3L5,3C3.89,3,3,3.89,3,5L3,19A2,2,0,0,0,5,21L19,21A2,2,0,0,0,21,19L21,5C21,3.89,20.1,3,19,3z"/>
-                                <Setter Property="Fill" TargetName="Graphic" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </Trigger>
-                            <Trigger Property="Validation.HasError" Value="True">
-                                <Setter Property="Fill" TargetName="Graphic" Value="{DynamicResource ValidationErrorBrush}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{DynamicResource ValidationErrorBrush}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
     <Grid Background="White">
-        <TextBlock x:Name="txt" HorizontalAlignment="Left" Margin="558,168,0,0" TextWrapping="Wrap" Text="Days Hours" VerticalAlignment="Top" Height="41" Width="80" FontSize="25" RenderTransformOrigin="1.325,0.878"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="0,0,0,0" Width="400">
+            <materialDesign:Card  Margin="10,10,10,10" Height="560" HorizontalContentAlignment="Center">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal"  Margin="10,20,0,0">
+                        <Label Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" />
+                        <TextBox TextWrapping="Wrap" Width="260" Margin="60,0,0,0" FontSize="16" BorderThickness="1" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Margin="10,20,0,0">
+                        <Label Content="Week" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" />
+                        <ComboBox VerticalAlignment="Stretch" Width="260" Margin="51,0,0,0" BorderThickness="1">
+                            <ComboBoxItem Content="Weekday" IsSelected="True"/>
+                            <ComboBoxItem Content="Weekend"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <Label Content="No of Days" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" Margin="10,20,0,0"/>
+                    <Label Content="Weekdays" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14" Margin="15,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
+                        <CheckBox Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <CheckBox Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                        <CheckBox Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                        <CheckBox Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                        <CheckBox Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                    </StackPanel>
+                    <Label Content="Weekends" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14" Margin="15,15,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
+                        <CheckBox Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <CheckBox Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                    </StackPanel>
+                    <Label Content="No of Hours" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" Margin="10,20,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="15,10,0,0">
+                        <TextBox TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
+                        <Label Content="Hours" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
+                        <Label Content="Minutes" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
+                        <Label Content="Time Slots" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" />
+                        <ComboBox VerticalAlignment="Stretch" Width="250" Margin="21,0,0,0" BorderThickness="1">
+                            <ComboBoxItem Content="30 minutes"></ComboBoxItem>
+                            <ComboBoxItem Content="1 hour"></ComboBoxItem>
+                            <ComboBoxItem Content="2 hour"></ComboBoxItem>
+                            <ComboBoxItem Content="3 hour"></ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="145,100,0,0">
+                        <Button Content="ADD" Width="100"/>
+                        <Button Content="UPDATE" Width="100" Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+
+
+            </materialDesign:Card>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0,0,0,0">
+            <materialDesign:Card Grid.Column="1" Margin="10,10,10,10" Height="560" HorizontalContentAlignment="Center">
+                <StackPanel>
+                    <StackPanel>
+                        <ListView  Margin="10,10,10,0" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Week Information">
+                                    <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Week" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Title" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="No of Days" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Days" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="No of Hours" Width="120"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Time Slots" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Margin="0,8,20,0">
+                        <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+
+
     </Grid>
 </Page>

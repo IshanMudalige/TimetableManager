@@ -19,5 +19,6 @@ namespace TimetableManager
         static string baseDir = Environment.CurrentDirectory;
         //static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string databasePath = Path.Combine(baseDir, databaseName);
+        public static string connString = "Data Source=" + databasePath;
     }
 }

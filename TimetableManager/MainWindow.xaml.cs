@@ -27,6 +27,7 @@ namespace TimetableManager
             Main.Content = new Page_DaysHours();
             btnDaysHours.BorderBrush = Brushes.DodgerBlue;
             btnDaysHours.BorderThickness = pressed;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,7 +35,7 @@ namespace TimetableManager
             int index = int.Parse(((Button)e.Source).Uid);
            
             Thickness pressed = new Thickness(0, 0, 0, 3);
-
+           
             switch (index)
             {
                 case 0:

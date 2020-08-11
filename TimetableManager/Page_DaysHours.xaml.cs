@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimetableManager.DaysHoursDAO;
 
 namespace TimetableManager
 {
@@ -23,6 +24,19 @@ namespace TimetableManager
         public Page_DaysHours()
         {
             InitializeComponent();
+
+            Weekday week = new Weekday();
+            week.Title = "week 6";
+            week.Hours = 54.45;
+            week.No_days = 4;
+            week.Slots = 40.30;
+            week.Week_type = "Weekday";
+            week.Days = "Monday,Tuesday,Wed";
+            //WeekdayDAO.insertWeek(week);
+
+            //WeekdayDAO.deleteWeek("week 4");
+
+            WeekdayDAO.updateWeek("week 3",week);
         }
 
     }

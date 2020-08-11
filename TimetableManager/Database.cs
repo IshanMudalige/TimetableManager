@@ -17,10 +17,12 @@ namespace TimetableManager
             {
                 conn = new SQLiteConnection("Data Source="+App.databasePath);
                 conn.Open();
-                MessageBox.Show("DB Connected");
-            }catch(Exception e)
+                MessageBox.Show("DB Succes ");
+            }
+            catch(Exception e)
             {
                 MessageBox.Show("DB Fail "+e);
+                Console.WriteLine("fail------------");
             }
         }
     }
