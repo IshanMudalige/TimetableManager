@@ -76,5 +76,60 @@ namespace TimetableManager.DaysHoursDAO
 
             }
         }
+
+        public static List<Weekday> getAll()
+        {
+            List<Weekday> weekList = new List<Weekday>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT week_type,title,no_days,days,hours,slots FROM Weekday_Days";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Weekday week = new Weekday();
+                    week.Week_type = reader["week_type"].ToString();
+                    week.Title = reader["title"].ToString();
+                    week.No_days = int.Parse(reader["no_days"].ToString());
+                    week.Days = reader["days"].ToString();
+                    week.Hours = double.Parse(reader["hours"].ToString());
+                    week.Slots = double.Parse((string)reader["slots"].ToString());
+
+                    weekList.Add(week);
+                }
+
+            }
+            return weekList;
+        }
+
+        public static List<Weekday> search(string title)
+        {
+            List<Weekday> weekList = new List<Weekday>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = "SELECT week_type,title,no_days,days,hours,slots FROM Weekday_Days WHERE title LIKE '%"+title+"%'";
+               
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Weekday week = new Weekday();
+                    week.Week_type = reader["week_type"].ToString();
+                    week.Title = reader["title"].ToString();
+                    week.No_days = int.Parse(reader["no_days"].ToString());
+                    week.Days = reader["days"].ToString();
+                    week.Hours = double.Parse(reader["hours"].ToString());
+                    week.Slots = double.Parse((string)reader["slots"].ToString());
+
+                    weekList.Add(week);
+                }
+
+            }
+            return weekList;
+        }
     }
 }

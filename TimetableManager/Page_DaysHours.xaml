@@ -18,39 +18,39 @@
                 <StackPanel Margin="0,0,0,0">
                     <StackPanel Orientation="Horizontal"  Margin="10,20,0,0">
                         <Label Content="Title" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" />
-                        <TextBox TextWrapping="Wrap" Width="260" Margin="60,0,0,0" FontSize="16" BorderThickness="1" />
+                        <TextBox x:Name="tbTitle" TextWrapping="Wrap" Width="260" Margin="60,0,0,0" FontSize="16" BorderThickness="1" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"  Margin="10,20,0,0">
                         <Label Content="Week" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" />
-                        <ComboBox VerticalAlignment="Stretch" Width="260" Margin="51,0,0,0" BorderThickness="1">
-                            <ComboBoxItem Content="Weekday" IsSelected="True"/>
-                            <ComboBoxItem Content="Weekend"/>
+                        <ComboBox x:Name="cbWeek" VerticalAlignment="Stretch" Width="260" Margin="51,0,0,0" BorderThickness="1" DropDownClosed="cbWeek_DropDownClosed">
+                            <ComboBoxItem Uid="0" Content="Weekday" IsSelected="True"/>
+                            <ComboBoxItem Uid="1" Content="Weekend"/>
                         </ComboBox>
                     </StackPanel>
                     <Label Content="No of Days" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" Margin="10,20,0,0"/>
                     <Label Content="Weekdays" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14" Margin="15,0,0,0"/>
                     <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
-                        <CheckBox Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <CheckBox Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
-                        <CheckBox Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
-                        <CheckBox Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
-                        <CheckBox Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                        <CheckBox x:Name="chMon" Content="Monday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="chTue" Content="Tuesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                        <CheckBox x:Name="chWed" Content="Wednesday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                        <CheckBox x:Name="chThu" Content="Thursday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
+                        <CheckBox x:Name="chFri" Content="Friday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0" />
                     </StackPanel>
                     <Label Content="Weekends" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14" Margin="15,15,0,0"/>
                     <StackPanel Orientation="Horizontal" Margin="15,5,0,0">
-                        <CheckBox Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <CheckBox Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                        <CheckBox x:Name="chSat" Content="Saturday" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <CheckBox x:Name="chSun" Content="Sunday" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
                     </StackPanel>
                     <Label Content="No of Hours" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" Margin="10,20,0,0"/>
                     <StackPanel Orientation="Horizontal" Margin="15,10,0,0">
-                        <TextBox TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
                         <Label Content="Hours" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14"/>
-                        <TextBox TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
-                        <Label Content="Minutes" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="tbHours" TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
+                        <Label Content="Minutes" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="14" Margin="5,0,0,0"/>
+                        <TextBox x:Name="tbMinutes" TextWrapping="Wrap" Width="120" FontSize="16" BorderThickness="1" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
                         <Label Content="Time Slots" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="16" />
-                        <ComboBox VerticalAlignment="Stretch" Width="250" Margin="21,0,0,0" BorderThickness="1">
+                        <ComboBox x:Name="cbSlots" VerticalAlignment="Stretch" Width="250" Margin="21,0,0,0" BorderThickness="1">
                             <ComboBoxItem Content="30 minutes"></ComboBoxItem>
                             <ComboBoxItem Content="1 hour"></ComboBoxItem>
                             <ComboBoxItem Content="2 hour"></ComboBoxItem>
@@ -58,8 +58,8 @@
                         </ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="145,100,0,0">
-                        <Button Content="ADD" Width="100"/>
-                        <Button Content="UPDATE" Width="100" Margin="20,0,0,0"/>
+                        <Button x:Name="btnAdd" Content="ADD" Width="100" Click="btnAdd_Click"/>
+                        <Button x:Name="btnUpdate" Content="UPDATE" Width="100" Margin="20,0,0,0"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -71,22 +71,27 @@
         <StackPanel Grid.Column="1" Margin="0,0,0,0">
             <materialDesign:Card Grid.Column="1" Margin="10,10,10,10" Height="560" HorizontalContentAlignment="Center">
                 <StackPanel>
+                    <StackPanel Margin="20,10,20,0" Orientation="Horizontal">
+                        <TextBox x:Name="searchField" FontSize="16" BorderThickness="1" Width="720" TextChanged="searchField_TextChanged">
+                            
+                        </TextBox>
+                    </StackPanel>
                     <StackPanel>
-                        <ListView  Margin="10,10,10,0" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                        <ListView  Margin="10,10,10,0" x:Name="listView" Grid.ColumnSpan="2" Height="440" SelectionChanged="listview_SelectionChanged" >
                             <ListView.View>
                                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Week Information">
-                                    <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Week" Width="120"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Title" Width="120"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="No of Days" Width="120"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Days" Width="120"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="No of Hours" Width="120"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Time Slots" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Week_type}" Header="Week" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding No_days}" Header="#Days" Width="80"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Days}" Header="Days" Width="250"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Hours}" Header="#Hours" Width="80"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Slots}" Header="Time Slots" />
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </StackPanel>
                     <StackPanel Margin="0,8,20,0">
-                        <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                        <Button x:Name="btnDelete" Content="DELETE" Width="100" HorizontalAlignment="Right"/>
                     </StackPanel>
                 </StackPanel>
             </materialDesign:Card>
