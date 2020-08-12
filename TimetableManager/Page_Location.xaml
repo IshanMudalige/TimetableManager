@@ -6,9 +6,100 @@
       xmlns:local="clr-namespace:TimetableManager"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1190"
-      Title="Page_Location">
+      Title="Timetable Manager" Height="700" Width="1200">
+    <Page.Resources>
+        <Color x:Key="btn_blue">#FF2196F3</Color>
+    </Page.Resources>
 
     <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="555,157,0,0" TextWrapping="Wrap" Text="Location" VerticalAlignment="Top" Height="41" Width="106" FontSize="25"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+
+        <TabControl Margin="15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160">
+
+            <TabItem Header="Add New Building">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="289*"/>
+                        <ColumnDefinition Width="288*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="28,31,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
+
+                    <Button x:Name="addBuildingBtn" Content="Add" HorizontalAlignment="Left" Margin="69,131,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="editBuildingBtn" Content="Edit" HorizontalAlignment="Left" Margin="240,131,0,0" VerticalAlignment="Top" Width="81"/>
+                    <Button x:Name="clearBuildingBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,131,0,0" VerticalAlignment="Top" Width="75"/>
+
+                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="445" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556"/>
+                    <Button x:Name="removeBuildingBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="clearBuildingBtn_Copy_Click"/>
+
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Add New Room">
+                <Grid Background="#FFE5E5E5" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="289*"></ColumnDefinition>
+                        <ColumnDefinition Width="288*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="28,31,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="28,0,0,519" TextWrapping="Wrap" Text="Lecture Room Name" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="28,168,0,0" TextWrapping="Wrap" Text="Type" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+
+                    <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="265,31,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                    <TextBox x:Name="addRoomName" Height="25" Margin="265,98,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                    <ComboBox x:Name="selectRoomType" HorizontalAlignment="Left" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+
+
+                    <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="69,331,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="235,331,0,0" VerticalAlignment="Top" Width="81"/>
+                    <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,331,0,0" VerticalAlignment="Top" Width="75"/>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="28,0,0,375" TextWrapping="Wrap" Text="Capacity" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                    <TextBox x:Name="capacity" Height="25" Margin="265,242,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="520" Margin="10.4,31,0,0" VerticalAlignment="Top" Width="556"/>
+                    <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,578,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412"/>
+
+
+
+
+
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Assign Lecture Room">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="289*"/>
+                        <ColumnDefinition Width="288*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header="Add Fixed Event">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="289*"/>
+                        <ColumnDefinition Width="288*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </Page>

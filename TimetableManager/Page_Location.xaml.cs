@@ -24,5 +24,10 @@ namespace TimetableManager
         {
             InitializeComponent();
         }
+
+        private void clearBuildingBtn_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
