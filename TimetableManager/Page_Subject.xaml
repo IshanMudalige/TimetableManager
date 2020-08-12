@@ -4,11 +4,140 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TimetableManager"
+     
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1190"
-      Title="Page_Subject">
+      Title="Page_Subject" Background="White">
 
     <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="543,151,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Height="41" Width="100" FontSize="25"/>
+        <!--Left Side-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Margin="0 15 0 10" Visibility="Visible">
+
+            <!--Year input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Offered Year" FontSize="15" FontWeight="Bold" Margin="15 30 0 0"/>
+                <ComboBox x:Name="cmbYear" Grid.Column="1" Margin="0 30 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Semester input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Offered Sem" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <ComboBox x:Name="cmbSem" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Subject input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Subject Name" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtSub" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Subject Code input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Subject Code" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtCode" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Lecture hrs input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Lecture Hours" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLecHrs" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Tutorial Hrs input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Tutorial Hours" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtTuteHrs" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Lab Hrs input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Lab Hours" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLabHrs" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Evaluation Hrs input-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Evaluation Hours" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtEvaHrs" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Buttons-->
+            <Grid Margin="0 60 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" x:Name="btnSubAdd" Content="ADD" Width="100" Height="40"/>
+                <Button Grid.Column="1" x:Name="btnSubUpdate" Content="UPDATE" Width="100" Height="40"/>
+                <Button Grid.Column="2" x:Name="btnSubClear" Content="CLEAR" Width="100" Height="40"/>
+            </Grid>
+
+        </StackPanel>
+        
+        <!--Right Side-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
+
+            <StackPanel>
+                <StackPanel>
+                    <ListView  Margin="50,10,10,20" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Year" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Semester" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="Subject" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Code" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Evaluation Hours" Width="150"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Margin="0,8,20,0">
+                    <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
     </Grid>
 </Page>

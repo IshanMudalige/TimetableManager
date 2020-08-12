@@ -91,6 +91,8 @@
     <Compile Include="Database.cs" />
     <Compile Include="DaysHoursDAO\Weekday.cs" />
     <Compile Include="DaysHoursDAO\WeekdayDAO.cs" />
+    <Compile Include="LecturerDAO\Lecturer.cs" />
+    <Compile Include="LecturerDAO\LecturerDetailsDAO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

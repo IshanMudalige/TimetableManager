@@ -8,7 +8,172 @@
       d:DesignHeight="620" d:DesignWidth="1190"
       Title="Page_Lecturers" Background="White">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="330,100,0,0" TextWrapping="Wrap" Text="Lectures" VerticalAlignment="Top" Height="41" Width="108" FontSize="25"/>
+    <Grid Background="White">
+
+        <!--Left Side-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Margin="0 15 0 10" Visibility="Visible">
+
+
+            <!--Name input-->
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Name" FontSize="15" FontWeight="Bold" Margin="15 30 0 0"/>
+                <TextBox x:Name="txtLecName" Grid.Column="1" Margin="0 30 0 20" BorderThickness="1"/>
+    
+            </Grid>
+
+            <!--EmpID input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Employee ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLecID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Faculty input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Faculty" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <ComboBox x:Name="cmbLecFaculty" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1">
+                    <ComboBoxItem Content="Computing"></ComboBoxItem>
+                    <ComboBoxItem Content="Business"></ComboBoxItem>
+                    <ComboBoxItem Content="Engineering"></ComboBoxItem>
+                    <ComboBoxItem Content="Humanities and Science"></ComboBoxItem>
+                    <ComboBoxItem Content="Archithecture"></ComboBoxItem>
+                    <ComboBoxItem Content="Graduate Studies and Research"></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!--Department input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Department" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLecDepartment" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Center input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Center" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <ComboBox x:Name="cmbLecCenter" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1">
+                    <ComboBoxItem Content="Malabe"></ComboBoxItem>
+                    <ComboBoxItem Content="Kandy"></ComboBoxItem>
+                    <ComboBoxItem Content="Kollupitiya"></ComboBoxItem>
+                    <ComboBoxItem Content="Kuruagala"></ComboBoxItem>
+                    <ComboBoxItem Content="Matara"></ComboBoxItem>
+                    <ComboBoxItem Content="Jaffna"></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+
+            <!--Building input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Building" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLecBuilding" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+            </Grid>
+
+            <!--Category & level input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Category-->
+                <StackPanel Grid.Column="0">
+                    <TextBlock  Text="Category" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                    <ComboBox x:Name="cmbLecCategory" Margin="10 0 0 20" BorderThickness="1">
+                        <ComboBoxItem Content="Professor"></ComboBoxItem>
+                        <ComboBoxItem Content="Assistant Professor"></ComboBoxItem>
+                        <ComboBoxItem Content="Senior Lecturer(HG)"></ComboBoxItem>
+                        <ComboBoxItem Content="Senior Lecturer"></ComboBoxItem>
+                        <ComboBoxItem Content="Lecturer"></ComboBoxItem>
+                        <ComboBoxItem Content="Assistant Lecturer"></ComboBoxItem>
+                        <ComboBoxItem Content="Instructors"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <!--Level-->
+                <StackPanel Grid.Column="1">
+                    <TextBlock  Text="Level" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                    <TextBox x:Name="txtLevel" Margin="10 0 0 20" BorderThickness="1" SelectionChanged="txtLevel_SelectionChanged" IsReadOnly="True"/>
+                </StackPanel>
+                
+            </Grid>
+
+            <!--Rank input-->
+            <Grid Margin="0 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Rank" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                <TextBox x:Name="txtLecRank" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" IsReadOnly="True"/>
+            </Grid>
+            
+            <!--Buttons-->
+                <Grid Margin="0 30 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" x:Name="btnLecAdd" Content="ADD" Width="100" Height="40"/>
+                    <Button Grid.Column="1" x:Name="btnLecUpdate" Content="UPDATE" Width="100" Height="40"/>
+                    <Button Grid.Column="2" x:Name="btnLecRank" Content="RANK" Width="100" Height="40" Click="btnLecRank_Click"/>
+                </Grid>
+
+        </StackPanel>
+        
+        <!--Right Side-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
+
+            <StackPanel>
+                <StackPanel>
+                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Name" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Employee ID" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="Faculty" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Department" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Center" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Rank" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Margin="0,8,20,0">
+                    <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
     </Grid>
 </Page>
