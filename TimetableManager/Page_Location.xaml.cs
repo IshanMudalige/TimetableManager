@@ -25,7 +25,22 @@ namespace TimetableManager
             InitializeComponent();
         }
 
-        private void clearBuildingBtn_Copy_Click(object sender, RoutedEventArgs e)
+        private void addRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void updateRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clearBuildingBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void removeBuildingBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }

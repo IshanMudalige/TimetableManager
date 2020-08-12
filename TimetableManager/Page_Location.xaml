@@ -38,10 +38,14 @@
 
                     <Button x:Name="addBuildingBtn" Content="Add" HorizontalAlignment="Left" Margin="69,131,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="editBuildingBtn" Content="Edit" HorizontalAlignment="Left" Margin="240,131,0,0" VerticalAlignment="Top" Width="81"/>
-                    <Button x:Name="clearBuildingBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,131,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="clearBuildingBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,131,0,0" VerticalAlignment="Top" Width="75" Click="clearBuildingBtn_Click"/>
 
-                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="445" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556"/>
-                    <Button x:Name="removeBuildingBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="clearBuildingBtn_Copy_Click"/>
+                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="445" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Building Name" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="removeBuildingBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="removeBuildingBtn_Click"/>
 
 
                 </Grid>
@@ -61,16 +65,27 @@
 
                     <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="265,31,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
                     <TextBox x:Name="addRoomName" Height="25" Margin="265,98,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                    <ComboBox x:Name="selectRoomType" HorizontalAlignment="Left" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                    <ComboBox x:Name="selectRoomType" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" HorizontalAlignment="Left">
+                        <ComboBoxItem Content="Lecture Room" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="Lab" VerticalAlignment="Center"/>
+                    </ComboBox>
 
 
-                    <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="69,331,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="235,331,0,0" VerticalAlignment="Top" Width="81"/>
+                    <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="69,331,0,0" VerticalAlignment="Top" Width="75" Click="addRoomBtn_Click"/>
+                    <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="235,331,0,0" VerticalAlignment="Top" Width="81" Click="updateRoomBtn_Click"/>
                     <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,331,0,0" VerticalAlignment="Top" Width="75"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="28,0,0,375" TextWrapping="Wrap" Text="Capacity" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
                     <TextBox x:Name="capacity" Height="25" Margin="265,242,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="520" Margin="10.4,31,0,0" VerticalAlignment="Top" Width="556"/>
+                    
+                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="520" Margin="10.4,31,0,0" VerticalAlignment="Top" Width="556">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Building Name" Width="*"/>
+                            <DataGridTextColumn Header="Room Name" Width="*"/>
+                            <DataGridTextColumn Header="Type" Width="125"/>
+                            <DataGridTextColumn Header="Capacity" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,578,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412"/>
 
 
