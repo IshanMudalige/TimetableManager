@@ -23,6 +23,49 @@ namespace TimetableManager
         public Page_Lecturers()
         {
             InitializeComponent();
+            
+        }
+
+        private void btnLecRank_Click(object sender, RoutedEventArgs e)
+        {
+            string level = txtLevel.Text;
+            string empID = txtLecID.Text;
+
+            txtLecRank.Text = level + "." + empID;
+        }
+
+        private void txtLevel_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string category = cmbLecCategory.Text;
+
+            if(category == "Professor")
+            {
+                txtLevel.Text = "1";
+            }
+            else if(category == "Assistant Professor")
+            {
+                txtLevel.Text = "2";
+            }
+            else if(category == "Senior Lecturer(HG)")
+            {
+                txtLevel.Text = "3";
+            }
+            else if(category == "Senior Lecturer")
+            {
+                txtLevel.Text = "4";
+            }
+            else if(category == "Lecturer")
+            {
+                txtLevel.Text = "5";
+            }
+            else if(category == "Assistant Lecturer")
+            {
+                txtLevel.Text = "6";
+            }
+            else
+            {
+                txtLevel.Text = "7";
+            }
         }
     }
 }
