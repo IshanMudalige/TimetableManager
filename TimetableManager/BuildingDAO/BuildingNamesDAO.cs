@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.Windows;
 
 namespace TimetableManager.BuildingDAO
 {
@@ -21,10 +22,11 @@ namespace TimetableManager.BuildingDAO
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "INSERT INTO Building_Names(b_name) VALUES(@buildingName)";
-                command.Parameters.AddWithValue("@buildingName", building.BuildingName);
+                command.CommandText = "INSERT INTO Building_Names(b_name) VALUES(@b_name)";
+                command.Parameters.AddWithValue("@b_name", building.BuildingName);
 
                 var t = command.ExecuteNonQuery();
+                MessageBox.Show("Successfully Added");
             }
         }
 

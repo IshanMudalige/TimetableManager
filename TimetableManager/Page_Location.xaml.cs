@@ -32,11 +32,7 @@ namespace TimetableManager
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            Building building = new Building();
-            building.BuildingName = addBuildingName.Text;
-
-            BuildingNamesDAO.insertNewBuilding(building);
-            PopulateTable(BuildingNamesDAO.getAll());
+            
         }
 
 
@@ -69,6 +65,15 @@ namespace TimetableManager
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void addBuildingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Building building = new Building();
+            building.BuildingName = addBuildingName.Text;
+
+            BuildingNamesDAO.insertNewBuilding(building);
+            PopulateTable(BuildingNamesDAO.getAll());
         }
     }
 }

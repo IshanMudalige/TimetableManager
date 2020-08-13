@@ -36,15 +36,15 @@
                     <TextBlock HorizontalAlignment="Left" Margin="28,31,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
                     <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
 
-                    <Button x:Name="addBuildingBtn" Content="Add" HorizontalAlignment="Left" Margin="69,131,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="addBuildingBtn" Content="Add" HorizontalAlignment="Left" Margin="69,131,0,0" VerticalAlignment="Top" Width="75" Click="addBuildingBtn_Click"/>
                     <Button x:Name="editBuildingBtn" Content="Edit" HorizontalAlignment="Left" Margin="240,131,0,0" VerticalAlignment="Top" Width="81"/>
                     <Button x:Name="clearBuildingBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,131,0,0" VerticalAlignment="Top" Width="75" Click="clearBuildingBtn_Click"/>
                     <Button x:Name="removeBuildingBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="removeBuildingBtn_Click"/>
                     <ListView x:Name="listview" Grid.Column="1" HorizontalAlignment="Left" Height="463" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556">
                         <ListView.View>
-                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                 <GridViewColumn />
-                                <GridViewColumn DisplayMemberBinding="{Binding buildingName}" Header="Building Name" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="150"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
