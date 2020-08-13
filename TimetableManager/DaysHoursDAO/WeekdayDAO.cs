@@ -15,6 +15,7 @@ namespace TimetableManager.DaysHoursDAO
         
         }
 
+        //--insert query
         public static void insertWeek(Weekday week)
         {
             using(SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -34,6 +35,7 @@ namespace TimetableManager.DaysHoursDAO
             }
         }
 
+        //--delete query
         public static void deleteWeek(string title)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -49,6 +51,7 @@ namespace TimetableManager.DaysHoursDAO
             }
         }
 
+        //--update query
         public static void updateWeek(string ptitle,Weekday week)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -77,6 +80,7 @@ namespace TimetableManager.DaysHoursDAO
             }
         }
 
+        //--data retrieve query
         public static List<Weekday> getAll()
         {
             List<Weekday> weekList = new List<Weekday>();
@@ -104,6 +108,7 @@ namespace TimetableManager.DaysHoursDAO
             return weekList;
         }
 
+        //--search query
         public static List<Weekday> search(string title)
         {
             List<Weekday> weekList = new List<Weekday>();

@@ -59,7 +59,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="145,100,0,0">
                         <Button x:Name="btnAdd" Content="ADD" Width="100" Click="btnAdd_Click"/>
-                        <Button x:Name="btnUpdate" Content="UPDATE" Width="100" Margin="20,0,0,0"/>
+                        <Button x:Name="btnUpdate" Content="UPDATE" Width="100" Margin="20,0,0,0" Click="btnUpdate_Click"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -91,7 +91,7 @@
                         </ListView>
                     </StackPanel>
                     <StackPanel Margin="0,8,20,0">
-                        <Button x:Name="btnDelete" Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                        <Button x:Name="btnDelete" Content="DELETE" Width="100" HorizontalAlignment="Right" Click="btnDelete_Click"/>
                     </StackPanel>
                 </StackPanel>
             </materialDesign:Card>
