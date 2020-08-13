@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimetableManager.LecturerDAO;
 
 namespace TimetableManager
 {
@@ -23,7 +25,9 @@ namespace TimetableManager
         public Page_Lecturers()
         {
             InitializeComponent();
-            
+
+            PopulateTable(LecturerDetailsDAO.getAll());
+
         }
 
         private void btnLecRank_Click(object sender, RoutedEventArgs e)
@@ -66,6 +70,44 @@ namespace TimetableManager
             {
                 txtLevel.Text = "7";
             }
+        }
+
+        private void PopulateTable(List<Lecturer> list)
+        {
+            var observableList = new ObservableCollection<Lecturer>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView.ItemsSource = observableList;
+        }
+
+        private void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchField.Text.Equals(""))
+            {
+                PopulateTable(LecturerDetailsDAO.getAll());
+            }
+            else
+            {
+                PopulateTable(LecturerDetailsDAO.search(searchField.Text));
+            }
+        }
+
+        private void btnLecAdd_Click(object sender, RoutedEventArgs e)
+        {
+            Lecturer lecturer = new Lecturer();
+
+            lecturer.Name = txtLecName.Text;
+            lecturer.EmployeeID = int.Parse(txtLecID.Text);
+            lecturer.Faculty = cmbLecFaculty.Text;
+            lecturer.Department = txtLecDepartment.Text;
+            lecturer.Center = cmbLecCenter.Text;
+            lecturer.Building = txtLecBuilding.Text;
+            lecturer.Category = cmbLecCategory.Text;
+            lecturer.Level = txtLevel.Text;
+            lecturer.Rank = txtLevel.Text;
+
+            LecturerDetailsDAO.insertLecture(lecturer);
+            PopulateTable(LecturerDetailsDAO.getAll());
         }
     }
 }

@@ -120,6 +120,13 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
 
             <StackPanel>
+
+                <StackPanel Margin="40,10,20,0" Orientation="Horizontal">
+                    <TextBox x:Name="searchField" FontSize="16" BorderThickness="1" Width="720" TextChanged="searchField_TextChanged">
+
+                    </TextBox>
+                </StackPanel>
+
                 <StackPanel>
                     <ListView  Margin="50,10,10,20" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
                         <ListView.View>

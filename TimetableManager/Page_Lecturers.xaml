@@ -144,7 +144,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" x:Name="btnLecAdd" Content="ADD" Width="100" Height="40"/>
+                    <Button Grid.Column="0" x:Name="btnLecAdd" Content="ADD" Width="100" Height="40" Click="btnLecAdd_Click"/>
                     <Button Grid.Column="1" x:Name="btnLecUpdate" Content="UPDATE" Width="100" Height="40"/>
                     <Button Grid.Column="2" x:Name="btnLecRank" Content="RANK" Width="100" Height="40" Click="btnLecRank_Click"/>
                 </Grid>
@@ -155,16 +155,23 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
 
             <StackPanel>
+
+                <StackPanel Margin="40,10,20,0" Orientation="Horizontal">
+                    <TextBox x:Name="searchField" FontSize="16" BorderThickness="1" Width="720" TextChanged="searchField_TextChanged">
+
+                    </TextBox>
+                </StackPanel>
+
                 <StackPanel>
-                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="440" >
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Name" Width="140"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Employee ID" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="Faculty" Width="140"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Department" Width="140"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Center" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Rank" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding EmployeeID}" Header="Employee ID" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Faculty}" Header="Faculty" Width="160"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Department}" Header="Department" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Center}" Header="Center" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Rank}" Header="Rank" Width="80"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
