@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SubjectDAO\Subject.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +89,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BuildingDAO\Building.cs" />
+    <Compile Include="BuildingDAO\BuildingNamesDAO.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DaysHoursDAO\Weekday.cs" />
     <Compile Include="DaysHoursDAO\WeekdayDAO.cs" />

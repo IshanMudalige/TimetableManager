@@ -24,5 +24,10 @@ namespace TimetableManager
         {
             InitializeComponent();
         }
+
+        private void searchField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
