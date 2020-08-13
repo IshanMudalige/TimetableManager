@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimetableManager.BuildingDAO;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace TimetableManager
 {
@@ -23,12 +26,30 @@ namespace TimetableManager
         public Page_Location()
         {
             InitializeComponent();
+
+            PopulateTable(BuildingNamesDAO.getAll());
         }
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
         {
+            Building building = new Building();
+            building.BuildingName = addBuildingName.Text;
 
+            BuildingNamesDAO.insertNewBuilding(building);
+            PopulateTable(BuildingNamesDAO.getAll());
         }
+
+
+        private void PopulateTable(List<Building> list)
+        {
+            //List<Building> list = BuildingNamesDAO.getAll();
+
+            var observableList = new ObservableCollection<Building>();
+            list.ForEach(x => observableList.Add(x));
+
+            listview.ItemsSource = observableList;
+        }
+
 
         private void updateRoomBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -41,6 +62,11 @@ namespace TimetableManager
         }
 
         private void removeBuildingBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
