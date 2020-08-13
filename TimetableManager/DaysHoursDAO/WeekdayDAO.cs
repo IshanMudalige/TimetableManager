@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TimetableManager.DaysHoursDAO
 {
@@ -20,17 +21,24 @@ namespace TimetableManager.DaysHoursDAO
         {
             using(SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "INSERT INTO Weekday_Days(title,no_days,days,hours,slots,week_type) VALUES (@title,@no_days,@days,@hours,@slots,@week_type)";
-                command.Parameters.AddWithValue("@title",week.Title);
-                command.Parameters.AddWithValue("@no_days",week.No_days);
-                command.Parameters.AddWithValue("@days",week.Days);
-                command.Parameters.AddWithValue("@hours",week.Hours);
-                command.Parameters.AddWithValue("@slots",week.Slots);
-                command.Parameters.AddWithValue("@week_type",week.Week_type);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "INSERT INTO Weekday_Days(title,no_days,days,hours,slots,week_type) VALUES (@title,@no_days,@days,@hours,@slots,@week_type)";
+                    command.Parameters.AddWithValue("@title", week.Title);
+                    command.Parameters.AddWithValue("@no_days", week.No_days);
+                    command.Parameters.AddWithValue("@days", week.Days);
+                    command.Parameters.AddWithValue("@hours", week.Hours);
+                    command.Parameters.AddWithValue("@slots", week.Slots);
+                    command.Parameters.AddWithValue("@week_type", week.Week_type);
 
-                var t = command.ExecuteNonQuery();
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Inserting "+e.Message);
+                }
 
             }
         }
@@ -40,14 +48,19 @@ namespace TimetableManager.DaysHoursDAO
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "DELETE FROM Weekday_Days WHERE title = @title";
-                command.Parameters.AddWithValue("@title", title);
-                
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "DELETE FROM Weekday_Days WHERE title = @title";
+                    command.Parameters.AddWithValue("@title", title);
 
-                var t = command.ExecuteNonQuery();
 
+                    var t = command.ExecuteNonQuery();
+                }catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Deleting " + e.Message);
+                }
             }
         }
 
@@ -56,26 +69,33 @@ namespace TimetableManager.DaysHoursDAO
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "UPDATE Weekday_Days " +
-                    "SET title = @title," +
-                        "no_days = @no_days," +
-                        "days = @days," +
-                        "hours = @hours," +
-                        "slots = @slots," +
-                        "week_type = @week_type "+
-                    "WHERE title = @ptitle";
-                command.Parameters.AddWithValue("@ptitle", ptitle);
-                command.Parameters.AddWithValue("@title", week.Title);
-                command.Parameters.AddWithValue("@no_days", week.No_days);
-                command.Parameters.AddWithValue("@days", week.Days);
-                command.Parameters.AddWithValue("@hours", week.Hours);
-                command.Parameters.AddWithValue("@slots", week.Slots);
-                command.Parameters.AddWithValue("@week_type", week.Week_type);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "UPDATE Weekday_Days " +
+                        "SET title = @title," +
+                            "no_days = @no_days," +
+                            "days = @days," +
+                            "hours = @hours," +
+                            "slots = @slots," +
+                            "week_type = @week_type " +
+                        "WHERE title = @ptitle";
+                    command.Parameters.AddWithValue("@ptitle", ptitle);
+                    command.Parameters.AddWithValue("@title", week.Title);
+                    command.Parameters.AddWithValue("@no_days", week.No_days);
+                    command.Parameters.AddWithValue("@days", week.Days);
+                    command.Parameters.AddWithValue("@hours", week.Hours);
+                    command.Parameters.AddWithValue("@slots", week.Slots);
+                    command.Parameters.AddWithValue("@week_type", week.Week_type);
 
 
-                var t = command.ExecuteNonQuery();
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Updating " + e.Message);
+                }
 
             }
         }
@@ -86,22 +106,27 @@ namespace TimetableManager.DaysHoursDAO
             List<Weekday> weekList = new List<Weekday>();
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT week_type,title,no_days,days,hours,slots FROM Weekday_Days";
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    Weekday week = new Weekday();
-                    week.Week_type = reader["week_type"].ToString();
-                    week.Title = reader["title"].ToString();
-                    week.No_days = int.Parse(reader["no_days"].ToString());
-                    week.Days = reader["days"].ToString();
-                    week.Hours = double.Parse(reader["hours"].ToString());
-                    week.Slots = double.Parse((string)reader["slots"].ToString());
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT week_type,title,no_days,days,hours,slots FROM Weekday_Days";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Weekday week = new Weekday();
+                        week.Week_type = reader["week_type"].ToString();
+                        week.Title = reader["title"].ToString();
+                        week.No_days = int.Parse(reader["no_days"].ToString());
+                        week.Days = reader["days"].ToString();
+                        week.Hours = double.Parse(reader["hours"].ToString());
+                        week.Slots = double.Parse((string)reader["slots"].ToString());
 
-                    weekList.Add(week);
+                        weekList.Add(week);
+                    }
+                }catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
                 }
 
             }
