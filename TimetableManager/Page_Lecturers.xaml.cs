@@ -36,6 +36,7 @@ namespace TimetableManager
             string empID = txtLecID.Text;
 
             txtLecRank.Text = level + "." + empID;
+            //txtLecRank.Text = string.Join(level,".",empID);
         }
 
         private void txtLevel_SelectionChanged(object sender, RoutedEventArgs e)
@@ -104,7 +105,7 @@ namespace TimetableManager
             lecturer.Building = txtLecBuilding.Text;
             lecturer.Category = cmbLecCategory.Text;
             lecturer.Level = txtLevel.Text;
-            lecturer.Rank = txtLevel.Text;
+            lecturer.Rank = txtLecRank.Text;
 
             LecturerDetailsDAO.insertLecture(lecturer);
             PopulateTable(LecturerDetailsDAO.getAll());

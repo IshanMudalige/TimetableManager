@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TimetableManager.LecturerDAO
 {
@@ -32,6 +33,7 @@ namespace TimetableManager.LecturerDAO
                 command.Parameters.AddWithValue("@rank", lecturer.Rank);
 
                 var t = command.ExecuteNonQuery();
+                MessageBox.Show("Successfully Added");
 
             }
         }
