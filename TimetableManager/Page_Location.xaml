@@ -27,23 +27,21 @@
         <TabControl Margin="15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160">
 
             <TabItem Header="Add New Building">
-                <Grid Background="#FFE5E5E5" Margin="0,0,0.4,33.4">
+                <Grid Background="#FFFFFEFE" Margin="0,0,0.4,54.4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="289*"/>
                         <ColumnDefinition Width="288*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="28,31,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="34,48,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
 
-                    <Button x:Name="addBuildingBtn" Content="Add" HorizontalAlignment="Left" Margin="69,131,0,0" VerticalAlignment="Top" Width="75" Click="addBuildingBtn_Click"/>
-                    <Button x:Name="editBuildingBtn" Content="Edit" HorizontalAlignment="Left" Margin="240,131,0,0" VerticalAlignment="Top" Width="81"/>
-                    <Button x:Name="clearBuildingBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,131,0,0" VerticalAlignment="Top" Width="75" Click="clearBuildingBtn_Click"/>
-                    <Button x:Name="removeBuildingBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="removeBuildingBtn_Click"/>
-                    <ListView x:Name="listview" Grid.Column="1" HorizontalAlignment="Left" Height="463" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556">
+                    <Button x:Name="addBuildingBtn" Content="ADD" HorizontalAlignment="Left" Margin="110,131,0,0" VerticalAlignment="Top" Width="75" Click="addBuildingBtn_Click"/>
+                    <Button x:Name="editBuildingBtn" Content="UPDATE" HorizontalAlignment="Left" Margin="363,131,0,0" VerticalAlignment="Top" Width="94" Click="editBuildingBtn_Click"/>
+                    <Button x:Name="removeBuildingBtn" Content="REMOVE" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="removeBuildingBtn_Click"/>
+                    <ListView x:Name="listview" Grid.Column="1" Height="463" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listview_SelectionChanged_Building">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
-                                <GridViewColumn />
                                 <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="150"/>
                             </GridView>
                         </ListView.View>
@@ -88,7 +86,7 @@
                             <DataGridTextColumn Header="Capacity" Width="100"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,578,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412"/>
+                    <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,578,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412" Click="removeRoomBtn_Click"/>
 
 
 

@@ -30,6 +30,20 @@ namespace TimetableManager.BuildingDAO
             }
         }
 
+        public static void deleteBuilding(String bname)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = "DELETE FROM Building_Names WHERE b_name = @bname";
+                command.Parameters.AddWithValue("@bname", bname);
+
+                var t = command.ExecuteNonQuery();
+
+            }
+        }
+
         public static List<Building> getAll()
         {
             List<Building> buildingList = new List<Building>();
@@ -51,6 +65,27 @@ namespace TimetableManager.BuildingDAO
 
             }
             return buildingList;
+        }
+
+        public static void updateBuilding(String nbname, Building building)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "UPDATE Building_Names " + "SET b_name = @bname" + "WHERE b_name = @nbname";
+                    command.Parameters.AddWithValue("@nbname",nbname);
+                    command.Parameters.AddWithValue("@bname", building.BuildingName);
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error in Updating" + e.Message);
+                }
+            }
         }
     }
 }

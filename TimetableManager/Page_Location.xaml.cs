@@ -27,16 +27,45 @@ namespace TimetableManager
         {
             InitializeComponent();
 
-            PopulateTable(BuildingNamesDAO.getAll());
+            PopulateTableBuilding(BuildingNamesDAO.getAll());
         }
 
-        private void addRoomBtn_Click(object sender, RoutedEventArgs e)
+
+        //Buidling Page functions
+
+        //Add ZBuidling
+        private void addBuildingBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+            Building building = new Building();
+            building.BuildingName = addBuildingName.Text;
+
+            BuildingNamesDAO.insertNewBuilding(building);
+            PopulateTableBuilding(BuildingNamesDAO.getAll());
+
+            clearBuilding(); 
         }
 
+        //Update Building
+        private void editBuildingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Building bn = (Building)listview.SelectedItem;
 
-        private void PopulateTable(List<Building> list)
+            Building building = new Building();
+            building.BuildingName = addBuildingName.Text;
+
+            BuildingNamesDAO.updateBuilding(bn.BuildingName, building);
+        }
+
+        
+        private void listview_SelectionChanged_Building(object sender, SelectionChangedEventArgs e)
+        {
+            clearBuilding();
+            Building build = (Building)listview.SelectedItem;
+
+            addBuildingName.Text = build.BuildingName;
+        }
+
+        private void PopulateTableBuilding(List<Building> list)
         {
             //List<Building> list = BuildingNamesDAO.getAll();
 
@@ -46,34 +75,40 @@ namespace TimetableManager
             listview.ItemsSource = observableList;
         }
 
+        private void removeBuildingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Building building = (Building)listview.SelectedItem;
+            BuildingNamesDAO.deleteBuilding(building.BuildingName);
+            PopulateTableBuilding(BuildingNamesDAO.getAll());
+            clearBuilding();
+        }
+
+
+        //--clear fields
+        private void clearBuilding()
+        {
+            addBuildingName.Text = "";
+        } 
+
+
+
+        //Add Rooms
+
+        private void addRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void updateRoomBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void clearBuildingBtn_Click(object sender, RoutedEventArgs e)
+        private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void removeBuildingBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void addBuildingBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Building building = new Building();
-            building.BuildingName = addBuildingName.Text;
-
-            BuildingNamesDAO.insertNewBuilding(building);
-            PopulateTable(BuildingNamesDAO.getAll());
-        }
+        
     }
 }
