@@ -75,7 +75,7 @@ namespace TimetableManager.BuildingDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "UPDATE Building_Names " + "SET b_name = @bname" + "WHERE b_name = @nbname";
+                    command.CommandText = "UPDATE Building_Names " + "SET b_name = @bname" + " WHERE b_name = @nbname";
                     command.Parameters.AddWithValue("@nbname",nbname);
                     command.Parameters.AddWithValue("@bname", building.BuildingName);
 

@@ -54,15 +54,19 @@ namespace TimetableManager
             building.BuildingName = addBuildingName.Text;
 
             BuildingNamesDAO.updateBuilding(bn.BuildingName, building);
+
+            PopulateTableBuilding(BuildingNamesDAO.getAll());
         }
 
         
         private void listview_SelectionChanged_Building(object sender, SelectionChangedEventArgs e)
         {
             clearBuilding();
+
             Building build = (Building)listview.SelectedItem;
 
-            addBuildingName.Text = build.BuildingName;
+            if(build != null)
+                addBuildingName.Text = build.BuildingName;
         }
 
         private void PopulateTableBuilding(List<Building> list)
