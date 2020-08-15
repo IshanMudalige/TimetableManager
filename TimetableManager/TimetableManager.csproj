@@ -80,6 +80,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RoomsDAO\Room.cs" />
+    <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
     <Compile Include="SubjectDAO\Subject.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
