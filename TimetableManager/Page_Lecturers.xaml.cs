@@ -98,7 +98,7 @@ namespace TimetableManager
             Lecturer lecturer = new Lecturer();
 
             lecturer.Name = txtLecName.Text;
-            lecturer.EmployeeID = int.Parse(txtLecID.Text);
+            lecturer.EmployeeID = txtLecID.Text;
             lecturer.Faculty = cmbLecFaculty.Text;
             lecturer.Department = txtLecDepartment.Text;
             lecturer.Center = cmbLecCenter.Text;
@@ -109,6 +109,133 @@ namespace TimetableManager
 
             LecturerDetailsDAO.insertLecture(lecturer);
             PopulateTable(LecturerDetailsDAO.getAll());
+            clear();
+        }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            clear();
+            Lecturer lecturer = (Lecturer)listView.SelectedItem;
+
+            if(lecturer != null)
+            {
+                txtLecName.Text = lecturer.Name;
+                txtLecID.Text = lecturer.EmployeeID;
+                cmbLecFaculty.Text = lecturer.Faculty;
+                txtLecDepartment.Text = lecturer.Department;
+                cmbLecCenter.Text = lecturer.Center;
+                txtLecBuilding.Text = lecturer.Building;
+                cmbLecCategory.Text = lecturer.Category;
+                txtLevel.Text = lecturer.Level;
+                txtLecRank.Text = lecturer.Rank;
+
+            }
+        }
+
+        public void clear()
+        {
+            txtLecName.Text = "";
+            txtLecID.Text = "";
+            cmbLecFaculty.Text = "";
+            txtLecDepartment.Text = "";
+            cmbLecCenter.Text = "";
+            txtLecBuilding.Text = "";
+            cmbLecCategory.Text = "";
+            txtLevel.Text = "";
+            txtLecRank.Text = "";
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Lecturer lecturer = (Lecturer)listView.SelectedItem;
+
+            if (lecturer == null)
+            {
+                MessageBox.Show("Please Select Required lecturer from the Table.");
+            }
+            else
+            {
+                LecturerDetailsDAO.deleteLecturer(lecturer.EmployeeID);
+                PopulateTable(LecturerDetailsDAO.getAll());
+                clear();
+            }
+        }
+
+        private void btnLecUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Lecturer lec = (Lecturer)listView.SelectedItem;
+
+            if(lec != null)
+            {
+                if(ValidateFields())
+                {
+                    Lecturer lecturer = new Lecturer();
+                    lecturer.Name = txtLecName.Text;
+                    lecturer.EmployeeID = txtLecID.Text;
+                    lecturer.Faculty = cmbLecFaculty.Text;
+                    lecturer.Department = txtLecDepartment.Text;
+                    lecturer.Center = cmbLecCenter.Text;
+                    lecturer.Building = txtLecBuilding.Text;
+                    lecturer.Category = cmbLecCategory.Text;
+                    lecturer.Level = txtLevel.Text;
+                    lecturer.Rank = txtLecRank.Text;
+
+                    LecturerDetailsDAO.updateLecturer(lec.EmployeeID, lecturer);
+                    PopulateTable(LecturerDetailsDAO.getAll());
+                    clear();
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Please Select the Required Week from Table");
+            }
+        }
+
+        private Boolean ValidateFields()
+        {
+            if(txtLecName.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter a Name");
+            }
+            if(txtLecID.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter a EmployeeID");
+            }
+            if (cmbLecFaculty.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select a Faculty");
+            }
+            if (txtLecDepartment.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter a Department");
+            }
+            if (cmbLecCenter.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select a Center");
+            }
+            if (txtLecBuilding.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter a Building");
+            }
+            if (cmbLecCategory.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select a Category");
+            }
+            if (txtLevel.Text.Equals(""))
+            {
+                MessageBox.Show("Please Get a Level");
+            }
+            if (txtLecRank.Text.Equals(""))
+            {
+                MessageBox.Show("Please Get a Rank");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

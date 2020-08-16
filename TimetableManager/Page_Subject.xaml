@@ -21,7 +21,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Offered Year" FontSize="15" FontWeight="Bold" Margin="15 30 0 0"/>
-                <ComboBox x:Name="cmbYear" Grid.Column="1" Margin="0 30 0 20" BorderThickness="1"/>
+                <ComboBox x:Name="cmbYear" Grid.Column="1" Margin="0 30 0 20" BorderThickness="1" FontSize="14">
+                    <ComboBoxItem Content="Y1"></ComboBoxItem>
+                    <ComboBoxItem Content="Y2"></ComboBoxItem>
+                    <ComboBoxItem Content="Y3"></ComboBoxItem>
+                    <ComboBoxItem Content="Y4"></ComboBoxItem>
+                </ComboBox>
             </Grid>
 
             <!--Semester input-->
@@ -32,7 +37,12 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Offered Sem" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                <ComboBox x:Name="cmbSem" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                <ComboBox x:Name="cmbSem" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" FontSize="14">
+                    <ComboBoxItem Content="S1"></ComboBoxItem>
+                    <ComboBoxItem Content="S2"></ComboBoxItem>
+                    <ComboBoxItem Content="S3"></ComboBoxItem>
+                    <ComboBoxItem Content="S4"></ComboBoxItem>
+                </ComboBox>
             </Grid>
 
             <!--Subject input-->
