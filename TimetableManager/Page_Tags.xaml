@@ -9,6 +9,56 @@
       Title="Page_Tags">
 
     <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="493,147,0,0" TextWrapping="Wrap" Text="Tags" VerticalAlignment="Top" Height="41" Width="80" FontSize="25"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280*"/>
+            <ColumnDefinition Width="280*"/>
+
+
+        </Grid.ColumnDefinitions>
+        <TextBlock HorizontalAlignment="Left"  Text="Tag" TextWrapping="Wrap"   Margin="30,200,0,10" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="51"/>
+        <TextBox x:Name="txttag" HorizontalAlignment="Left" Height="25"  Margin="146,205,0,100"  VerticalAlignment="Top" BorderThickness="1" Width="280" ></TextBox>
+
+        <Button x:Name="addtag" Content="ADD" HorizontalAlignment="Left" Margin="30,400,0,0" VerticalAlignment="Top" Width="85"/>
+        <Button x:Name="updatetag" Content="UPDATE" HorizontalAlignment="Left" Margin="178,400,0,0" VerticalAlignment="Top" Width="85"/>
+        <Button x:Name="cleartag" Content="CLEAR" HorizontalAlignment="Left" Margin="298,400,0,0" VerticalAlignment="Top" Width="90"/>
+
+
+
+
+        <!--Right Side-->
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="585" Margin="10,5,10,10" Grid.Column="1">
+
+            <StackPanel>
+                <!--Right Side-->
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
+
+                    
+
+                        <StackPanel Margin="40,10,20,0" Orientation="Horizontal">
+                            <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Width="720" >
+
+                          </TextBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <ListView  Margin="150,10,100,10" x:Name="listViewtag" Grid.ColumnSpan="2" Height="440" >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Nametag}" Header="tag" Width="140"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding tagid}" Header="Tag ID" Width="120"/>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                        <StackPanel Margin="0,8,20,0">
+                            <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    
+                </StackPanel>
+            </StackPanel>
+
+        </StackPanel>
+
     </Grid>
 </Page>
