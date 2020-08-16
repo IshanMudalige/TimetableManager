@@ -27,7 +27,7 @@
         <TabControl Margin="15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160">
 
             <TabItem Header="Add New Building">
-                <Grid Background="#FFFFFEFE" Margin="0,0,0.4,54.4">
+                <Grid Background="White" Margin="0,0,0.4,54.4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="289*"/>
                         <ColumnDefinition Width="288*"/>
@@ -52,7 +52,7 @@
             </TabItem>
 
             <TabItem Header="Add New Room">
-                <Grid Background="#FFE5E5E5" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="289*"></ColumnDefinition>
@@ -63,9 +63,9 @@
                     <TextBlock HorizontalAlignment="Left" Margin="28,0,0,519" TextWrapping="Wrap" Text="Lecture Room Name" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
                     <TextBlock HorizontalAlignment="Left" Margin="28,168,0,0" TextWrapping="Wrap" Text="Type" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
 
-                    <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="265,31,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
-                    <TextBox x:Name="addRoomName" Height="25" Margin="265,98,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                    <ComboBox x:Name="selectRoomType" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" HorizontalAlignment="Left">
+                    <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="265,31,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingName_SelectionChanged"/>
+                    <TextBox x:Name="addRoomName" Height="25" Margin="265,98,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="addRoomName_TextChanged"/>
+                    <ComboBox x:Name="selectRoomType" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" HorizontalAlignment="Left" SelectionChanged="selectRoomType_SelectionChanged">
                         <ComboBoxItem Content="Lecture Room" VerticalAlignment="Center"/>
                         <ComboBoxItem Content="Lab" VerticalAlignment="Center"/>
                     </ComboBox>
@@ -73,20 +73,23 @@
 
                     <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="69,331,0,0" VerticalAlignment="Top" Width="75" Click="addRoomBtn_Click"/>
                     <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="235,331,0,0" VerticalAlignment="Top" Width="81" Click="updateRoomBtn_Click"/>
-                    <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,331,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,331,0,0" VerticalAlignment="Top" Width="75" Click="clearRoomBtn_Click"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="28,0,0,375" TextWrapping="Wrap" Text="Capacity" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="capacity" Height="25" Margin="265,242,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                    <TextBox x:Name="capacity" Height="25" Margin="265,242,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="capacity_TextChanged"/>
 
-                    <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="520" Margin="10.4,31,0,0" VerticalAlignment="Top" Width="556">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Building Name" Width="*"/>
-                            <DataGridTextColumn Header="Room Name" Width="*"/>
-                            <DataGridTextColumn Header="Type" Width="125"/>
-                            <DataGridTextColumn Header="Capacity" Width="100"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,578,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412" Click="removeRoomBtn_Click"/>
+                    <ListView x:Name="listviewRoom" Grid.Column="1" Height="439" Margin="10.4,75,0,0" VerticalAlignment="Top" Width="556" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listview_SelectionChanged_Room">
+                        <ListView.View>
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="160"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding RoomName}" Header="Room Name" Width="160"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding RoomType}" Header="Room Type" Width="125"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Capacity}" Header="Capacity" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="removeRoomBtn" Content="Remove" HorizontalAlignment="Left" Margin="472.4,519,0,0" VerticalAlignment="Top" Width="94" Grid.Column="1" RenderTransformOrigin="-1.445,0.412" Click="removeRoomBtn_Click"/>
+                    <TextBox x:Name="searchRoom" Height="25" Margin="10.4,31,9.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="searchRoom_TextChanged" Grid.Column="1"/>
 
 
 

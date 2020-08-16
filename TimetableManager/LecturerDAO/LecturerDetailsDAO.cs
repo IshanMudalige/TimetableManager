@@ -15,102 +15,143 @@ namespace TimetableManager.LecturerDAO
 
         }
 
+        //==================================Insert Lecturer===============================
         public static void insertLecture(Lecturer lecturer)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "INSERT INTO Lecturer(name,employeeID,faculty,department,center,building,category,level,rank) VALUES (@name,@employeeID,@faculty,@department,@center,@building,@category,@level,@rank)";
-                command.Parameters.AddWithValue("@name", lecturer.Name);
-                command.Parameters.AddWithValue("@employeeID", lecturer.EmployeeID);
-                command.Parameters.AddWithValue("@faculty", lecturer.Faculty);
-                command.Parameters.AddWithValue("@department", lecturer.Department);
-                command.Parameters.AddWithValue("@center", lecturer.Center);
-                command.Parameters.AddWithValue("@building", lecturer.Building);
-                command.Parameters.AddWithValue("@category", lecturer.Category);
-                command.Parameters.AddWithValue("@level", lecturer.Level);
-                command.Parameters.AddWithValue("@rank", lecturer.Rank);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "INSERT INTO Lecturer(name,employeeID,faculty,department,center,building,category,level,rank) VALUES (@name,@employeeID,@faculty,@department,@center,@building,@category,@level,@rank)";
+                    command.Parameters.AddWithValue("@name", lecturer.Name);
+                    command.Parameters.AddWithValue("@employeeID", lecturer.EmployeeID);
+                    command.Parameters.AddWithValue("@faculty", lecturer.Faculty);
+                    command.Parameters.AddWithValue("@department", lecturer.Department);
+                    command.Parameters.AddWithValue("@center", lecturer.Center);
+                    command.Parameters.AddWithValue("@building", lecturer.Building);
+                    command.Parameters.AddWithValue("@category", lecturer.Category);
+                    command.Parameters.AddWithValue("@level", lecturer.Level);
+                    command.Parameters.AddWithValue("@rank", lecturer.Rank);
 
-                var t = command.ExecuteNonQuery();
-                MessageBox.Show("Successfully Added");
+                    var t = command.ExecuteNonQuery();
+                    MessageBox.Show("Successfully Added");
+                }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error in Inserting" + e.Message);
+                }
+                
 
             }
         }
 
-        public static void deleteLecturer(int employeeID)
+        //=================================Delete Lecturer=====================================
+        public static void deleteLecturer(string employeeID)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "DELETE FROM Lecturer WHERE employeeID = @employeeID";
-                command.Parameters.AddWithValue("@employeeID", employeeID);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "DELETE FROM Lecturer WHERE employeeID = @employeeID";
+                    command.Parameters.AddWithValue("@employeeID", employeeID);
 
-                var t = command.ExecuteNonQuery();
+                    var t = command.ExecuteNonQuery();
 
+
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error in Deleting" + e.Message);
+                }
+                
             }
         }
 
-        public static void updateLecturer(int empID, Lecturer lecturer)
+        //============================Update Lecturer==========================================
+        public static void updateLecturer(string empID, Lecturer lecturer)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "UPDATE Lecturer " +
-                    "SET name = @name," +
-                        "employeeID = @employeeID," +
-                        "faculty = @faculty," +
-                        "department = @department," +
-                        "center = @center," +
-                        "building = @building " +
-                        "category = @category " +
-                        "level = @level " +
-                        "rank = @rank " +
-                    "WHERE employeeID = @empID";
-                command.Parameters.AddWithValue("@empID", empID);
-                command.Parameters.AddWithValue("@name", lecturer.Name);
-                command.Parameters.AddWithValue("@employeeID", lecturer.EmployeeID);
-                command.Parameters.AddWithValue("@faculty", lecturer.Faculty);
-                command.Parameters.AddWithValue("@department", lecturer.Department);
-                command.Parameters.AddWithValue("@center", lecturer.Center);
-                command.Parameters.AddWithValue("@building", lecturer.Building);
-                command.Parameters.AddWithValue("@category", lecturer.Category);
-                command.Parameters.AddWithValue("@level", lecturer.Level);
-                command.Parameters.AddWithValue("@rank", lecturer.Rank);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "UPDATE Lecturer " +
+                        "SET name = @name," +
+                            "employeeID = @employeeID," +
+                            "faculty = @faculty," +
+                            "department = @department," +
+                            "center = @center," +
+                            "building = @building, " +
+                            "category = @category, " +
+                            "level = @level, " +
+                            "rank = @rank " +
+                        "WHERE employeeID = @empID";
+                    command.Parameters.AddWithValue("@empID", empID);
+                    command.Parameters.AddWithValue("@name", lecturer.Name);
+                    command.Parameters.AddWithValue("@employeeID", lecturer.EmployeeID);
+                    command.Parameters.AddWithValue("@faculty", lecturer.Faculty);
+                    command.Parameters.AddWithValue("@department", lecturer.Department);
+                    command.Parameters.AddWithValue("@center", lecturer.Center);
+                    command.Parameters.AddWithValue("@building", lecturer.Building);
+                    command.Parameters.AddWithValue("@category", lecturer.Category);
+                    command.Parameters.AddWithValue("@level", lecturer.Level);
+                    command.Parameters.AddWithValue("@rank", lecturer.Rank);
 
-                var t = command.ExecuteNonQuery();
+                    var t = command.ExecuteNonQuery();
+                }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error in Updating" + e.Message);
+                }
+                
             }
 
         }
 
+        //=================================Load Lectuters===================================
         public static List<Lecturer> getAll()
         {
             List<Lecturer> LecList = new List<Lecturer>();
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT name,employeeID,faculty,department,center,rank FROM Lecturer";
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    Lecturer lecturer = new Lecturer();
-                    lecturer.Name = reader["name"].ToString();
-                    lecturer.EmployeeID = int.Parse(reader["employeeID"].ToString());
-                    lecturer.Faculty = reader["faculty"].ToString();
-                    lecturer.Department = reader["department"].ToString();
-                    lecturer.Center = reader["center"].ToString();
-                    lecturer.Rank = reader["rank"].ToString();
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT name,employeeID,faculty,department,center,building,category,level,rank FROM Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lecturer lecturer = new Lecturer();
+                        lecturer.Name = reader["name"].ToString();
+                        lecturer.EmployeeID = reader["employeeID"].ToString();
+                        lecturer.Faculty = reader["faculty"].ToString();
+                        lecturer.Department = reader["department"].ToString();
+                        lecturer.Center = reader["center"].ToString();
+                        lecturer.Building = reader["building"].ToString();
+                        lecturer.Category = reader["category"].ToString();
+                        lecturer.Level = reader["level"].ToString();
+                        lecturer.Rank = reader["rank"].ToString();
 
-                    LecList.Add(lecturer);
+                        LecList.Add(lecturer);
+                    }
                 }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error in Loading" + e.Message);
+                }
+                
             }
 
             return LecList;
         }
 
+        //=================================Search Lecturers====================================
         public static List<Lecturer> search(string category)
         {
             List<Lecturer> LecList = new List<Lecturer>();
@@ -125,7 +166,7 @@ namespace TimetableManager.LecturerDAO
                 {
                     Lecturer lecturer = new Lecturer();
                     lecturer.Name = reader["name"].ToString();
-                    lecturer.EmployeeID = int.Parse(reader["employeeID"].ToString());
+                    lecturer.EmployeeID = reader["employeeID"].ToString();
                     lecturer.Faculty = reader["faculty"].ToString();
                     lecturer.Department = reader["department"].ToString();
                     lecturer.Center = reader["center"].ToString();

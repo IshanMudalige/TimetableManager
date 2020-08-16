@@ -145,7 +145,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Button Grid.Column="0" x:Name="btnLecAdd" Content="ADD" Width="100" Height="40" Click="btnLecAdd_Click"/>
-                    <Button Grid.Column="1" x:Name="btnLecUpdate" Content="UPDATE" Width="100" Height="40"/>
+                    <Button Grid.Column="1" x:Name="btnLecUpdate" Content="UPDATE" Width="100" Height="40" Click="btnLecUpdate_Click"/>
                     <Button Grid.Column="2" x:Name="btnLecRank" Content="RANK" Width="100" Height="40" Click="btnLecRank_Click"/>
                 </Grid>
 
@@ -163,7 +163,7 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="440" >
+                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="440" SelectionChanged="listView_SelectionChanged">
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="140"/>
@@ -177,7 +177,7 @@
                     </ListView>
                 </StackPanel>
                 <StackPanel Margin="0,8,20,0">
-                    <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                    <Button x:Name="btnDelete" Content="DELETE" Width="100" HorizontalAlignment="Right" Click="btnDelete_Click"/>
                 </StackPanel>
             </StackPanel>
 

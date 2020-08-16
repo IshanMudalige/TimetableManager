@@ -9,7 +9,7 @@ namespace TimetableManager.LecturerDAO
     class Lecturer
     {
         private string name;
-        private int employeeID;
+        private string employeeID;
         private string faculty;
         private string department;
         private string center;
@@ -20,7 +20,7 @@ namespace TimetableManager.LecturerDAO
 
         public Lecturer() { }
 
-        public Lecturer(string name, int employeeID, string faculty, string department, string center, string building, string category, string level, string rank)
+        public Lecturer(string name, string employeeID, string faculty, string department, string center, string building, string category, string level, string rank)
         {
             this.name = name;
             this.employeeID = employeeID;
@@ -35,7 +35,7 @@ namespace TimetableManager.LecturerDAO
 
         public string Name { get => name; set => name = value; }
 
-        public int EmployeeID { get => employeeID; set => employeeID = value; }
+        public string EmployeeID { get => employeeID; set => employeeID = value; }
 
         public string Faculty { get => faculty; set => faculty = value; }
 
