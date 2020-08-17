@@ -93,7 +93,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Building" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                <TextBox x:Name="txtLecBuilding" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                <ComboBox x:Name="txtLecBuilding" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
             </Grid>
 
             <!--Category & level input-->

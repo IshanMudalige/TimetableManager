@@ -119,7 +119,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" x:Name="btnSubAdd" Content="ADD" Width="100" Height="40"/>
+                <Button Grid.Column="0" x:Name="btnSubAdd" Content="ADD" Width="100" Height="40" Click="btnSubAdd_Click"/>
                 <Button Grid.Column="1" x:Name="btnSubUpdate" Content="UPDATE" Width="100" Height="40"/>
                 <Button Grid.Column="2" x:Name="btnSubClear" Content="CLEAR" Width="100" Height="40"/>
             </Grid>
@@ -141,11 +141,11 @@
                     <ListView  Margin="50,10,10,20" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Fname}" Header="Year" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Lname}" Header="Semester" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Age}" Header="Subject" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Gender}" Header="Code" Width="140"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Sal}" Header="Evaluation Hours" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SubName}" Header="Subject" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Code" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding EvaluHrs}" Header="Evaluation Hours" Width="150"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
