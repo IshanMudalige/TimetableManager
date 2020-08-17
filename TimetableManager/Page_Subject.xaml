@@ -120,8 +120,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" x:Name="btnSubAdd" Content="ADD" Width="100" Height="40" Click="btnSubAdd_Click"/>
-                <Button Grid.Column="1" x:Name="btnSubUpdate" Content="UPDATE" Width="100" Height="40"/>
-                <Button Grid.Column="2" x:Name="btnSubClear" Content="CLEAR" Width="100" Height="40"/>
+                <Button Grid.Column="1" x:Name="btnSubUpdate" Content="UPDATE" Width="100" Height="40" Click="btnSubUpdate_Click"/>
+                <Button Grid.Column="2" x:Name="btnSubClear" Content="CLEAR" Width="100" Height="40" Click="btnSubClear_Click"/>
             </Grid>
 
         </StackPanel>
@@ -138,7 +138,7 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <ListView  Margin="50,10,10,20" x:Name="listView" Grid.ColumnSpan="2" Height="485" >
+                    <ListView  Margin="40,10,10,10" x:Name="listView" Grid.ColumnSpan="2" Height="440" SelectionChanged="listView_SelectionChanged">
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="120"/>
@@ -151,7 +151,7 @@
                     </ListView>
                 </StackPanel>
                 <StackPanel Margin="0,8,20,0">
-                    <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                    <Button x:Name="btnSubDelete" Content="DELETE" Width="100" HorizontalAlignment="Right" Click="btnSubDelete_Click"/>
                 </StackPanel>
             </StackPanel>
 

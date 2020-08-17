@@ -191,7 +191,7 @@ namespace TimetableManager
             }
             else
             {
-                MessageBox.Show("Please Select the Required Week from Table");
+                MessageBox.Show("Please Select the Required Lecturer from Table");
             }
         }
 

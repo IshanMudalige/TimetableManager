@@ -47,7 +47,7 @@ namespace TimetableManager.SubjectDAO
         }
 
         //=======================================Delete Subjects=============================================
-        public static void deleteSubject(int SubID)
+        public static void deleteSubject(string code)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -55,8 +55,10 @@ namespace TimetableManager.SubjectDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "DELETE FROM Subjects WHERE SubID = @SubID";
-                    command.Parameters.AddWithValue("@SubID", SubID);
+                    command.CommandText = "DELETE FROM Subjects WHERE sub_code = @sub_code";
+                    command.Parameters.AddWithValue("@sub_code", code);
+
+                    var t = command.ExecuteNonQuery();
 
                 }
                 catch(SQLiteException e)
@@ -67,7 +69,7 @@ namespace TimetableManager.SubjectDAO
         }
 
         //===========================================Update Subjects===============================================
-        public static void updateSubject(int SubID, Subject subject)
+        public static void updateSubject(string code, Subject subject)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -84,9 +86,9 @@ namespace TimetableManager.SubjectDAO
                             "tute_hrs = @tute_hrs, " +
                             "lab_hrs = @lab_hrs, " +
                             "evalu_hrs = @evalu_hrs " +
-                        "WHERE SubID = @subID";
-                    command.Parameters.AddWithValue("@SubID", SubID);
-                    command.Parameters.AddWithValue("@offer_year", subject.Year);
+                        "WHERE sub_code = @code";
+                    command.Parameters.AddWithValue("@code", code);
+                    command.Parameters.AddWithValue("@year", subject.Year);
                     command.Parameters.AddWithValue("@semester", subject.Semester);
                     command.Parameters.AddWithValue("@sub_name", subject.SubName);
                     command.Parameters.AddWithValue("@sub_code", subject.SubCode);
