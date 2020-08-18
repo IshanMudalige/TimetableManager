@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,12 @@ namespace TimetableManager
         public Page_Lecturers()
         {
             InitializeComponent();
-
+            loadBuildingCombo();
             PopulateTable(LecturerDetailsDAO.getAll());
 
         }
+
+
 
         private void btnLecRank_Click(object sender, RoutedEventArgs e)
         {
@@ -43,27 +46,27 @@ namespace TimetableManager
         {
             string category = cmbLecCategory.Text;
 
-            if(category == "Professor")
+            if (category == "Professor")
             {
                 txtLevel.Text = "1";
             }
-            else if(category == "Assistant Professor")
+            else if (category == "Assistant Professor")
             {
                 txtLevel.Text = "2";
             }
-            else if(category == "Senior Lecturer(HG)")
+            else if (category == "Senior Lecturer(HG)")
             {
                 txtLevel.Text = "3";
             }
-            else if(category == "Senior Lecturer")
+            else if (category == "Senior Lecturer")
             {
                 txtLevel.Text = "4";
             }
-            else if(category == "Lecturer")
+            else if (category == "Lecturer")
             {
                 txtLevel.Text = "5";
             }
-            else if(category == "Assistant Lecturer")
+            else if (category == "Assistant Lecturer")
             {
                 txtLevel.Text = "6";
             }
@@ -117,7 +120,7 @@ namespace TimetableManager
             clear();
             Lecturer lecturer = (Lecturer)listView.SelectedItem;
 
-            if(lecturer != null)
+            if (lecturer != null)
             {
                 txtLecName.Text = lecturer.Name;
                 txtLecID.Text = lecturer.EmployeeID;
@@ -165,9 +168,9 @@ namespace TimetableManager
         {
             Lecturer lec = (Lecturer)listView.SelectedItem;
 
-            if(lec != null)
+            if (lec != null)
             {
-                if(ValidateFields())
+                if (ValidateFields())
                 {
                     Lecturer lecturer = new Lecturer();
                     lecturer.Name = txtLecName.Text;
@@ -184,21 +187,21 @@ namespace TimetableManager
                     PopulateTable(LecturerDetailsDAO.getAll());
                     clear();
                 }
-                
+
             }
             else
             {
-                MessageBox.Show("Please Select the Required Week from Table");
+                MessageBox.Show("Please Select the Required Lecturer from Table");
             }
         }
 
         private Boolean ValidateFields()
         {
-            if(txtLecName.Text.Equals(""))
+            if (txtLecName.Text.Equals(""))
             {
                 MessageBox.Show("Please Enter a Name");
             }
-            if(txtLecID.Text.Equals(""))
+            if (txtLecID.Text.Equals(""))
             {
                 MessageBox.Show("Please Enter a EmployeeID");
             }
@@ -237,5 +240,33 @@ namespace TimetableManager
 
             return false;
         }
+
+        public void loadBuildingCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT b_name FROM Building_Names";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string bname = reader["b_name"].ToString();
+                        txtLecBuilding.Items.Add(bname);
+
+                    }
+                }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+                
+
+            }
+        }
+
     }
 }
