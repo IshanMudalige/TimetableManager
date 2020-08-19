@@ -64,7 +64,7 @@ namespace TimetableManager.TagDAO
         }
 
         //===========================================Update Tags===============================================
-        public static void updateTag(string ttagname, Tag tag)
+        public static void updateTag(string ntagname, Tag tag)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -72,11 +72,9 @@ namespace TimetableManager.TagDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = " UPDATE Tag" +
-                        " SET    tagname = @tagname" +
-                        " WHERE  tagname = @tagname";
-                    command.Parameters.AddWithValue("@tagname", ttagname);
-                    command.Parameters.AddWithValue("@tagname", tag.Tags);
+                    command.CommandText = "UPDATE Tag " + "SET tagname = @tagname" + " WHERE tagname = @ntagname";
+                    command.Parameters.AddWithValue("@ntagname",ntagname);
+                    command.Parameters.AddWithValue("@tagname",tag.Tags);
 
                     var t = command.ExecuteNonQuery();
 

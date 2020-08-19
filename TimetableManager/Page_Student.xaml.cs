@@ -69,6 +69,8 @@ namespace TimetableManager
             student.Programmid = txtProid.Text;
 
             StudentDetails.insertStudent((student));
+            PopulateTableStudent(StudentDetails.getAll());
+            clear();
 
 
         }
@@ -377,6 +379,11 @@ namespace TimetableManager
                 PopulateTableGroup(GroupDetailsDAO.getAll());
                 cleargrp();
             }
+        }
+
+        private void clearstudent_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
         }
     } 
 }
