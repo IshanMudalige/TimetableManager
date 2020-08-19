@@ -69,6 +69,8 @@ namespace TimetableManager
             student.Programmid = txtProid.Text;
 
             StudentDetails.insertStudent((student));
+            PopulateTableStudent(StudentDetails.getAll());
+            clear();
 
 
         }

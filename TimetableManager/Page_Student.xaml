@@ -103,10 +103,10 @@
 
 
                     <TextBlock HorizontalAlignment="Left" Margin="10,45,0,0" TextWrapping="Wrap" Text="Acdemic ID" Height="25" VerticalAlignment="Top" Width="100" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="Student Count" Height="25" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.523,1.258" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,100,0,0" TextWrapping="Wrap" Text="StudentCount" Height="25" VerticalAlignment="Top" Width="114" RenderTransformOrigin="0.523,1.258" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="10,150,0,0" TextWrapping="Wrap" Text="Group No" Height="25" VerticalAlignment="Top" Width="100" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="10,200,0,0" TextWrapping="Wrap" Text="Group ID" Height="25" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.557,3.275" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,250,0,0" TextWrapping="Wrap" Text="SubGroup No" Height="25" VerticalAlignment="Top" Width="100" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,250,0,0" TextWrapping="Wrap" Text="SubGroupNo" Height="25" VerticalAlignment="Top" Width="100" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="10,300,0,0" TextWrapping="Wrap" Text="SubGroup ID" Height="25" VerticalAlignment="Top" Width="100" FontWeight="Bold" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
 
 
