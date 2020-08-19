@@ -25,7 +25,7 @@ namespace TimetableManager.StatisticsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT year,semester,programme,proid From Student";
+                    command.CommandText = @"SELECT year,semester,programme,proid,student_count From Student, Groups_Info WHERE Student.proid = Groups_Info.academic_id";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -34,6 +34,7 @@ namespace TimetableManager.StatisticsDAO
                         student.Semester = reader["semester"].ToString();
                         student.Programme = reader["programme"].ToString();
                         student.Programmid = reader["proid"].ToString();
+                        student.Count = int.Parse(reader["student_count"].ToString());
 
                         stuList.Add(student);
                     }

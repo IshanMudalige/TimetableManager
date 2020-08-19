@@ -12,18 +12,19 @@ namespace TimetableManager.StudentDAO
         private string semester;
         private string programme;
         private string programmid;
-
+        private int count;
 
         public StuStat()
         {
         }
 
-        public StuStat(string year, string semester, string programme, string programmid)
+        public StuStat(string year, string semester, string programme, string programmid, int count)
         {
             this.year = year;
             this.semester = semester;
             this.programme = programme;
             this.programmid = programmid;
+            this.count = count;
 
         }
 
@@ -35,7 +36,7 @@ namespace TimetableManager.StudentDAO
 
         public string Programmid { get => programmid; set => programmid = value; }
 
-
+        public int Count { get => count; set => count = value; }
 
     }
 }

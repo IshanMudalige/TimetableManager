@@ -35,7 +35,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="120"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Programme" Width="199"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Programmid}" Header="Programme ID" Width="150"/>
-                                
+                                <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Student Count" Width="150"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -50,7 +50,7 @@
             <TabItem Header = "Lecturers" >
                 <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
 
-                    <ListView x:Name="listviewLecturer" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                    <ListView x:Name="listviewLecturer" Height="469" Margin="10,0,0,106" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="160"/>
@@ -60,6 +60,31 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Center}" Header="Location" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Category" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Rank}" Header="Rank" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBox x:Name="searchLecName" HorizontalAlignment="Left" Height="31" Margin="183,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchLecName_TextChanged" BorderThickness="1"/>
+                    <TextBox x:Name="searchFaculty" HorizontalAlignment="Left" Height="31" Margin="585,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchFaculty_TextChanged" BorderThickness="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="70,27,0,0" TextWrapping="Wrap" Text="Search By Name" VerticalAlignment="Top" FontSize="14"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="429,27,0,0" TextWrapping="Wrap" Text="Search By Department" VerticalAlignment="Top" FontSize="14"/>
+                </Grid>
+            </TabItem>
+
+
+            <TabItem Header = "Subject" >
+                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+
+                    <ListView x:Name="listviewSubject" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                        <ListView.View>
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SubName}" Header="Subject Name" Width="139"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Subject Code" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding LecHrs}" Header="Lecture Hrs" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding TuteHrs}" Header="Tute Hrs" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding LabHrs}" Header="Lab Hrs" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding EvaluHrs}" Header="Evaluation Hrs" Width="120"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
