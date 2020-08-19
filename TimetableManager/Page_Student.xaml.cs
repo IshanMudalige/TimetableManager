@@ -29,6 +29,7 @@ namespace TimetableManager
             InitializeComponent();
             loadAcademicIDCombo();
             PopulateTableStudent(StudentDetails.getAll());
+            PopulateTableGroup(GroupDetailsDAO.getAll());
            
 
         }
@@ -197,6 +198,93 @@ namespace TimetableManager
             txtProid.Text = year + "." + semester + "." + programme;
         }
 
-      
+
+        //=================================================================GROUP========================================================
+
+        private void PopulateTableGroup(List<Group> list)
+        {
+            var observableList = new ObservableCollection<Group>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView2.ItemsSource = observableList;
+        }
+
+        private void addgroup_Click(object sender, RoutedEventArgs e)
+        {
+            Group group = new Group();
+
+
+            group.AcademicId = selectacdemicId.Text;
+            group.StudentCount = int.Parse(txtstudentcount.Text);
+            group.Groupno = int.Parse(txtgroupno.Text);
+            group.GroupId = txtgroupid.Text;
+            group.SubGroupno = int.Parse(txtsubgroupno.Text);
+            group.SubGroupId = txtsubgroupid.Text;
+
+            GroupDetailsDAO.insertgroups(group);
+            PopulateTableGroup(GroupDetailsDAO.getAll());
+            cleargrp();
+        }
+
+        public void cleargrp()
+        {
+            selectacdemicId.Text = "";
+            txtstudentcount.Text = "";
+            txtgroupno.Text = "";
+            txtgroupid.Text = "";
+            txtsubgroupno.Text = "";
+            txtsubgroupid.Text = "";
+        }
+
+        private void updategroup_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void searchgrp_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+       
+                
+         
+        private void listView2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            cleargrp();
+
+            Group group = (Group)listView2.SelectedItem;
+
+            if(group != null)
+            {
+                selectacdemicId.Text = group.AcademicId;
+                txtstudentcount.Text = group.StudentCount.ToString();
+                txtgroupno.Text = group.Groupno.ToString();
+                txtgroupid.Text = group.GroupId;
+                txtsubgroupno.Text = group.SubGroupno.ToString();
+                txtsubgroupid.Text = group.SubGroupId;
+
+            }
+        }
+
+        //===================Generate Group Id=========================
+        private void txtgroupid_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string academic_id = selectacdemicId.Text;
+            string  group_no = txtgroupno.Text;
+
+            txtgroupid.Text = academic_id + "." + group_no;
+
+
+        }
+
+        //====================Generate subgroup Id===================================================
+        private void txtsubgroupid_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string group_id = txtgroupid.Text;
+            string subgroup_no = txtsubgroupno.Text;
+
+            txtsubgroupid.Text = group_id + "." + subgroup_no;
+        }
     } 
 }

@@ -8,12 +8,13 @@ namespace TimetableManager.GroupDAO
 {
     class Group
     {
+        private string academic_id;
         private int student_count;
         private int group_no;
         private string group_id;
         private int subgroup_no;
         private string subgroup_id;
-        private string academic_id;
+        
 
         public Group() { 
         }

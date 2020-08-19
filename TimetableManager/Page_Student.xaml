@@ -113,9 +113,9 @@
                     <ComboBox x:Name="selectacdemicId" HorizontalAlignment="Left" Margin="229,45,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"   />
                     <TextBox x:Name="txtstudentcount" Height="25" Margin="229,100,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"/>
                     <TextBox x:Name="txtgroupno" Height="25" Margin="229,150,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"/>
-                    <TextBox x:Name="txtgroupid" Height="25" Margin="229,200,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2" />
+                    <TextBox x:Name="txtgroupid" Height="25" Margin="229,200,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2" SelectionChanged="txtgroupid_SelectionChanged" />
                     <TextBox x:Name="txtsubgroupno" Height="25" Margin="229,250,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"/>
-                    <TextBox x:Name="txtsubgroupid" Height="25" Margin="229,300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2" />
+                    <TextBox x:Name="txtsubgroupid" Height="25" Margin="229,300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"  SelectionChanged="txtsubgroupid_SelectionChanged"/>
 
                     <Grid Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
@@ -124,12 +124,12 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="addgroup"  Margin="10,435,10,175" Grid.Column="0" Content="ADD" />
-                        <Button  x:Name="updategroup"  Margin="164,435,40,175" Grid.Column="1" Content="UPDATE" Grid.ColumnSpan="2"/>
+                        <Button x:Name="addgroup"  Margin="10,435,10,175" Grid.Column="0" Content="ADD" Click="addgroup_Click" />
+                        <Button  x:Name="updategroup"  Margin="164,435,40,175" Grid.Column="1" Content="UPDATE" Grid.ColumnSpan="2" Click="updategroup_Click"/>
                     </Grid>
                     <DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,45,0,0" VerticalAlignment="Top" Width="556"/>
 
-                    <ListView  Margin="10,45,26,166" x:Name="listView2" Grid.Column="3" >
+                    <ListView  Margin="10,45,26,166" x:Name="listView2" Grid.Column="3" SelectionChanged="listView2_SelectionChanged" >
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Group Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding AcademicId }" Header="Academic ID" Width="160"/>
@@ -140,7 +140,7 @@
                         </ListView.View>
                     </ListView>
                     <Button x:Name="btndeletegrp" Content="DELETE" Width="100" HorizontalAlignment="Right" Grid.Column="3" Margin="0,508,26,102"/>
-                    <TextBox x:Name="searchgrp"  Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="556" BorderThickness="1"  />
+                    <TextBox x:Name="searchgrp"  Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="556" BorderThickness="1" TextChanged="searchgrp_TextChanged"  />
 
 
 

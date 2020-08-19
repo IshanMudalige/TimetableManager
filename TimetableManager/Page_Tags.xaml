@@ -30,31 +30,29 @@
 
             <StackPanel>
                 <!--Right Side-->
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="651" Margin="-66,15,0,0" Height="518">
 
+
+
+                   
+                        <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Width="478" />
                     
 
-                        <StackPanel Margin="40,10,20,0" Orientation="Horizontal">
-                            <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Width="720" >
+                    <StackPanel HorizontalAlignment="Right" Width="651">
+                        <ListView  Margin="0,10,100,10" x:Name="listViewtag" Height="341" HorizontalAlignment="Right" Width="431" >
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                    <GridViewColumn DisplayMemberBinding="{Binding Nametag}" Header="tag" Width="140"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding tagid}" Header="Tag ID" Width="120"/>
 
-                          </TextBox>
-                        </StackPanel>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <StackPanel Margin="0,8,20,0">
+                        <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                    </StackPanel>
 
-                        <StackPanel>
-                            <ListView  Margin="150,10,100,10" x:Name="listViewtag" Grid.ColumnSpan="2" Height="440" >
-                                <ListView.View>
-                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Nametag}" Header="tag" Width="140"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding tagid}" Header="Tag ID" Width="120"/>
-
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </StackPanel>
-                        <StackPanel Margin="0,8,20,0">
-                            <Button Content="DELETE" Width="100" HorizontalAlignment="Right"/>
-                        </StackPanel>
-                    
                 </StackPanel>
             </StackPanel>
 
