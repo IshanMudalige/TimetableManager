@@ -28,6 +28,19 @@
 
             <TabItem Header = "Students" >
                 <Grid Background="White" Margin="0,0,0.4,54.4">
+                    <ListView x:Name="listviewStudents" Height="469" Margin="10,0,0,109" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                        <ListView.View>
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Student Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="160"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Programme" Width="199"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Programmid}" Header="Programme ID" Width="150"/>
+                                
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+
 
 
 
@@ -37,12 +50,12 @@
             <TabItem Header = "Lecturers" >
                 <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
 
-                    <ListView x:Name="listviewStudents" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                    <ListView x:Name="listviewLecturer" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="160"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding EmployeeID}" Header="Employee ID" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Faculty}" Header="Faculty" Width="145"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Faculty}" Header="Faculty" Width="199"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Department}" Header="Department" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Center}" Header="Location" Width="150"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Category" Width="150"/>
