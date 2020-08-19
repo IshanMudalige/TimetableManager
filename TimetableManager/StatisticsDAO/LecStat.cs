@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace TimetableManager.StatisticsDAO
 {
-
     class LecStat
     {
         private string name;
@@ -53,3 +52,4 @@ namespace TimetableManager.StatisticsDAO
         public string Rank { get => rank; set => rank = value; }
     }
 }
+
