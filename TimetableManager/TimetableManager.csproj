@@ -80,10 +80,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GroupDAO\Group.cs" />
+    <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
+    <Compile Include="StudentDAO\Student.cs" />
+    <Compile Include="StudentDAO\StudentDetails.cs" />
     <Compile Include="SubjectDAO\Subject.cs" />
     <Compile Include="SubjectDAO\SubjectDetailsDAO.cs" />
+    <Compile Include="TagDAO\Tag.cs" />
+    <Compile Include="TagDAO\TagDetailsDAO.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
