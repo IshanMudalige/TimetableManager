@@ -40,8 +40,6 @@
                 <ComboBox x:Name="cmbSem" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" FontSize="14">
                     <ComboBoxItem Content="S1"></ComboBoxItem>
                     <ComboBoxItem Content="S2"></ComboBoxItem>
-                    <ComboBoxItem Content="S3"></ComboBoxItem>
-                    <ComboBoxItem Content="S4"></ComboBoxItem>
                 </ComboBox>
             </Grid>
 
