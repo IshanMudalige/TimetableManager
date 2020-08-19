@@ -72,9 +72,9 @@ namespace TimetableManager.TagDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "UPDATE Tag " +
-                        "SET tagname = @tagname" +
-                        "WHERE tagname = @tagname";
+                    command.CommandText = " UPDATE Tag" +
+                        " SET    tagname = @tagname" +
+                        " WHERE  tagname = @tagname";
                     command.Parameters.AddWithValue("@tagname", ttagname);
                     command.Parameters.AddWithValue("@tagname", tag.Tags);
 
@@ -88,7 +88,7 @@ namespace TimetableManager.TagDAO
             }
         }
 
-        //===========================Load tags
+        //===========================Load tags============================
         public static List<Tag> getAll()
         {
             List<Tag> tagList = new List<Tag>();
@@ -111,5 +111,31 @@ namespace TimetableManager.TagDAO
             }
             return tagList;
         }
+
+        //========================Search tag==============================
+        public static List<Tag> searchTags(string tname)
+        {
+            List<Tag > tagList = new List<Tag>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = "SELECT tagname FROM Tag WHERE tagname LIKE '%" + tname + "%'";
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Tag tag = new Tag();
+                    tag.Tags = reader["tagname"].ToString();
+                   
+
+                    tagList.Add(tag);
+
+                }
+            }
+
+            return tagList;
+        }
+
     }
 }
