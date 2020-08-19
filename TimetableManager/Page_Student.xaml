@@ -62,7 +62,7 @@
 
                         <Button x:Name="addstudent" Margin="10,405,10,205" Grid.Column="0" Content="ADD" Grid.ColumnSpan="2" Click="addstudent_Click"/>
                         <Button  x:Name="updatestudent" Grid.Column="2" Content="UPDATE" Grid.ColumnSpan="2" Margin="5,405,190,205" Click="updatestudent_Click"/>
-                        <Button x:Name="clearstudent" Margin="10,405,10,205" Grid.Column="3" Content="CLEAR"/>
+                        <Button x:Name="clearstudent" Margin="10,405,10,205" Grid.Column="3" Content="CLEAR" Click="clearstudent_Click"/>
                     </Grid>
 
                     <DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,95,0,0" VerticalAlignment="Top" Width="556"/>

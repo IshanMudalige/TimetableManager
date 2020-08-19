@@ -10,43 +10,46 @@
 
     <Grid Background="White" >
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+
+
+
 
         <TextBlock HorizontalAlignment="Left"  Text="Tag" TextWrapping="Wrap"   Margin="30,200,0,0" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="51"/>
-        <TextBox x:Name="txttag" HorizontalAlignment="Left" Height="25"  Margin="126,205,0,0"  VerticalAlignment="Top" BorderThickness="1" Width="261" ></TextBox>
+        <TextBox x:Name="txttag" HorizontalAlignment="Left" Height="25"  Margin="111,205,0,0"  VerticalAlignment="Top" BorderThickness="1" Width="261" ></TextBox>
 
         <Button x:Name="addtag" Content="ADD" HorizontalAlignment="Left" Margin="30,400,0,0" VerticalAlignment="Top" Width="85" Click="addtag_Click"/>
-        <Button x:Name="updatetag" Content="UPDATE" HorizontalAlignment="Left" Margin="178,400,0,0" VerticalAlignment="Top" Width="85" Click="updatetag_Click"/>
-        <Button x:Name="cleartag" Content="CLEAR" HorizontalAlignment="Left" Margin="298,400,0,0" VerticalAlignment="Top" Width="90"/>
+        <Button x:Name="updatetag" Content="UPDATE" HorizontalAlignment="Left" Margin="160,400,0,0" VerticalAlignment="Top" Width="85" Click="updatetag_Click"/>
+        <Button x:Name="cleartag" Content="CLEAR" HorizontalAlignment="Left" Margin="297,400,0,0" VerticalAlignment="Top" Width="90" Click="cleartag_Click"/>
 
 
 
 
         <!--Right Side-->
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="774" Margin="0,28,19,78" Grid.Column="1">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0,15,0,0" Grid.Column="1">
 
 
-            <!--Right Side-->
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="749" Margin="0,15,0,0" Height="497">
-                <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Margin="0,0,-1,0" />
-                <ListView   x:Name="listViewtag"  SelectionChanged="listViewtag_SelectionChanged"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Right" Width="739" Height="320" Margin="0,0,10,0" >
+
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="749" Margin="40,10,20,0">
+                <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Margin="102,0,65,0" Height="30" TextChanged="searchFieldtag_TextChanged" />
+            </StackPanel>
+
+            <StackPanel>
+                <ListView   x:Name="listViewtag"  SelectionChanged="listViewtag_SelectionChanged"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Right"  Height="371" Margin="0,10,10,10" Width="656" >
                     <ListView.View>
                         <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="tag Information">
-                            <GridViewColumn DisplayMemberBinding="{Binding Nametag}" Header="Tags" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags" Width="100"/>
 
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="deletetag" Content="DELETE" Click="deletetag_Click" Margin="538,100,33,100" Height="34" />
-
-
+            </StackPanel>
+            <StackPanel Margin="0,8,20,0">
+                <Button x:Name="deletetag" Content="DELETE" Click="deletetag_Click" Margin="0,100,33,100" Height="34" HorizontalAlignment="Right" Width="199" />
             </StackPanel>
 
-
         </StackPanel>
+
+
 
     </Grid>
 </Page>

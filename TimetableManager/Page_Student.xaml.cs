@@ -378,5 +378,10 @@ namespace TimetableManager
                 cleargrp();
             }
         }
+
+        private void clearstudent_Click(object sender, RoutedEventArgs e)
+        {
+            clear();
+        }
     } 
 }
