@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimetableManager.GroupDAO
 {
-    class Group
+    class Groups
     {
         private string academic_id;
         private int student_count;
@@ -16,10 +16,10 @@ namespace TimetableManager.GroupDAO
         private string subgroup_id;
         
 
-        public Group() { 
+        public Groups() { 
         }
 
-        public Group(string academicId,int studentcount,int groupNo,string groupId,int subgroupNo,string subgroupId)
+        public Groups(string academicId,int studentcount,int groupNo,string groupId,int subgroupNo,string subgroupId)
 
         {
             this.academic_id = academicId;

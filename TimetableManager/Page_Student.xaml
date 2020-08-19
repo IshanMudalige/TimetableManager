@@ -134,12 +134,12 @@
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Group Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding AcademicId }" Header="Academic ID" Width="160"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding GroupId}" Header="GroupID" Width="180"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding SubgroupId}" Header="SubgroupID" Width="200"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding SubGroupId}" Header="SubgroupID" Width="200"/>
 
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="btndeletegrp" Content="DELETE" Width="100" HorizontalAlignment="Right" Grid.Column="3" Margin="0,508,26,102"/>
+                    <Button x:Name="btndeletegrp" Content="DELETE" Width="100" HorizontalAlignment="Right" Grid.Column="3" Margin="0,508,26,102" Click="btndeletegrp_Click"/>
                     <TextBox x:Name="searchgrp"  Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="556" BorderThickness="1" TextChanged="searchgrp_TextChanged"  />
 
 

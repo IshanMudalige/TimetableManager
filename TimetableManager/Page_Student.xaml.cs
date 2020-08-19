@@ -40,14 +40,20 @@ namespace TimetableManager
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT proid FROM Student";
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    string acid = reader["proid"].ToString();
-                    selectacdemicId.Items.Add(acid);
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT proid FROM Student";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string acid = reader["proid"].ToString();
+                        selectacdemicId.Items.Add(acid);
+                    }
+                }catch(Exception e)
+                {
+                    MessageBox.Show("-"+e);
                 }
             }
         }
@@ -201,9 +207,9 @@ namespace TimetableManager
 
         //=================================================================GROUP========================================================
 
-        private void PopulateTableGroup(List<Group> list)
+        private void PopulateTableGroup(List<Groups> list)
         {
-            var observableList = new ObservableCollection<Group>();
+            var observableList = new ObservableCollection<Groups>();
             list.ForEach(x => observableList.Add(x));
 
             listView2.ItemsSource = observableList;
@@ -211,7 +217,7 @@ namespace TimetableManager
 
         private void addgroup_Click(object sender, RoutedEventArgs e)
         {
-            Group group = new Group();
+            Groups group = new Groups();
 
 
             group.AcademicId = selectacdemicId.Text;
@@ -238,12 +244,81 @@ namespace TimetableManager
 
         private void updategroup_Click(object sender, RoutedEventArgs e)
         {
+            Groups groups1 = (Groups)listView2.SelectedItem;
 
+            if(groups1 != null)
+            {
+                if (Validate())
+                {
+                    Groups groups = new Groups();
+                    groups.AcademicId = selectacdemicId.Text;
+                    groups.StudentCount = int.Parse(txtstudentcount.Text);
+                    groups.Groupno = int.Parse(txtgroupno.Text);
+                    groups.GroupId = txtgroupid.Text;
+                    groups.SubGroupno = int.Parse(txtsubgroupno.Text);
+                    groups.SubGroupId = txtsubgroupid.Text;
+
+                    GroupDetailsDAO.updategroups(groups1.GroupId, groups);
+                    PopulateTableGroup(GroupDetailsDAO.getAll());
+                    cleargrp();
+
+
+
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Please select the required Groups fromthe table");
+                }
+            }
+        }
+
+        private Boolean Validate()
+        {
+            if (selectacdemicId.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter academicid");
+            }
+            if (txtstudentcount.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter student count");
+            }
+            if (txtgroupno.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter group no");
+            }
+            if (txtgroupid.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter group id");
+            }
+            if (txtsubgroupno.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter subgroup no");
+            }
+            if (txtsubgroupid.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter subgroup  id");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void searchgrp_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+            if (searchgrp.Text.Equals(""))
+            {
+                PopulateTableGroup(GroupDetailsDAO.getAll());
+            }
+            else
+            {
+                PopulateTableGroup(GroupDetailsDAO.searchgroups(searchgrp.Text));
+            }
         }
 
        
@@ -253,7 +328,7 @@ namespace TimetableManager
         {
             cleargrp();
 
-            Group group = (Group)listView2.SelectedItem;
+            Groups group = (Groups)listView2.SelectedItem;
 
             if(group != null)
             {
@@ -285,6 +360,23 @@ namespace TimetableManager
             string subgroup_no = txtsubgroupno.Text;
 
             txtsubgroupid.Text = group_id + "." + subgroup_no;
+        }
+
+        private void btndeletegrp_Click(object sender, RoutedEventArgs e)
+        {
+            Groups group = (Groups)listView2.SelectedItem;
+
+            if (group == null)
+            {
+                MessageBox.Show("please select required group from the table");
+
+            }
+            else
+            {
+                GroupDetailsDAO.deletegroups(group.GroupId);
+                PopulateTableGroup(GroupDetailsDAO.getAll());
+                cleargrp();
+            }
         }
     } 
 }
