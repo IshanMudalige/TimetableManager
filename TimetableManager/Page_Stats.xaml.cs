@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimetableManager.StatisticsDAO;
 
 namespace TimetableManager
 {
@@ -23,6 +25,17 @@ namespace TimetableManager
         public Page_Stats()
         {
             InitializeComponent();
+            PopulateStatLec(LecStatDAO.getAll());
+        }
+
+        private void PopulateStatLec(List<LecStat> list)
+        {
+            //List<Building> list = BuildingNamesDAO.getAll();
+
+            var observableList = new ObservableCollection<LecStat>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewStudents.ItemsSource = observableList;
         }
     }
 }

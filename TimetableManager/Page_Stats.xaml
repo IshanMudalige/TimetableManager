@@ -6,9 +6,53 @@
       xmlns:local="clr-namespace:TimetableManager"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1190"
-      Title="Page_Stats">
+      Title="Stats" Height="700" Width="1200">
+    <Page.Resources>
+        <Color x:Key="btn_blue">#FF2196F3</Color>
+    </Page.Resources>
 
-    <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="557,167,0,0" TextWrapping="Wrap" Text="Stat" VerticalAlignment="Top" Height="41" Width="80" FontSize="25"/>
+    <Grid Background = "White" >
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "*" />
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+
+        <TabControl Margin = "15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160">
+
+            <TabItem Header = "Students" >
+                <Grid Background="White" Margin="0,0,0.4,54.4">
+
+
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header = "Lecturers" >
+                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+
+                    <ListView x:Name="listviewStudents" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                        <ListView.View>
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="160"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding EmployeeID}" Header="Employee ID" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Faculty}" Header="Faculty" Width="145"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Department}" Header="Department" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Center}" Header="Location" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Category" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Rank}" Header="Rank" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
     </Grid>
 </Page>

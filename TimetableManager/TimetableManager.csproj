@@ -82,6 +82,8 @@
     </ApplicationDefinition>
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
+    <Compile Include="StatisticsDAO\LecStat.cs" />
+    <Compile Include="StatisticsDAO\LecStatDAO.cs" />
     <Compile Include="SubjectDAO\Subject.cs" />
     <Compile Include="SubjectDAO\SubjectDetailsDAO.cs" />
     <Page Include="MainWindow.xaml">
