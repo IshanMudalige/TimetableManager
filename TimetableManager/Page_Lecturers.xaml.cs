@@ -70,9 +70,13 @@ namespace TimetableManager
             {
                 txtLevel.Text = "6";
             }
-            else
+            else if(category == "Instructors")
             {
                 txtLevel.Text = "7";
+            }
+            else
+            {
+                txtLevel.Text = "";
             }
         }
 
