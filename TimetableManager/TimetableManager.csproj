@@ -80,7 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GroupDAO\Group.cs" />
+    <Compile Include="GroupDAO\Groups.cs" />
     <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
