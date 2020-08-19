@@ -40,14 +40,20 @@ namespace TimetableManager
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                conn.Open();
-                SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT proid FROM Student";
-                SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    string acid = reader["proid"].ToString();
-                    selectacdemicId.Items.Add(acid);
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT proid FROM Student";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string acid = reader["proid"].ToString();
+                        selectacdemicId.Items.Add(acid);
+                    }
+                }catch(Exception e)
+                {
+                    MessageBox.Show("-"+e);
                 }
             }
         }

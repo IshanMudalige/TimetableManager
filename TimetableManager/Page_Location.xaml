@@ -42,7 +42,7 @@
                     <ListView x:Name="listview" Grid.Column="1" Height="463" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listview_SelectionChanged_Building">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="300"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
