@@ -65,7 +65,7 @@
                         <Button x:Name="clearstudent" Margin="10,405,10,205" Grid.Column="3" Content="CLEAR" Click="clearstudent_Click"/>
                     </Grid>
 
-                    <DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,95,0,0" VerticalAlignment="Top" Width="556"/>
+                    <!--<DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,95,0,0" VerticalAlignment="Top" Width="556"/>-->
 
 
 
@@ -127,7 +127,7 @@
                         <Button x:Name="addgroup"  Margin="10,435,10,175" Grid.Column="0" Content="ADD" Click="addgroup_Click" />
                         <Button  x:Name="updategroup"  Margin="164,435,40,175" Grid.Column="1" Content="UPDATE" Grid.ColumnSpan="2" Click="updategroup_Click"/>
                     </Grid>
-                    <DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,45,0,0" VerticalAlignment="Top" Width="556"/>
+                    <!--<DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,45,0,0" VerticalAlignment="Top" Width="556"/>-->
 
                     <ListView  Margin="10,45,26,166" x:Name="listView2" Grid.Column="3" SelectionChanged="listView2_SelectionChanged" >
                         <ListView.View>

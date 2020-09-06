@@ -87,13 +87,13 @@ namespace TimetableManager
 
         private void searchFieldtag_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txttag.Text.Equals(""))
+            if (searchFieldtag.Text.Equals(""))
             {
                 PopulateTableTag(TagDetailsDAO.getAll());
             }
             else
             {
-                PopulateTableTag(TagDetailsDAO.searchTags(txttag.Text));
+                PopulateTableTag(TagDetailsDAO.searchTags(searchFieldtag.Text));
             }
         }
 
