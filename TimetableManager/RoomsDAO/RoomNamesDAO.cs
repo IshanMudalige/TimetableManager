@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows;
-using System.Collections.Generic;
 
 namespace TimetableManager.RoomsDAO
 {

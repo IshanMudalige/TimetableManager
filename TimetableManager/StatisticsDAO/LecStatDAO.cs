@@ -50,6 +50,63 @@ namespace TimetableManager.StatisticsDAO
 
             return LecList;
         }
+
+
+
+        public static List<LecStat> searchLec(string name)
+        {
+            List<LecStat> LecList = new List<LecStat>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = "SELECT name,employeeID,faculty,department,center,rank FROM Lecturer WHERE name LIKE '%" + name + "%'";
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    LecStat lecturer = new LecStat();
+                    lecturer.Name = reader["name"].ToString();
+                    lecturer.EmployeeID = reader["employeeID"].ToString();
+                    lecturer.Faculty = reader["faculty"].ToString();
+                    lecturer.Department = reader["department"].ToString();
+                    lecturer.Center = reader["center"].ToString();
+                    lecturer.Rank = reader["rank"].ToString();
+
+                    LecList.Add(lecturer);
+                }
+            }
+
+            return LecList;
+        }
+
+
+        public static List<LecStat> searchFac(string faculty)
+        {
+            List<LecStat> LecList = new List<LecStat>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = "SELECT name,employeeID,faculty,department,center,rank FROM Lecturer WHERE faculty LIKE '%" + faculty + "%'";
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    LecStat lecturer = new LecStat();
+                    lecturer.Name = reader["name"].ToString();
+                    lecturer.EmployeeID = reader["employeeID"].ToString();
+                    lecturer.Faculty = reader["faculty"].ToString();
+                    lecturer.Department = reader["department"].ToString();
+                    lecturer.Center = reader["center"].ToString();
+                    lecturer.Rank = reader["rank"].ToString();
+
+                    LecList.Add(lecturer);
+                }
+            }
+
+            return LecList;
+        }
     }
 
 

@@ -28,6 +28,7 @@ namespace TimetableManager
             InitializeComponent();
             PopulateStatLec(LecStatDAO.getAll());
             PopulateStatStu(StuStatDAO.getAll());
+            PopulateStatSubject(SubjDAO.getAll());
         }
 
         private void PopulateStatLec(List<LecStat> list)
@@ -49,6 +50,42 @@ namespace TimetableManager
             list.ForEach(x => observableList.Add(x));
 
             listviewStudents.ItemsSource = observableList;
+
+        }
+
+        private void PopulateStatSubject(List<Subj> list)
+        {
+            //List<Building> list = BuildingNamesDAO.getAll();
+
+            var observableList = new ObservableCollection<Subj>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewSubject.ItemsSource = observableList;
+
+        }
+
+        private void searchLecName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchLecName.Text.Equals(""))
+            {
+                PopulateStatLec(LecStatDAO.getAll());
+            }
+            else
+            {
+                PopulateStatLec(LecStatDAO.searchLec(searchLecName.Text));
+            }
+        }
+
+        private void searchFaculty_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchFaculty.Text.Equals(""))
+            {
+                PopulateStatLec(LecStatDAO.getAll());
+            }
+            else
+            {
+                PopulateStatLec(LecStatDAO.searchFac(searchFaculty.Text));
+            }
         }
     }
 }

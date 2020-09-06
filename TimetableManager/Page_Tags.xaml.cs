@@ -25,6 +25,7 @@ namespace TimetableManager
         public Page_Tags()
         {
             InitializeComponent();
+            PopulateTableTag(TagDetailsDAO.getAll());
         }
 
         private void addtag_Click(object sender, RoutedEventArgs e)
@@ -96,6 +97,9 @@ namespace TimetableManager
             }
         }
 
-       
+        private void cleartag_Click(object sender, RoutedEventArgs e)
+        {
+            cleartags();
+        }
     }
 }

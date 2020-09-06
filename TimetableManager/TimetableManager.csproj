@@ -88,6 +88,8 @@
     <Compile Include="StatisticsDAO\LecStatDAO.cs" />
     <Compile Include="StatisticsDAO\StuStat.cs" />
     <Compile Include="StatisticsDAO\StuStatDAO.cs" />
+    <Compile Include="StatisticsDAO\Subj.cs" />
+    <Compile Include="StatisticsDAO\SubjDAO.cs" />
     <Compile Include="StudentDAO\Student.cs" />
     <Compile Include="StudentDAO\StudentDetails.cs" />
     <Compile Include="SubjectDAO\Subject.cs" />
