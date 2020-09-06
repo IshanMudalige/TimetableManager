@@ -159,14 +159,14 @@ namespace TimetableManager.LecturerDAO
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "SELECT name,employeeID,faculty,department,center,rank FROM Lecturer WHERE category LIKE '%" + category + "%'";
+                command.CommandText = "SELECT name,category,faculty,department,center,rank FROM Lecturer WHERE category LIKE '%" + category + "%'";
 
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     Lecturer lecturer = new Lecturer();
                     lecturer.Name = reader["name"].ToString();
-                    lecturer.EmployeeID = reader["employeeID"].ToString();
+                    lecturer.Category = reader["category"].ToString();
                     lecturer.Faculty = reader["faculty"].ToString();
                     lecturer.Department = reader["department"].ToString();
                     lecturer.Center = reader["center"].ToString();

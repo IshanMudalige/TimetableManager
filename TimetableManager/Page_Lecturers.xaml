@@ -167,7 +167,7 @@
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="140"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding EmployeeID}" Header="Employee ID" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Category}" Header="Category" Width="120"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Faculty}" Header="Faculty" Width="160"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Department}" Header="Department" Width="140"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Center}" Header="Center" Width="100"/>
