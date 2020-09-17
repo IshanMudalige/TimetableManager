@@ -9,6 +9,263 @@
       Title="Page_Session">
 
     <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="567,162,0,0" TextWrapping="Wrap" Text="Session" VerticalAlignment="Top" Height="41" Width="105" FontSize="25"/>
+        <TabControl Margin="20,18,20,1" >
+
+            <TabItem Header="SESSION">
+            </TabItem>
+
+            <TabItem Header="AVAILABILITY">
+                <TabControl Margin="20,18,20,10">
+                    <TabItem Header="Lectuers">
+                        <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="400*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListView  Margin="10,10,10,251" x:Name="listView"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="LECTUERS NAMES" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="SUBJECT" Width="150"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="Faculty" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="Department" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="Center" VerticalAlignment="Top"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listView_Copy" Grid.Column="1"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="LECTUERS NAME" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                        </Grid>
+                    </TabItem>
+                    <!--SESSION TAB-->
+                    <TabItem Header="Sessions">
+                        <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="400*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListView  Margin="10,10,10,251" x:Name="listView1"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBJECT" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SESSION" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="GROUP ID" Width="150"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="1"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Groups">
+                        <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="400*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListView  Margin="10,10,10,251" x:Name="listViewGROUP"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" GROUP_Information">
+
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SESSION" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="GROUP ID" Width="100"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listViewGROUP_COPY" Grid.Column="1"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="GROUP Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="GROUP ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="150"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                        </Grid>
+                    </TabItem>
+
+                    <!--SUBGROUPS TAB-->
+
+                    <TabItem Header="SubGroups">
+
+                        <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="500*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ListView  Margin="43,10,25,288" x:Name="listViewSUBGROUP"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" SUB_GROUP_Information">
+
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SubgroupID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Session" Width="100"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,258,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,315,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,270,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top" RenderTransformOrigin="0.893,1.844"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="69,327,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="69,372,0,0" TextWrapping="Wrap" Text="PROGRAMME" VerticalAlignment="Top"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listViewSUBGROUP_COPY" Grid.Column="1"  >
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="GROUP Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBGROUP ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="150"/>
+
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" Height="28" Width="52"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="188,411,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="69,426,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.25"/>
+                        </Grid>
+
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="CONSECUTIVE">
+
+                <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="114*"/>
+                        <ColumnDefinition Width="129*"/>
+                        <ColumnDefinition Width="349*"/>
+                        <ColumnDefinition Width="592*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListView  Margin="10,48,95,252" x:Name="listViewConsecutive" Grid.ColumnSpan="3"  >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Session ID" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Tag" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Duration" Width="150"/>
+
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,536,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.ColumnSpan="2"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="74,382,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="74,428,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="74,476,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="88,443,0,0" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="88,488,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <ListView  Margin="26,230,28,88" x:Name="listViewCONSECUTIVE_Copy" Grid.Column="3"  >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Session Id" Width="250"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                    <Button Content="DELETE" Grid.Column="3" HorizontalAlignment="Left" Margin="473,547,0,0" VerticalAlignment="Top" Width="91"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" Text="Session Details" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="114,65,0,0" TextWrapping="Wrap" Text="Session 1" VerticalAlignment="Top"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="114,110,0,0" TextWrapping="Wrap" Text="Session 2" VerticalAlignment="Top"/>
+                    <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="337,98,0,0" VerticalAlignment="Top" Width="148" Height="28"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="283,17,0,0" TextWrapping="Wrap" Text="Merge Sessions" VerticalAlignment="Top"/>
+                    <Button Content="EDIT" Grid.Column="3" HorizontalAlignment="Left" Margin="72,547,0,0" VerticalAlignment="Top" Width="91"/>
+                    <Button Content="MERGE" Grid.Column="3" HorizontalAlignment="Left" Margin="242,163,0,0" VerticalAlignment="Top" Width="91"/>
+                </Grid>
+            </TabItem>
+            <!--PARALLEL-->
+            <TabItem Header="PARALLEL">
+                <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="400*"/>
+                        <ColumnDefinition Width="400*"/>
+
+                    </Grid.ColumnDefinitions>
+                    
+                </Grid>
+
+
+            </TabItem>
+            <TabItem Header="NON-OVERLAPPING"></TabItem>
+
+        </TabControl>
     </Grid>
 </Page>
