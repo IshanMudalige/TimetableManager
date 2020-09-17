@@ -10,12 +10,14 @@
 
     <Grid Background="White">
         <TabControl Margin="20,18,20,1" >
-
-            <TabItem Header="SESSION">
+    <!--Normal Sessions-->
+            <TabItem Header="Normal SESSION">
             </TabItem>
-
+            
+    <!--Availability Sesssions-->
             <TabItem Header="AVAILABILITY">
                 <TabControl Margin="20,18,20,10">
+                    <!--Avaibility Lectuers Tab-->
                     <TabItem Header="Lectuers">
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
@@ -59,7 +61,7 @@
                             <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
-                    <!--SESSION TAB-->
+                    <!--Avaibility Session Tab-->
                     <TabItem Header="Sessions">
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
@@ -103,6 +105,7 @@
                             <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
+                    <!--Avaibility Group Tab-->
                     <TabItem Header="Groups">
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
@@ -148,7 +151,7 @@
                         </Grid>
                     </TabItem>
 
-                    <!--SUBGROUPS TAB-->
+                    <!--Avaibility Subgroups Tab-->
 
                     <TabItem Header="SubGroups">
 
@@ -200,6 +203,7 @@
                     </TabItem>
                 </TabControl>
             </TabItem>
+            <!--Consecutive Sesssions-->
             <TabItem Header="CONSECUTIVE">
 
                 <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
@@ -250,7 +254,7 @@
                     <Button Content="MERGE" Grid.Column="3" HorizontalAlignment="Left" Margin="242,163,0,0" VerticalAlignment="Top" Width="91"/>
                 </Grid>
             </TabItem>
-            <!--PARALLEL-->
+            <!--PARALLEL Sessions-->
             <TabItem Header="PARALLEL">
                 <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                     <Grid.ColumnDefinitions>
@@ -264,6 +268,7 @@
 
 
             </TabItem>
+            <!--NonOverlapping Sesssions-->
             <TabItem Header="NON-OVERLAPPING"></TabItem>
 
         </TabControl>
