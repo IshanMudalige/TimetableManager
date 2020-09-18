@@ -9,162 +9,12 @@
       Title="Page_Session">
 
     <Grid Background="White">
-        <TabControl Margin="20,18,0,0" >
+        <TabControl Margin="20,18,20,1" >
     <!--Normal Sessions-->
-            <TabItem Header="NORMAL SESSION">
-                <StackPanel>
-                <!--Left Side-->
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Margin="0 15 0 10" Visibility="Visible">
-                    
-                    <!--Lecturer Names-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Lecturer Names" FontSize="15" FontWeight="Bold" Margin="15 5 0 0"/>
-                        <ComboBox x:Name="cmbLecNames" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-
-                        <StackPanel>
-                            <TextBox x:Name="txtLecNames" Height="60" Margin="0 0 0 20" BorderThickness="1" />
-                        </StackPanel>
-                    
-                    <!--Group ID-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Group ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <ComboBox x:Name="txtGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-                    
-                    <!--Sub Grp ID-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="SubGroup ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <ComboBox x:Name="txtSubGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-
-                    <!--No Of Students-->
-                    <Grid Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="No-Of-Students" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <TextBox x:Name="txtNoOfStudents" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-
-                    <!--Subject Name-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Subject Name" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <ComboBox x:Name="txtSubNames" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-                    
-                    <!--Subject Code-->
-                    <Grid Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Subject Code" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <TextBox x:Name="txtSubjCode" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-                    
-                    <!--Tag-->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Tag" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <ComboBox x:Name="txtTag" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-                    
-                    <!--Duration-->
-                    <Grid Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Duration" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                        <TextBox x:Name="txtDuration" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
-                    </Grid>
-                    
-                    <!--Buttons-->
-                    <Grid Margin="0 40 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0" x:Name="btnSessionAdd" Content="GENERATE SESSION" Width="155" Height="40"/>
-                        <Button Grid.Column="1" x:Name="btnSeClear" Content="CLEAR" Width="100" Height="40"/>
-                    </Grid>
-
-                </StackPanel>
-
-                <!--Right Side-->
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="770" Margin="0 -560 0 0">
-                        
-                            <StackPanel Margin="40 10 20 0" Orientation="Horizontal">
-                                <TextBox x:Name="searchField" FontSize="16" BorderThickness="1" Width="700"/>
-                            </StackPanel>
-
-                            <Grid Margin="60 10 0 0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                <RadioButton Grid.Column="0"  x:Name="RdLec" Content="Lecturer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
-                                <RadioButton Grid.Column="1" x:Name="RdSub" Content="Subject" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
-                                <RadioButton Grid.Column="2" x:Name="RdGrp" Content="Group ID" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
-                            </Grid>
-
-                        <StackPanel>
-                            <ListView  Margin="40,10,10,10" x:Name="listViewSession" Grid.ColumnSpan="2" Height="440">
-                                <ListView.View>
-                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Lecturers" Width="240"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Subject" Width="120"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubName}" Header="Group ID" Width="120"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Tag" Width="100"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Duration" Width="100"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </StackPanel>
-
-                        <StackPanel Margin="0,5,20,5">
-                            <Button x:Name="btnSesDelete" Content="DELETE" Width="100" HorizontalAlignment="Right"/>
-                        </StackPanel>
-
-                    </StackPanel>
-
-
-                </StackPanel>
+            <TabItem Header="Normal SESSION">
             </TabItem>
-            
-    <!--Availability Sesssions-->
+
+            <!--Availability Sesssions-->
             <TabItem Header="AVAILABILITY">
                 <TabControl Margin="20,18,20,10">
                     <!--Avaibility Lectuers Tab-->
@@ -181,7 +31,7 @@
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="ID" Width="150"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="LECTUERS NAMES" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="SUBJECT" Width="150"/>
+
 
 
                                     </GridView>
@@ -216,11 +66,12 @@
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
 
-                                <ColumnDefinition Width="400*"/>
-                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="28*"/>
+                                <ColumnDefinition Width="522*"/>
+                                <ColumnDefinition Width="549*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView1"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="2"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBJECT" Width="150"/>
@@ -231,28 +82,28 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="1"  >
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="50.5,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,306,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,360,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,414,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="1"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="2"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION ID" Width="250"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
-                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <ComboBox Grid.Column="2" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
+                            <Button Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="2" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
                     <!--Avaibility Group Tab-->
@@ -295,8 +146,7 @@
                             </ListView>
                             <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="235,132,0,0" VerticalAlignment="Top" Width="76"/>
                             <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
@@ -380,7 +230,7 @@
                     <ComboBox HorizontalAlignment="Left" Margin="74,382,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <ComboBox HorizontalAlignment="Left" Margin="74,428,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <ComboBox HorizontalAlignment="Left" Margin="74,476,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="16" Width="39"/>
                     <TextBlock HorizontalAlignment="Left" Margin="88,443,0,0" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <TextBlock HorizontalAlignment="Left" Margin="88,488,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <ListView  Margin="26,230,28,88" x:Name="listViewCONSECUTIVE_Copy" Grid.Column="3"  >
@@ -413,7 +263,7 @@
                         <ColumnDefinition Width="400*"/>
 
                     </Grid.ColumnDefinitions>
-                    
+
                 </Grid>
 
 
