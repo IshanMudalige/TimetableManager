@@ -9,7 +9,7 @@
       Title="Page_Session">
 
     <Grid Background="White">
-        <TabControl Margin="20,18,0,0" SelectionChanged="TabControl_SelectionChanged" >
+        <TabControl Margin="20,18,0,0" >
     <!--Normal Sessions-->
             <TabItem Header="NORMAL SESSION">
                 <StackPanel>
