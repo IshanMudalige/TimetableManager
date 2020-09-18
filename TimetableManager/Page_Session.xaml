@@ -9,9 +9,159 @@
       Title="Page_Session">
 
     <Grid Background="White">
-        <TabControl Margin="20,18,20,1" >
+        <TabControl Margin="20,18,0,0" SelectionChanged="TabControl_SelectionChanged" >
     <!--Normal Sessions-->
-            <TabItem Header="Normal SESSION">
+            <TabItem Header="NORMAL SESSION">
+                <StackPanel>
+                <!--Left Side-->
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="400" Margin="0 15 0 10" Visibility="Visible">
+                    
+                    <!--Lecturer Names-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Lecturer Names" FontSize="15" FontWeight="Bold" Margin="15 5 0 0"/>
+                        <ComboBox x:Name="cmbLecNames" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+
+                        <StackPanel>
+                            <TextBox x:Name="txtLecNames" Height="60" Margin="0 0 0 20" BorderThickness="1" />
+                        </StackPanel>
+                    
+                    <!--Group ID-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Group ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <ComboBox x:Name="txtGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+                    
+                    <!--Sub Grp ID-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="SubGroup ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <ComboBox x:Name="txtSubGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+
+                    <!--No Of Students-->
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="No-Of-Students" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <TextBox x:Name="txtNoOfStudents" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+
+                    <!--Subject Name-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Subject Name" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <ComboBox x:Name="txtSubNames" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+                    
+                    <!--Subject Code-->
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Subject Code" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <TextBox x:Name="txtSubjCode" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+                    
+                    <!--Tag-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Tag" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <ComboBox x:Name="txtTag" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+                    
+                    <!--Duration-->
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Duration" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                        <TextBox x:Name="txtDuration" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                    </Grid>
+                    
+                    <!--Buttons-->
+                    <Grid Margin="0 40 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" x:Name="btnSessionAdd" Content="GENERATE SESSION" Width="155" Height="40"/>
+                        <Button Grid.Column="1" x:Name="btnSeClear" Content="CLEAR" Width="100" Height="40"/>
+                    </Grid>
+
+                </StackPanel>
+
+                <!--Right Side-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="770" Margin="0 -560 0 0">
+                        
+                            <StackPanel Margin="40 10 20 0" Orientation="Horizontal">
+                                <TextBox x:Name="searchField" FontSize="16" BorderThickness="1" Width="700"/>
+                            </StackPanel>
+
+                            <Grid Margin="60 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton Grid.Column="0"  x:Name="RdLec" Content="Lecturer" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                                <RadioButton Grid.Column="1" x:Name="RdSub" Content="Subject" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                                <RadioButton Grid.Column="2" x:Name="RdGrp" Content="Group ID" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,0,0,0"/>
+                            </Grid>
+
+                        <StackPanel>
+                            <ListView  Margin="40,10,10,10" x:Name="listViewSession" Grid.ColumnSpan="2" Height="440">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Lecturers" Width="240"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Subject" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding SubName}" Header="Group ID" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Tag" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Duration" Width="100"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,5,20,5">
+                            <Button x:Name="btnSesDelete" Content="DELETE" Width="100" HorizontalAlignment="Right"/>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                </StackPanel>
             </TabItem>
             
     <!--Availability Sesssions-->
