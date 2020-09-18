@@ -10,11 +10,11 @@
 
     <Grid Background="White">
         <TabControl Margin="20,18,20,1" >
-    <!--Normal Sessions-->
+            <!--Normal Sessions-->
             <TabItem Header="Normal SESSION">
             </TabItem>
-            
-    <!--Availability Sesssions-->
+
+            <!--Availability Sesssions-->
             <TabItem Header="AVAILABILITY">
                 <TabControl Margin="20,18,20,10">
                     <!--Avaibility Lectuers Tab-->
@@ -31,7 +31,7 @@
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="ID" Width="150"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="LECTUERS NAMES" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="SUBJECT" Width="150"/>
+
 
 
                                     </GridView>
@@ -66,11 +66,12 @@
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
 
-                                <ColumnDefinition Width="400*"/>
-                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="28*"/>
+                                <ColumnDefinition Width="522*"/>
+                                <ColumnDefinition Width="549*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView1"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="2"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBJECT" Width="150"/>
@@ -81,28 +82,28 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="1"  >
+                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="50.5,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,306,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,360,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="160.5,414,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50.5,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="1"/>
+                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="2"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION ID" Width="250"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
-                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <ComboBox Grid.Column="2" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
+                            <Button Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button Content="UPDATE" Grid.Column="2" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
                     <!--Avaibility Group Tab-->
@@ -145,8 +146,7 @@
                             </ListView>
                             <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
+                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="235,132,0,0" VerticalAlignment="Top" Width="76"/>
                             <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
                     </TabItem>
@@ -230,7 +230,7 @@
                     <ComboBox HorizontalAlignment="Left" Margin="74,382,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <ComboBox HorizontalAlignment="Left" Margin="74,428,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
                     <ComboBox HorizontalAlignment="Left" Margin="74,476,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="16" Width="39"/>
                     <TextBlock HorizontalAlignment="Left" Margin="88,443,0,0" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <TextBlock HorizontalAlignment="Left" Margin="88,488,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <ListView  Margin="26,230,28,88" x:Name="listViewCONSECUTIVE_Copy" Grid.Column="3"  >
@@ -263,7 +263,7 @@
                         <ColumnDefinition Width="400*"/>
 
                     </Grid.ColumnDefinitions>
-                    
+
                 </Grid>
 
 
