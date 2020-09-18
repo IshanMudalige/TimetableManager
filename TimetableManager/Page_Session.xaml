@@ -10,7 +10,7 @@
 
     <Grid Background="White">
         <TabControl Margin="20,18,20,1" >
-            <!--Normal Sessions-->
+    <!--Normal Sessions-->
             <TabItem Header="Normal SESSION">
             </TabItem>
 
