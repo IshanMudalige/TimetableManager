@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace TimetableManager.RoomsDAO
 {
-    class RoomNamesDAO
+    class RoomNamesDAO  
     {
         public RoomNamesDAO() { }
 
