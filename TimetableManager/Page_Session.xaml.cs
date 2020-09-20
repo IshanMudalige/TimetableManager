@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimetableManager.NormalSessionsDAO;
 
 namespace TimetableManager
 {
@@ -27,9 +28,8 @@ namespace TimetableManager
             loadLecturerCombo();
             loadTags();
             loadGroupId();
-            loadSubGrpId();
             loadSubjectNames();
-            //loadSubjectCode();
+            
         }
 
         //Loading lecturers names to normal sessions
@@ -113,14 +113,17 @@ namespace TimetableManager
         //Loading Sub-GRP-ID to normal sessions
         public void loadSubGrpId()
         {
+            string grpId ="";
+            if (txtGrpID.SelectedIndex >= 0)
+                grpId = txtGrpID.SelectedItem.ToString();
+            Console.WriteLine("grpid is = " + grpId);
+
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
                 try
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    string grpId = txtGrpID.Text;
-                    //Console.WriteLine(grpId);
                     command.CommandText = @"SELECT subgroup_id FROM Groups_Info WHERE group_id='" + grpId + "'";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -141,19 +144,60 @@ namespace TimetableManager
         //Loading subject names to normal sessions
         public void loadSubjectNames()
         {
+            
+           
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
+                
+                    /*string year = "";
+                    string year1 = "Y1";
+                    string year2 = "Y2";
+                    string year3 = "Y3";
+                    string year4 = "Y4";
+
+                    string check = "";
+                    if (txtGrpID.SelectedIndex >= 0)
+                        check = txtGrpID.SelectedItem.ToString();
+                    
+                    //int length = check.Length - check.IndexOf(".") + 1;
+                    string subCheck = check.Substring(1, check.IndexOf("."));
+
+
+                    if (subCheck.Equals(year1))
+                    {
+                        year = year1;
+                    }
+                    else if (subCheck.Equals(year2))
+                    {
+                        year = year2;
+                    }
+                    else if (subCheck.Equals(year3))
+                    {
+                        year = year3;
+                    }
+                    else
+                    {
+                        year = year4;
+                    }*/
+                
+                
                 try
                 {
+                    
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    string year = txtGrpID.Text;
-                    command.CommandText = @"SELECT sub_name FROM Subjects WHERE offer_year LIKE '" + year + "%'";
+                    command.CommandText = @"SELECT sub_name FROM Subjects";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
 
                         string Sname = reader["sub_name"].ToString();
+                        //string Syr = reader["offer_year"].ToString();
+                        /*string[] items = new string[] {Sname +"." + Syr};
+                        foreach (string item in items)
+                        {
+                            txtSubNames.Items.Add(item);
+                        }*/
                         txtSubNames.Items.Add(Sname);
 
                     }
@@ -165,31 +209,109 @@ namespace TimetableManager
             }
         }
 
-        //Loading subject codes to normal sessions
-       /* public void loadSubjectCode()
+        //Calling the losdSubGrpID method when GrpID is changing
+        private void txtGrpID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            loadSubGrpId();
+        }
+
+        //Load no of students to normal sessions
+        private void txtNoOfStudents_SelectionChanged(object sender, RoutedEventArgs e)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
+                string SUBId = "";
+                if (txtSubGrpID.SelectedIndex >= 0)
+                    SUBId = txtSubGrpID.SelectedItem.ToString();
+
+                try 
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT student_count FROM Groups_Info WHERE subgroup_id= '" + SUBId + "'";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string Scount = reader["student_count"].ToString();
+                        txtNoOfStudents.Text = Scount;
+
+                    }
+
+                }
+                catch(SQLiteException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        //Load the relavent subject code for selected subject in normal sessions
+        private void txtSubjCode_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                string SUBname = "";
+                if (txtSubNames.SelectedIndex >= 0)
+                    SUBname = txtSubNames.SelectedItem.ToString();
+
                 try
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    string sub = txtSubNames.Text;
-                    command.CommandText = @"SELECT sub_code FROM Subjects WHERE sub_name LIKE '%" + sub + "%'";
+                    command.CommandText = @"SELECT sub_code FROM Subjects WHERE sub_name= '" + SUBname + "'";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
 
                         string Scode = reader["sub_code"].ToString();
-                        txtSubjCode.Items.Add(Scode);
+                        txtSubjCode.Text = Scode;
 
                     }
                 }
-                catch (SQLiteException e)
+                catch(SQLiteException ex)
                 {
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show(ex.Message);
                 }
             }
-        }*/
+        }
+
+        //Getting selected lecturer names from combobox to text area
+        private void txtLecNames_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            for(int i=0; i<=3; i++)
+            {
+                string LecName = "";
+                if (cmbLecNames.SelectedIndex >= 0)
+                    LecName = cmbLecNames.SelectedItem.ToString();
+
+                string[] names = new string[] { LecName + "," };
+                //txtLecNames.Text = LecName + ",";
+
+                foreach (string name in names)
+                {
+
+                    txtLecNames.Text = name;
+                }
+            }
+
+        }
+
+        //Inserting Normal Sessions 
+        private void btnSessionAdd_Click(object sender, RoutedEventArgs e)
+        {
+            NormalSessions normalSessions = new NormalSessions();
+
+            normalSessions.Lecturers = txtLecNames.Text;
+            normalSessions.GrpID = txtGrpID.Text;
+            normalSessions.SubID = txtSubGrpID.Text;
+            normalSessions.NoStu = int.Parse(txtNoOfStudents.Text);
+            normalSessions.Sname = txtSubNames.Text;
+            normalSessions.Scode = txtSubjCode.Text;
+            normalSessions.Tag = txtTag.Text;
+            normalSessions.Duration = double.Parse(txtDuration.Text);
+
+            NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
+        }
     }
 }

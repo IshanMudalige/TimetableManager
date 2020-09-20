@@ -28,7 +28,7 @@
                         </Grid>
 
                         <StackPanel>
-                            <TextBox x:Name="txtLecNames" Height="60" Margin="0 0 0 20" BorderThickness="1" />
+                            <TextBox x:Name="txtLecNames" Height="60" Margin="0 0 0 20" BorderThickness="1" SelectionChanged="txtLecNames_SelectionChanged"/>
                         </StackPanel>
 
                         <!--Group ID-->
@@ -39,7 +39,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="Group ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                            <ComboBox x:Name="txtGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                            <ComboBox x:Name="txtGrpID" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" SelectionChanged="txtGrpID_SelectionChanged"/>
                         </Grid>
 
                         <!--Sub Grp ID-->
@@ -61,7 +61,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="No-Of-Students" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                            <TextBox x:Name="txtNoOfStudents" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                            <TextBox x:Name="txtNoOfStudents" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" SelectionChanged="txtNoOfStudents_SelectionChanged"/>
                         </Grid>
 
                         <!--Subject Name-->
@@ -83,7 +83,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" Text="Subject Code" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
-                            <TextBox x:Name="txtSubjCode" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1"/>
+                            <TextBox x:Name="txtSubjCode" Grid.Column="1" Margin="0 0 0 20" BorderThickness="1" SelectionChanged="txtSubjCode_SelectionChanged"/>
                         </Grid>
 
                         <!--Tag-->
@@ -115,7 +115,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Grid.Column="0" x:Name="btnSessionAdd" Content="GENERATE SESSION" Width="160" Height="40"/>
+                            <Button Grid.Column="0" x:Name="btnSessionAdd" Content="GENERATE SESSION" Width="160" Height="40" Click="btnSessionAdd_Click"/>
                             <Button Grid.Column="1" x:Name="btnSeClear" Content="CLEAR" Width="100" Height="40"/>
                         </Grid>
 
