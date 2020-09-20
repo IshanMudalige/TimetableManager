@@ -9,6 +9,13 @@
       Title="Page_Timetable">
 
     <Grid Background="White">
-        <TextBlock HorizontalAlignment="Left" Margin="558,105,0,0" TextWrapping="Wrap" Text="Timetable" VerticalAlignment="Top" Height="41" Width="116" FontSize="25"/>
+        <TabControl Height="560" Margin="10,10,10,0" VerticalAlignment="Top" >
+            <TabItem Header="Generate Timetables">
+                <Grid Background="White" />
+            </TabItem>
+            <TabItem Header="View Timetables">
+                <Grid Background="White"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
