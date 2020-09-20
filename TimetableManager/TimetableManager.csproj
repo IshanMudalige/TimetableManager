@@ -82,6 +82,8 @@
     </ApplicationDefinition>
     <Compile Include="GroupDAO\Groups.cs" />
     <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvaLec.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvaLecDao.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
     <Compile Include="StatisticsDAO\LecStat.cs" />

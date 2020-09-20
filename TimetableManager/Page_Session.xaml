@@ -176,37 +176,38 @@
                                 <ColumnDefinition Width="400*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listView" SelectionChanged="listView_SelectionChanged"   >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="ID" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="LECTUERS NAMES" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecID}" Header="ID" Width="150" x:Name="lecgrid"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecName}" Header="LECTUERS NAMES" Width="150"/>
 
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
+                            <Button x:Name="submit" Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Click="submit_Click" />
+                            <ComboBox x:Name="selectfaculty" HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox  x:Name="selectDepartment" HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox  x:Name="selectCenter" HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
                             <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="Faculty" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="Department" VerticalAlignment="Top"/>
                             <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="Center" VerticalAlignment="Top"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listView_Copy" Grid.Column="1"  >
+                            <ListView  Margin="44,196,84,65" x:Name="listView_Copy" Grid.Column="1"   >
                                 <ListView.View>
-                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="LECTUERS NAME" Width="250"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Not Available Lecturer Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecID}" Header="ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecName}" Header="LECTUERS NAME" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecTime}" Header="TIME" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
+                            <ComboBox x:Name="selectnotavailabletime" Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
+                            <Button x:Name="NAL_ADD_BTN" Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75" Click="NAL_ADD_BTN_Click"/>
                             <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
                             <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
                         </Grid>
