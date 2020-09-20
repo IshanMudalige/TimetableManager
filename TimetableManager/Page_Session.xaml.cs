@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimetableManager.NormalSessionsDAO;
+using System.Collections.ObjectModel;
+using TimetableManager.Not_AvailableSessionsDAO;
 
 namespace TimetableManager
 {
@@ -29,7 +31,11 @@ namespace TimetableManager
             loadTags();
             loadGroupId();
             loadSubjectNames();
-            
+            loadfacultyCombo();
+            loaddepartmentCombo();
+            loadcenterCombo();
+            loadtimeCombobox();
+
         }
 
         //Loading lecturers names to normal sessions
@@ -113,7 +119,7 @@ namespace TimetableManager
         //Loading Sub-GRP-ID to normal sessions
         public void loadSubGrpId()
         {
-            string grpId ="";
+            string grpId = "";
             if (txtGrpID.SelectedIndex >= 0)
                 grpId = txtGrpID.SelectedItem.ToString();
             Console.WriteLine("grpid is = " + grpId);
@@ -144,46 +150,46 @@ namespace TimetableManager
         //Loading subject names to normal sessions
         public void loadSubjectNames()
         {
-            
-           
+
+
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-                
-                    /*string year = "";
-                    string year1 = "Y1";
-                    string year2 = "Y2";
-                    string year3 = "Y3";
-                    string year4 = "Y4";
 
-                    string check = "";
-                    if (txtGrpID.SelectedIndex >= 0)
-                        check = txtGrpID.SelectedItem.ToString();
-                    
-                    //int length = check.Length - check.IndexOf(".") + 1;
-                    string subCheck = check.Substring(1, check.IndexOf("."));
+                /*string year = "";
+                string year1 = "Y1";
+                string year2 = "Y2";
+                string year3 = "Y3";
+                string year4 = "Y4";
+
+                string check = "";
+                if (txtGrpID.SelectedIndex >= 0)
+                    check = txtGrpID.SelectedItem.ToString();
+
+                //int length = check.Length - check.IndexOf(".") + 1;
+                string subCheck = check.Substring(1, check.IndexOf("."));
 
 
-                    if (subCheck.Equals(year1))
-                    {
-                        year = year1;
-                    }
-                    else if (subCheck.Equals(year2))
-                    {
-                        year = year2;
-                    }
-                    else if (subCheck.Equals(year3))
-                    {
-                        year = year3;
-                    }
-                    else
-                    {
-                        year = year4;
-                    }*/
-                
-                
+                if (subCheck.Equals(year1))
+                {
+                    year = year1;
+                }
+                else if (subCheck.Equals(year2))
+                {
+                    year = year2;
+                }
+                else if (subCheck.Equals(year3))
+                {
+                    year = year3;
+                }
+                else
+                {
+                    year = year4;
+                }*/
+
+
                 try
                 {
-                    
+
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
                     command.CommandText = @"SELECT sub_name FROM Subjects";
@@ -224,7 +230,7 @@ namespace TimetableManager
                 if (txtSubGrpID.SelectedIndex >= 0)
                     SUBId = txtSubGrpID.SelectedItem.ToString();
 
-                try 
+                try
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
@@ -239,7 +245,7 @@ namespace TimetableManager
                     }
 
                 }
-                catch(SQLiteException ex)
+                catch (SQLiteException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -269,7 +275,7 @@ namespace TimetableManager
 
                     }
                 }
-                catch(SQLiteException ex)
+                catch (SQLiteException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -279,7 +285,7 @@ namespace TimetableManager
         //Getting selected lecturer names from combobox to text area
         private void txtLecNames_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            for(int i=0; i<=3; i++)
+            for (int i = 0; i <= 3; i++)
             {
                 string LecName = "";
                 if (cmbLecNames.SelectedIndex >= 0)
@@ -312,6 +318,168 @@ namespace TimetableManager
             normalSessions.Duration = double.Parse(txtDuration.Text);
 
             NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
+        }
+
+        //==================================NOT AVAILABLE LEC==============================
+        private void PopulatenotavailableLec(List<NotAvaLec> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvaLec>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView_Copy.ItemsSource = observableList;
+
+        }
+
+        private void PopulateTableLectuers(List<NotAvaLec> list)
+        {
+            var observableList = new ObservableCollection<NotAvaLec>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView.ItemsSource = observableList;
+        }
+
+        //===============================Faculty Combo Box=====================================
+
+        public void loadfacultyCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT faculty FROM Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string faculty = reader["faculty"].ToString();
+                        selectfaculty.Items.Add(faculty);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============================================Department Combo Box==========================================
+
+        public void loaddepartmentCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT department FROM Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string dep = reader["department"].ToString();
+                        selectDepartment.Items.Add(dep);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==========================================Center Combo Box=====================================================
+
+        public void loadcenterCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT center FROM Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string ct = reader["center"].ToString();
+                        selectCenter.Items.Add(ct);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==========================================Time Combo Box=====================================================
+
+        public void loadtimeCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT hours FROM Weekday_Days";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["hours"].ToString();
+                        selectnotavailabletime.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=========================================================Retrive Specific LECTUERS========================================== 
+        private void submit_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvaLec notAvaLec = new NotAvaLec();
+
+            notAvaLec.Faculty = selectfaculty.Text;
+            notAvaLec.Department = selectDepartment.Text;
+            notAvaLec.Center = selectCenter.Text;
+            PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department, notAvaLec.Center));
+
+        }
+
+        //====================================================ADD NOT Available Lectuers =================================
+        private void NAL_ADD_BTN_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvaLec notAvaLec = (NotAvaLec)listView.SelectedItem;
+            if (notAvaLec != null)
+            {
+                NotAvaLec avaLec = new NotAvaLec();
+                avaLec.Lectime = double.Parse(selectnotavailabletime.Text);
+                NotAvaLecDao.insertnotAvailableLec(notAvaLec.LecID, notAvaLec.LecName, avaLec);
+                PopulatenotavailableLec(NotAvaLecDao.getAll());
+            }
+        }
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            NotAvaLec avaLec = (NotAvaLec)listView.SelectedItem;
+
+            if (avaLec != null)
+            {
+                selectnotavailabletime.Text = avaLec.Lectime.ToString();
+
+
+            }
+
+
+
+
         }
     }
 }
