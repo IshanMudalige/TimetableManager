@@ -17,6 +17,8 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using TimetableManager.RoomsDAO;
+using TimetableManager.RoomsLecturerDAO;
+using TimetableManager.RoomsSubjectDAO;
 
 namespace TimetableManager
 {
@@ -29,8 +31,15 @@ namespace TimetableManager
         {
             InitializeComponent();
             loadBuildingCombo();
+            loadBuildingComboLec();
+            loadBuildingComboSub();
+            loadLecturerComboLec();
+            loadSubCodeCombo();
+
             PopulateTableBuilding(BuildingNamesDAO.getAll());
             PopulateTableRooms(RoomNamesDAO.getAll());
+            PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
+            PopulateTableRoomSubject(RoomSubjectDAO.getAll());
         }
 
         //Building Names COMBO BOX - ROOMS PAGE
@@ -191,7 +200,7 @@ namespace TimetableManager
 
             if (room == null)
             {
-                MessageBox.Show("Please Select Required Week from the Table.");
+                MessageBox.Show("Please Select a Room from the Table.");
             }
             else
             {
@@ -203,6 +212,14 @@ namespace TimetableManager
 
         //clear fields add update 
         private void clearRooms()
+        {
+            selectBuildingName.Text = "";
+            addRoomName.Text = "";
+            selectRoomType.Text = "";
+            capacity.Text = "";
+        }
+
+        private void clearRoomBtn_Click(object sender, RoutedEventArgs e)
         {
             selectBuildingName.Text = "";
             addRoomName.Text = "";
@@ -239,18 +256,327 @@ namespace TimetableManager
 
         }
 
-        private void clearRoomBtn_Click(object sender, RoutedEventArgs e)
+        /*private void clearLecturerRoom_Click(object sender, RoutedEventArgs e)
         {
-            selectBuildingName.Text = "";
-            addRoomName.Text = "";
-            selectRoomType.Text = "";
-            capacity.Text = "";
-        }
+            selectLecturer.Text = "";
+            selectBuildingNameLec.Text = "";
+            locatedRoom.Text = "";
+            selectRoomNameLec.Text = "";
+        }*/
 
         private void listviewRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+
+
+
+
+
+        /// ===================== ASSIGN ROOMS =======================================
+
+
+
+        ///-----ASSIGN LECTURER SPECIFIC ROOM-----
+
+
+        //get lecturers
+        public void loadLecturerComboLec()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT name FROM Lecturer";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string lname = reader["name"].ToString();
+                    selectLecturer.Items.Add(lname);
+
+                }
+
+            }
+        }
+
+        //get selected lecturer based building
+        private void selectLecturer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectLecturer.SelectedValue.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT building FROM Lecturer WHERE name = @lname";
+                    command.Parameters.AddWithValue("@lname", selectLecturer.SelectedValue.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string blname = reader["building"].ToString();
+                        locatedRoom.Text = blname;
+                    }
+
+
+                }
+            }
+        }
+
+        
+        private void locatedRoom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        //load building lec
+        public void loadBuildingComboLec()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT b_name FROM Building_Names";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string bname = reader["b_name"].ToString();
+                    selectBuildingNameLec.Items.Add(bname);
+
+                }
+
+            }
+        }
+        
+        //select according room
+        private void selectBuildingNameLec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectBuildingNameLec.SelectedValue.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name FROM Room_Names WHERE b_name = @bname";
+                    command.Parameters.AddWithValue("@bname", selectBuildingNameLec.SelectedValue.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string rname = reader["r_name"].ToString();
+                        selectRoomNameLec.Items.Add(rname);
+
+                    }
+
+                }
+            } 
+        }
+
+        //add lec room
+        private void addLecturerRoom_Click(object sender, RoutedEventArgs e)
+        {
+            RoomLecturer room = new RoomLecturer();
+
+            room.LecBuildingName = selectBuildingNameLec.Text;
+            room.LecRoomName = selectRoomNameLec.Text;
+            room.LecturerName = selectLecturer.Text;
+
+            RoomLecturerDAO.insertNewRoomLecturer(room);
+            PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
+        }
+
+        private void listviewLecturerRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //load table
+        private void PopulateTableRoomLecturer(List<RoomLecturer> list)
+        {
+            //List<Building> list = BuildingNamesDAO.getAll();
+
+            var observableList = new ObservableCollection<RoomLecturer>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewLecturerRoom.ItemsSource = observableList;
+        }
+
+        //remove
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RoomLecturer room = (RoomLecturer)listviewLecturerRoom.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a Room from the Table.");
+            }
+            else
+            {
+                RoomLecturerDAO.deleteRoomLecturer(room.LecRoomName);
+                PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
+            }
+        }
+
+        private void clearSubjectRoom_Click(object sender, RoutedEventArgs e)
+        {
+            selectLecturer.Text = "";
+            selectBuildingNameLec.Text = "";
+            locatedRoom.Text = "";
+            selectRoomNameLec.Text = "";
+        }
+
+
+
+        ///-----ASSIGN SUBJECT SPECIFIC ROOM-----
+
+
+        public void loadSubCodeCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT sub_code FROM Subjects";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string scode = reader["sub_code"].ToString();
+                    selectSubjectCode.Items.Add(scode);
+
+                }
+
+            }
+        }
+
+        private void subjectSelected_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        //load selected subject
+        private void selectSubjectCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectSubjectCode.SelectedValue.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT sub_name FROM Subjects WHERE sub_code = @scode";
+                    command.Parameters.AddWithValue("@scode", selectSubjectCode.SelectedValue.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string suname = reader["sub_name"].ToString();
+                        subjectSelected.Text = suname;
+                    }
+
+
+                }
+            }
+        }
+
+
+        public void loadBuildingComboSub()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT b_name FROM Building_Names";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string bname = reader["b_name"].ToString();
+                    selectBuildingSub.Items.Add(bname);
+
+                }
+
+            }
+        }
+
+        //select according room
+        private void selectBuildingSub_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectBuildingSub.SelectedValue.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name FROM Room_Names WHERE b_name = @bname";
+                    command.Parameters.AddWithValue("@bname", selectBuildingSub.SelectedValue.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string rname = reader["r_name"].ToString();
+                        selectRoomSub.Items.Add(rname);
+
+                    }
+
+                }
+            }
+        }
+
+        //add subject room
+        private void addSubjectRoom_Click(object sender, RoutedEventArgs e)
+        {
+            RoomSubject room = new RoomSubject();
+
+            room.SubjectCode = selectSubjectCode.Text;
+            room.SubBuildingName = selectBuildingSub.Text;
+            room.SubRoomName = selectRoomSub.Text;
+
+            RoomSubjectDAO.insertNewRoomSubject(room);
+            PopulateTableRoomSubject(RoomSubjectDAO.getAll());
+        }
+
+        //get results table
+        private void PopulateTableRoomSubject(List<RoomSubject> list)
+        {
+            //List<Building> list = BuildingNamesDAO.getAll();
+
+            var observableList = new ObservableCollection<RoomSubject>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewSubjectRoom.ItemsSource = observableList;
+        }
+
+        //remove subject room
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            RoomSubject room = (RoomSubject)listviewSubjectRoom.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a Room from the Table.");
+            }
+            else
+            {
+                RoomSubjectDAO.deleteRoomSubject(room.SubjectCode);
+                PopulateTableRoomSubject(RoomSubjectDAO.getAll());
+            }
+        }
+
+
+        /*
+        private void clearSubjectRoom_Click_1(object sender, RoutedEventArgs e)
+        {
+                selectSubjectCode.Text = "";
+                selectBuildingSub.Text = "";
+                selectRoomSub.Text = "";
+        }*/
 
         
     }
