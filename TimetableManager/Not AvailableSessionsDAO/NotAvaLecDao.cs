@@ -115,7 +115,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
         }
 
         //====================================Delete Not available Lec==========================
-        public static void deletenotavailableLec(string nlecname)
+        public static void deletenotavailableLec(int nlecid)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -124,8 +124,8 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
 
-                    command.CommandText = " DELETE FROM Not_Available_Lec  WHERE lec_name = @l_name";
-                    command.Parameters.AddWithValue("@l_name", nlecname);
+                    command.CommandText = "DELETE FROM Not_Available_Lec  WHERE lec_id = @l_lid";
+                    command.Parameters.AddWithValue("@l_lid", nlecid);
 
                     var s = command.ExecuteNonQuery();
 

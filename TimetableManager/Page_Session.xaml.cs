@@ -35,6 +35,8 @@ namespace TimetableManager
             loaddepartmentCombo();
             loadcenterCombo();
             loadtimeCombobox();
+            loadSUBCombobox();
+            loadStimeCombobox();
             PopulatenotavailableLec(NotAvaLecDao.getAll());
 
         }
@@ -485,7 +487,7 @@ namespace TimetableManager
 
 
         }
-
+        //==============================================DELETE NOT AVAILABLE LECTUERS=====================
         private void NAL_DeleteBTN_Click(object sender, RoutedEventArgs e)
         {
             NotAvaLec notAva = (NotAvaLec)listView_Copy.SelectedItem;
@@ -496,14 +498,14 @@ namespace TimetableManager
             }
             else
             {
-                NotAvaLecDao.deletenotavailableLec(notAva.LecName);
+                NotAvaLecDao.deletenotavailableLec(notAva.LecID);
                 PopulatenotavailableLec(NotAvaLecDao.getAll());
                 clearnotavailablelec();
             }
         }
 
 
-        //=====================Selection Changed Not Available======
+        //=====================Selection Changed Not Available Lectuers======
 
 
         private void listView_Copy_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -526,6 +528,150 @@ namespace TimetableManager
             txtNAID.Text = "";
             txtNAlec.Text = "";
             selectnotavailabletime.Text = "";
+        }
+
+        //=================================---------------------------Not Available Sessions-----------------====================================================================================
+
+        //==================================NOT AVAILABLE Sessions Populate Table=============================
+        private void PopulatenotavailableSessions(List<NotAvailableSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView1.ItemsSource = observableList;
+
+        }
+
+        private void PopulateNOTASessions(List<NotAvailableSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listView1_COPY.ItemsSource = observableList;
+
+        }
+
+        //============================LOAD SUBJECT COMBO BOX===============================
+
+        public void loadSUBCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subj_name"].ToString();
+                        selectsubject.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        //===========================-----------------------------Retrive Normal Sessions------------------==================================
+        private void sessionsubmitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
+
+            notAvailableSessions.NotAvaSubject= selectsubject.Text;
+            PopulatenotavailableSessions(NotAvailableSessionDAO.getAllSesions(notAvailableSessions.NotAvaSubject));
+        }
+
+        private void listView1_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableSessions avasessions = (NotAvailableSessions)listView1_COPY.SelectedItem;
+
+            if (avasessions != null)
+            {
+                txtNASessionid.Text = avasessions.NotAvaSessionID.ToString();
+              
+                selectStime.Text = avasessions.NotAvaSesionTime.ToString();
+
+
+            }
+        }
+        //==============================================================ADD NOT AVAILABLE SESSIONS=======================================================
+        private void AddSessionBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableSessions notSessions = new NotAvailableSessions();
+
+            notSessions.NotAvaSessionID= int.Parse(txtNASessionid.Text);
+            notSessions.NotAvaSesionTime = double.Parse(selectStime.Text);
+            NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
+            
+            PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+        }
+
+        //==========================================Not Available Time Combo Box=====================================================
+
+        public void loadStimeCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT hours FROM Weekday_Days";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["hours"].ToString();
+                        selectStime.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableSessions avaNOTS = (NotAvailableSessions)listView1.SelectedItem;
+
+            if (avaNOTS != null)
+            {
+                txtNASessionid.Text = avaNOTS.NotAvaSessionID.ToString();
+                //txtNAlec.Text = avaLec.LecName;
+                // selectnotavailabletime.Text = avaLec.Lectime.ToString();
+
+
+            }
+        }
+
+        public void clearnotavailableSessions()
+        {
+            txtNASessionid.Text = "";
+            selectStime.Text = "";
+        }
+        private void DeleteNotAvaSessionBTN_Click(object sender, RoutedEventArgs e)
+        {
+
+            NotAvailableSessions notAvaSesion = (NotAvailableSessions)listView1_COPY.SelectedItem;
+
+            if (notAvaSesion == null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvailableSessionDAO.deletenotavailableSessions(notAvaSesion.NotAvaSessionID);
+                PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+                clearnotavailableSessions();
+            }
         }
     }
 }

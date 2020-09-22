@@ -225,39 +225,36 @@
                                 <ColumnDefinition Width="549*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="2"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="2" SelectionChanged="listView1_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBJECT" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SESSION" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="GROUP ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubject}" Header="SUBJECT" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSessionID}" Header="SESSION ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubgroupId}" Header="SUBGROUP ID" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="50.5,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.Column="1"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="160.5,306,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="160.5,360,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="160.5,414,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="50.5,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top" Grid.Column="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="50.5,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top" Grid.Column="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="50.5,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="1"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listView1_COPY" Grid.Column="2"  >
+                            <Button x:Name="sessionsubmitBtn" Content="SUBMIT" HorizontalAlignment="Left" Margin="50.5,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.Column="1" Click="sessionsubmitBtn_Click"/>
+                            <ComboBox x:Name="selectsubject" HorizontalAlignment="Left" Margin="159,358,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="50,373,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="1"/>
+                            <ListView  Margin="61,207,67,54" x:Name="listView1_COPY" Grid.Column="2" SelectionChanged="listView1_COPY_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION ID" Width="250"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSessionID}" Header="SESSION ID" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSesionTime}" Header="TIME" Width="250"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="2" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="2" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
-                            <Button Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <ComboBox x:Name="selectStime" Grid.Column="2" HorizontalAlignment="Left" Margin="344,99,0,0" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,114,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" RenderTransformOrigin="0.445,-0.104" FontWeight="Bold"/>
+                            <Button x:Name="AddSessionBTN" Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="246,159,0,0" VerticalAlignment="Top" Width="75" Click="AddSessionBTN_Click"/>
+                            <Button x:Name="DeleteNotAvaSessionBTN" Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="442,476,0,0" VerticalAlignment="Top" Width="91" Click="DeleteNotAvaSessionBTN_Click" />
+                            <TextBox x:Name="txtNASessionid" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="344,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,63,0,0" TextWrapping="Wrap" Text="Session ID" VerticalAlignment="Top" FontWeight="Bold"/>
                         </Grid>
                     </TabItem>
                     <!--Avaibility Group Tab-->
@@ -274,6 +271,7 @@
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" GROUP_Information">
 
                                         <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SESSION" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="SUBJECT" Width="100"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="GROUP ID" Width="100"/>
 
 
