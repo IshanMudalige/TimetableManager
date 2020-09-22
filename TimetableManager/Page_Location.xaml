@@ -68,6 +68,7 @@
                     <ComboBox x:Name="selectRoomType" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" HorizontalAlignment="Left" SelectionChanged="selectRoomType_SelectionChanged">
                         <ComboBoxItem Content="Lecture Room" VerticalAlignment="Center"/>
                         <ComboBoxItem Content="Lab" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="Auditorium" VerticalAlignment="Center"/>
                     </ComboBox>
 
 
@@ -197,6 +198,89 @@
 
 
                                 <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_1"/>
+                            </Grid>
+                        </TabItem>
+
+
+
+
+                        <TabItem Header="For Groups">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,48,0,0" TextWrapping="Wrap" Text="Select Academic ID" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectAcademicIdRoom" HorizontalAlignment="Left" Margin="266,46,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectAcademicIdRoom_SelectionChanged"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,110,0,0" TextWrapping="Wrap" Text="Select Group ID" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectGroupIdRoom" HorizontalAlignment="Left" Margin="266,107,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectGroupIdRoom_SelectionChanged"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="61,210,0,0" TextWrapping="Wrap" Text="No. of Students in Group :-"  Height="25" VerticalAlignment="Top" Width="205" FontSize="16" RenderTransformOrigin="0.5,0.5"/>
+                                <TextBox x:Name="noOfStudentsGroupRoom" Foreground="Red" Height="25" Margin="266,208,36.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Background="White" FontWeight="Bold" IsReadOnly="True" TextChanged="noOfStudentsGroupRoom_TextChanged" FontSize="14"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,286,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectBuildingGroup" HorizontalAlignment="Left" Margin="266,286,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingGroup_SelectionChanged"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,356,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectRoomGroup" HorizontalAlignment="Left" Margin="266,353,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+
+                                <Button x:Name="addGroupRoom" Content="Add" HorizontalAlignment="Left" Margin="211,419,0,0" VerticalAlignment="Top" Width="127" Click="addGroupRoom_Click"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,175,0,0" TextWrapping="Wrap" Text="Select Sub-Group ID" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectSubGroupIdRoom" HorizontalAlignment="Left" Margin="266,172,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectSubGroupIdRoom_SelectionChanged"/>
+
+
+                                <ListView x:Name="listviewGroupRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewGroupRoom_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding GroupIdRoom}" Header="Group ID" Width="190"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubGroupIdRoom}" Header="Sub-Group ID" Width="180"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding GroupRoomName}" Header="Room Name" Width="125"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_2"/>
+
+
+                            </Grid>
+                        </TabItem>
+
+
+
+                        <TabItem Header="For Specific Tags">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,48,0,0" TextWrapping="Wrap" Text="Select Specific Tag" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectTagRoom" HorizontalAlignment="Left" Margin="266,46,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                                
+                                
+                                <TextBlock HorizontalAlignment="Left" Margin="40,116,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectRoomTypeTag" HorizontalAlignment="Left" Margin="266,114,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                                <Button x:Name="addTagRoom" Content="Add" HorizontalAlignment="Left" Margin="216,214,0,0" VerticalAlignment="Top" Width="127" Click="addTagRoom_Click"/>
+                                
+                                
+                                <ListView x:Name="listviewTagRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag" Width="190"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding RoomTypeTag}" Header="Room Type" Width="180"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_3"/>
+
+
+
                             </Grid>
                         </TabItem>
 
