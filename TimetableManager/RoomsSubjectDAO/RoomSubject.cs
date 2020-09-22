@@ -12,7 +12,7 @@ namespace TimetableManager.RoomsSubjectDAO
         private string s_code;
         private string s_name;
         private string b_name;
-        private String r_name;
+        private string r_name;
 
         public RoomSubject() { }
 

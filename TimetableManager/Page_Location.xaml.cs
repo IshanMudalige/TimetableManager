@@ -19,6 +19,8 @@ using System.Data.SQLite;
 using TimetableManager.RoomsDAO;
 using TimetableManager.RoomsLecturerDAO;
 using TimetableManager.RoomsSubjectDAO;
+using TimetableManager.RoomsGroupDAO;
+using TimetableManager.RoomsTag;
 
 namespace TimetableManager
 {
@@ -32,14 +34,23 @@ namespace TimetableManager
             InitializeComponent();
             loadBuildingCombo();
             loadBuildingComboLec();
+
             loadBuildingComboSub();
             loadLecturerComboLec();
+
             loadSubCodeCombo();
+
+            loadAcademicIDCombo();
+
+            loadTagsCombo();
+            loadRoomTypeTagCombo();
 
             PopulateTableBuilding(BuildingNamesDAO.getAll());
             PopulateTableRooms(RoomNamesDAO.getAll());
             PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
             PopulateTableRoomSubject(RoomSubjectDAO.getAll());
+            PopulateTableRoomGroups(RoomGroupDAO.getAll());
+            PopulateTableRoomTag(RoomTagDAO.getAll());
         }
 
         //Building Names COMBO BOX - ROOMS PAGE
@@ -57,7 +68,7 @@ namespace TimetableManager
                     
                     string bname = reader["b_name"].ToString();
                     selectBuildingName.Items.Add(bname);
-
+                    selectBuildingGroup.Items.Add(bname);
                 }
 
             }
@@ -498,7 +509,7 @@ namespace TimetableManager
 
                     string bname = reader["b_name"].ToString();
                     selectBuildingSub.Items.Add(bname);
-
+                   
                 }
 
             }
@@ -578,6 +589,261 @@ namespace TimetableManager
                 selectRoomSub.Text = "";
         }*/
 
+
+
+
+
+
+
+        //-----ASSIGN SUBJECT SPECIFIC ROOM-----
         
+
+
+
+        //load academic id
+        public void loadAcademicIDCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(academic_id) FROM Groups_Info";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string academicId = reader["academic_id"].ToString();
+                    selectAcademicIdRoom.Items.Add(academicId);
+
+                }
+
+            }
+        }
+
+        //load group id
+        private void selectAcademicIdRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(group_id) FROM Groups_Info WHERE academic_id = @academicId";
+                command.Parameters.AddWithValue("@academicId", selectAcademicIdRoom.SelectedValue.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string groupId = reader["group_id"].ToString();
+                    selectGroupIdRoom.Items.Add(groupId);
+
+                }
+
+            }
+        }
+
+        private void noOfStudentsGroupRoom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        
+        //load sub-group id
+        private void selectGroupIdRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT subgroup_id FROM Groups_Info WHERE group_id = @groupId";
+                command.Parameters.AddWithValue("@groupId", selectGroupIdRoom.SelectedValue.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string subGroup = reader["subgroup_id"].ToString();
+                    selectSubGroupIdRoom.Items.Add(subGroup);
+                }
+
+
+            }
+        }
+
+        //load student count in group
+        private void selectSubGroupIdRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT student_count FROM Groups_Info WHERE subgroup_id = @subgroupId";
+                command.Parameters.AddWithValue("@subgroupId", selectSubGroupIdRoom.SelectedValue.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string stCount = reader["student_count"].ToString();
+                    noOfStudentsGroupRoom.Text = stCount;
+                }
+
+
+            }
+        }
+
+        //select room
+        private void selectBuildingGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(r_name) FROM Room_Names, Groups_Info WHERE (b_name = @bname AND @stCount < capacity)";
+                command.Parameters.AddWithValue("@stCount", noOfStudentsGroupRoom.Text.ToString());
+                command.Parameters.AddWithValue("@bname", selectBuildingGroup.SelectedValue.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string rname = reader["r_name"].ToString();
+                    selectRoomGroup.Items.Add(rname);
+
+                }
+
+            }
+        }
+
+        //add room button
+        private void addGroupRoom_Click(object sender, RoutedEventArgs e)
+        {
+            RoomGroup room = new RoomGroup();
+
+            room.GroupIdRoom = selectGroupIdRoom.Text;
+            room.SubGroupIdRoom = selectSubGroupIdRoom.Text;
+            room.GroupBuildingName = selectBuildingGroup.Text;
+            room.GroupRoomName = selectRoomGroup.Text;
+
+            RoomGroupDAO.insertNewRoomGroup(room);
+            PopulateTableRoomGroups(RoomGroupDAO.getAll());
+        }
+
+        //fill table group_rooms
+        private void PopulateTableRoomGroups(List<RoomGroup> list)
+        {
+
+            var observableList = new ObservableCollection<RoomGroup>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewGroupRoom.ItemsSource = observableList;
+        }
+
+        private void listviewGroupRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        //remove button
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            RoomGroup room = (RoomGroup)listviewGroupRoom.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a Group from the Table.");
+            }
+            else
+            {
+                RoomGroupDAO.deleteRoomGroup(room.SubGroupIdRoom);
+                PopulateTableRoomGroups(RoomGroupDAO.getAll());
+            }
+        }
+
+
+
+        //======================================
+        //-----ASSIGN SUBJECT SPECIFIC ROOM-----
+        //======================================
+
+
+        //load tags
+        public void loadTagsCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(tagname) FROM Tag";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string tag = reader["tagname"].ToString();
+                    selectTagRoom.Items.Add(tag);
+
+                }
+
+            }
+        }
+
+        //load types
+        public void loadRoomTypeTagCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(room_type) FROM Room_Names";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string roomType = reader["room_type"].ToString();
+                    selectRoomTypeTag.Items.Add(roomType);
+
+                }
+
+            }
+        }
+
+        //add tag
+        private void addTagRoom_Click(object sender, RoutedEventArgs e)
+        {
+            RoomTag room = new RoomTag();
+
+            room.Tag = selectTagRoom.Text;
+            room.RoomTypeTag = selectRoomTypeTag.Text;
+
+            RoomTagDAO.insertNewRoomTag(room);
+            PopulateTableRoomTag(RoomTagDAO.getAll());
+        }
+        
+        //fill tables
+        private void PopulateTableRoomTag(List<RoomTag> list)
+        {
+
+            var observableList = new ObservableCollection<RoomTag>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewTagRoom.ItemsSource = observableList;
+        }
+
+        //delete tag
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            RoomTag room = (RoomTag)listviewTagRoom.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a tag from the Table.");
+            }
+            else
+            {
+                RoomTagDAO.deleteRoomTag(room.Tag);
+                PopulateTableRoomTag(RoomTagDAO.getAll());
+            }
+        }
     }
 }

@@ -6,24 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace TimetableManager.RoomsSubjectDAO
+namespace TimetableManager.RoomsGroupDAO
 {
-    class RoomSubjectDAO
+    class RoomGroupDAO
     {
-        public RoomSubjectDAO() { }
+        public RoomGroupDAO() { }
 
         //insert
-        public static void insertNewRoomSubject(RoomSubject room)
+        public static void insertNewRoomGroup(RoomGroup room)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "INSERT INTO Room_Names_Subject(s_code,b_name,r_name) VALUES (@scode,@bname,@rname)";
+                command.CommandText = "INSERT INTO Room_Names_Group(g_id,sg_id,gb_name,gr_name) VALUES (@gid,@sgid,@bname,@rname)";
 
-                command.Parameters.AddWithValue("@scode", room.SubjectCode);
-                command.Parameters.AddWithValue("@bname", room.SubBuildingName);
-                command.Parameters.AddWithValue("@rname", room.SubRoomName);
+                command.Parameters.AddWithValue("@gid", room.GroupIdRoom);
+                command.Parameters.AddWithValue("@sgid", room.SubGroupIdRoom);
+                command.Parameters.AddWithValue("@bname", room.GroupBuildingName);
+                command.Parameters.AddWithValue("@rname", room.GroupRoomName);
 
 
                 var t = command.ExecuteNonQuery();
@@ -32,36 +33,35 @@ namespace TimetableManager.RoomsSubjectDAO
         }
 
 
-        //getall
-
-        public static List<RoomSubject> getAll()
+        public static List<RoomGroup> getAll()
         {
-            List<RoomSubject> roomSubject = new List<RoomSubject>();
+            List<RoomGroup> roomGroup = new List<RoomGroup>();
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
 
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT s_code, b_name, r_name FROM Room_Names_Subject";
+                command.CommandText = @"SELECT g_id, sg_id, gr_name FROM Room_Names_Group";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    RoomSubject room = new RoomSubject();
-                    room.SubjectCode = reader["s_code"].ToString();
-                    room.SubBuildingName = reader["b_name"].ToString();
-                    room.SubRoomName = reader["r_name"].ToString();
+                    RoomGroup room = new RoomGroup();
+                    room.GroupIdRoom = reader["g_id"].ToString();
+                    room.SubGroupIdRoom = reader["sg_id"].ToString();
+                    room.GroupRoomName = reader["gr_name"].ToString();
 
-                    roomSubject.Add(room);
+                    roomGroup.Add(room);
 
                 }
 
             }
-            return roomSubject;
+            return roomGroup;
         }
 
 
+
         //remove
-        public static void deleteRoomSubject(string subCode)
+        public static void deleteRoomGroup(string subGroupId)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -69,8 +69,8 @@ namespace TimetableManager.RoomsSubjectDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "DELETE FROM Room_Names_Subject WHERE s_code = @scode";
-                    command.Parameters.AddWithValue("@scode", subCode);
+                    command.CommandText = "DELETE FROM Room_Names_Group WHERE sg_id = @sgid";
+                    command.Parameters.AddWithValue("@sgid", subGroupId);
 
 
                     var t = command.ExecuteNonQuery();
