@@ -100,7 +100,7 @@ namespace TimetableManager.GroupDAO
                                "group_id = @groupid," +
                                "subgroup_no = @subgroupno," +
                                "subgroup_id = @subgroupid " +
-                               "WHERE group_id = @ngroupid";
+                               "WHERE subgroup_id = @ngroupid";
                     command.Parameters.AddWithValue("@ngroupid", ngroupid);
                     command.Parameters.AddWithValue("@academicid", groups.AcademicId);
                     command.Parameters.AddWithValue("@studentcount", groups.StudentCount);
@@ -130,8 +130,8 @@ namespace TimetableManager.GroupDAO
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
 
-                    command.CommandText = " DELETE FROM Groups_Info  WHERE group_id = @groupid";
-                    command.Parameters.AddWithValue( "@groupid", ngroupid);
+                    command.CommandText = " DELETE FROM Groups_Info  WHERE subgroup_id = @sgroupid";
+                    command.Parameters.AddWithValue( "@sgroupid", ngroupid);
 
                     var s = command.ExecuteNonQuery();
 
@@ -150,7 +150,7 @@ namespace TimetableManager.GroupDAO
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "SELECT academic_id,group_id,subgroup_id FROM Groups_Info WHERE group_id LIKE '%" + groupid + "%'";
+                command.CommandText = "SELECT academic_id,group_id,subgroup_id FROM Groups_Info WHERE subgroup_id LIKE '%" + groupid + "%'";
 
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())

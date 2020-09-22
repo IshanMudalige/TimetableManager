@@ -35,6 +35,7 @@ namespace TimetableManager
             loaddepartmentCombo();
             loadcenterCombo();
             loadtimeCombobox();
+            PopulatenotavailableLec(NotAvaLecDao.getAll());
 
         }
 
@@ -455,14 +456,15 @@ namespace TimetableManager
         //====================================================ADD NOT Available Lectuers =================================
         private void NAL_ADD_BTN_Click(object sender, RoutedEventArgs e)
         {
-            NotAvaLec notAvaLec = (NotAvaLec)listView.SelectedItem;
-            if (notAvaLec != null)
-            {
+            
                 NotAvaLec avaLec = new NotAvaLec();
+
+                avaLec.LecID = int.Parse(txtNAID.Text);
+                avaLec.LecName = txtNAlec.Text;
                 avaLec.Lectime = double.Parse(selectnotavailabletime.Text);
-                NotAvaLecDao.insertnotAvailableLec(notAvaLec.LecID, notAvaLec.LecName, avaLec);
+                NotAvaLecDao.insertnotAvailableLec( avaLec);
                 PopulatenotavailableLec(NotAvaLecDao.getAll());
-            }
+            
         }
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -472,14 +474,58 @@ namespace TimetableManager
 
             if (avaLec != null)
             {
+                txtNAID.Text = avaLec.LecID.ToString();
+                txtNAlec.Text = avaLec.LecName;
+               // selectnotavailabletime.Text = avaLec.Lectime.ToString();
+
+               
+            }
+           
+
+
+
+        }
+
+        private void NAL_DeleteBTN_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvaLec notAva = (NotAvaLec)listView_Copy.SelectedItem;
+
+            if(notAva==null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvaLecDao.deletenotavailableLec(notAva.LecName);
+                PopulatenotavailableLec(NotAvaLecDao.getAll());
+                clearnotavailablelec();
+            }
+        }
+
+
+        //=====================Selection Changed Not Available======
+
+
+        private void listView_Copy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvaLec avaLec = (NotAvaLec)listView_Copy.SelectedItem;
+
+            if (avaLec != null)
+            {
+                txtNAID.Text = avaLec.LecID.ToString();
+                txtNAlec.Text = avaLec.LecName;
                 selectnotavailabletime.Text = avaLec.Lectime.ToString();
 
 
             }
+        }
 
-
-
-
+        //====clear not avaible===
+        public void clearnotavailablelec()
+        {
+            txtNAID.Text = "";
+            txtNAlec.Text = "";
+            selectnotavailabletime.Text = "";
         }
     }
 }
