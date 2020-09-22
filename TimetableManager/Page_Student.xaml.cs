@@ -260,7 +260,7 @@ namespace TimetableManager
                     groups.SubGroupno = int.Parse(txtsubgroupno.Text);
                     groups.SubGroupId = txtsubgroupid.Text;
 
-                    GroupDetailsDAO.updategroups(groups1.GroupId, groups);
+                    GroupDetailsDAO.updategroups(groups1.SubGroupId, groups);
                     PopulateTableGroup(GroupDetailsDAO.getAll());
                     cleargrp();
 
@@ -375,7 +375,7 @@ namespace TimetableManager
             }
             else
             {
-                GroupDetailsDAO.deletegroups(group.GroupId);
+                GroupDetailsDAO.deletegroups(group.SubGroupId);
                 PopulateTableGroup(GroupDetailsDAO.getAll());
                 cleargrp();
             }

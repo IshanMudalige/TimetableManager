@@ -18,7 +18,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 
         //==================INSERT NOT AVAILABLE LECTUERS===================
 
-        public static void insertnotAvailableLec(int lid,string lname,NotAvaLec notAvaLec)
+        public static void insertnotAvailableLec(NotAvaLec notAvaLec)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -26,7 +26,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "INSERT INTO Not_Available_Lec(lec_id,lec_name,time)VALUES (@lecid='"+lid+"',@lecname='"+lname+"',@lectime)";
+                    command.CommandText = "INSERT INTO Not_Available_Lec(lec_id,lec_name,time)VALUES (@lecid,@lecname,@lectime)";
 
                     command.Parameters.AddWithValue("@lecid", notAvaLec.LecID);
                     command.Parameters.AddWithValue("@lecname", notAvaLec.LecName);
@@ -55,12 +55,12 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT lec_name,time  FROM  Not_Available_Lec";
+                    command.CommandText = @"SELECT lec_name,time FROM  Not_Available_Lec";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvaLec notAvaLec = new NotAvaLec();
-                        //notAvaLec.LecID = int.Parse(reader["lec_id"].ToString());
+                       // notAvaLec.LecID = int.Parse(reader["lec_id"].ToString());
                         notAvaLec.LecName = reader["lec_name"].ToString();
                         notAvaLec.Lectime = double.Parse(reader["time"].ToString());
 
@@ -112,6 +112,29 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 
             return LecList;
 
+        }
+
+        //====================================Delete Not available Lec==========================
+        public static void deletenotavailableLec(string nlecname)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+
+                    command.CommandText = " DELETE FROM Not_Available_Lec  WHERE lec_name = @l_name";
+                    command.Parameters.AddWithValue("@l_name", nlecname);
+
+                    var s = command.ExecuteNonQuery();
+
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error in Deleting" + e.Message);
+                }
+            }
         }
     }
 }
