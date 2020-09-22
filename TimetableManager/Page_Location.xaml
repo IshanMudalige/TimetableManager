@@ -99,12 +99,110 @@
             </TabItem>
 
 
-            <TabItem Header="Assign Lecture Room">
+            <TabItem Header="Assign Room">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="289*"/>
-                        <ColumnDefinition Width="288*"/>
-                    </Grid.ColumnDefinitions>
+
+
+                    <TabControl HorizontalAlignment="Left" Height="622" Margin="10,10,0,0" VerticalAlignment="Top" Width="1134">
+
+
+                        <TabItem Header="Assign Rooms For Sessions">
+                            <Grid Background="White"/>
+                        </TabItem>
+
+
+                        <TabItem Header="For Lecturers">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="34,48,0,0" TextWrapping="Wrap" Text="Lecturer Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectLecturer" HorizontalAlignment="Left" Margin="260,45,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectLecturer_SelectionChanged"/>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="34,98,0,0" TextWrapping="Wrap" Text="Lecturer is initially located at :-"  Height="25" VerticalAlignment="Top" Width="250" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="locatedRoom" Foreground="Red" Height="25" Margin="289,98,42.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Background="White" FontWeight="Bold" IsReadOnly="True" TextChanged="locatedRoom_TextChanged"/>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="34,202,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectBuildingNameLec" HorizontalAlignment="Left" Margin="260,199,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingNameLec_SelectionChanged"/>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="34,278,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectRoomNameLec" HorizontalAlignment="Left" Margin="260,275,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+
+                                <Button x:Name="addLecturerRoom" Content="Add" HorizontalAlignment="Left" Margin="230,374,0,0" VerticalAlignment="Top" Width="127" Click="addLecturerRoom_Click"/>
+
+
+                                <ListView x:Name="listviewLecturerRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
+                                            <GridViewColumn DisplayMemberBinding="{Binding LecturerName}" Header="Lecturer Name" Width="190"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding LecBuildingName}" Header="Building Name" Width="180"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding LecRoomName}" Header="Room Name" Width="125"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click"/>
+
+                            </Grid>
+                        </TabItem>
+
+
+                        <TabItem Header="For Subject">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,73,0,0" TextWrapping="Wrap" Text="Select Subject Code" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectSubjectCode" HorizontalAlignment="Left" Margin="266,70,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectSubjectCode_SelectionChanged"/>
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="87,121,0,0" TextWrapping="Wrap" Text="Subject Selected Is :-"  Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="subjectSelected" Foreground="Red" Height="25" Margin="266,121,36.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Background="White" FontWeight="Bold" IsReadOnly="True" TextChanged="subjectSelected_TextChanged"/>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,213,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectBuildingSub" HorizontalAlignment="Left" Margin="266,211,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingSub_SelectionChanged"/>
+
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="40,290,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectRoomSub" HorizontalAlignment="Left" Margin="266,287,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+
+
+                                <Button x:Name="addSubjectRoom" Content="Add" HorizontalAlignment="Left" Margin="227,371,0,0" VerticalAlignment="Top" Width="127" Click="addSubjectRoom_Click"/>
+
+
+
+                                <ListView x:Name="listviewSubjectRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubjectCode}" Header="Subject Code" Width="190"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubBuildingName}" Header="Building Name" Width="180"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubRoomName}" Header="Room Name" Width="125"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_1"/>
+                            </Grid>
+                        </TabItem>
+
+
+                    </TabControl>
+
                 </Grid>
             </TabItem>
 

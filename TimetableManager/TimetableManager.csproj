@@ -90,6 +90,10 @@
     <Compile Include="Not AvailableSessionsDAO\NotAvaLecDao.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
+    <Compile Include="RoomsLecturerDAO\RoomLecturer.cs" />
+    <Compile Include="RoomsLecturerDAO\RoomLecturerDAO.cs" />
+    <Compile Include="RoomsSubjectDAO\RoomSubject.cs" />
+    <Compile Include="RoomsSubjectDAO\RoomSubjectDAO.cs" />
     <Compile Include="StatisticsDAO\LecStat.cs" />
     <Compile Include="StatisticsDAO\LecStatDAO.cs" />
     <Compile Include="StatisticsDAO\StuStat.cs" />

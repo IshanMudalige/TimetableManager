@@ -26,7 +26,7 @@ namespace TimetableManager.BuildingDAO
                 command.Parameters.AddWithValue("@b_name", building.BuildingName);
 
                 var t = command.ExecuteNonQuery();
-                //MessageBox.Show("Successfully Added");
+                MessageBox.Show("Successfully Added");
             }
         }
 
