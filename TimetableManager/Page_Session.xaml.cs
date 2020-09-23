@@ -38,6 +38,7 @@ namespace TimetableManager
             loadSUBCombobox();
             loadStimeCombobox();
             PopulatenotavailableLec(NotAvaLecDao.getAll());
+            PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
 
         }
 
@@ -321,7 +322,20 @@ namespace TimetableManager
             normalSessions.Duration = double.Parse(txtDuration.Text);
 
             NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
+            PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+
         }
+
+        //Display all normal sessions in table view
+        private void PopulateTableNormalSess(List<NormalSessions> list)
+        {
+            var observableList = new ObservableCollection<NormalSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewSession.ItemsSource = observableList;
+        }
+
+
 
         //==================================NOT AVAILABLE LEC==============================
         private void PopulatenotavailableLec(List<NotAvaLec> list)
