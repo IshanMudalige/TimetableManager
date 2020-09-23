@@ -55,6 +55,9 @@ namespace TimetableManager
             PopulateTableRoomTag(RoomTagDAO.getAll());
             PopulateTableRoomAssignOld(NorSessionsDetailsDAO.getAllSessionsAssign());
 
+            PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+            //loadRoomAssignCombo();
+
 
         }
 
@@ -889,10 +892,7 @@ namespace TimetableManager
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void groupIdAssign_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -916,7 +916,7 @@ namespace TimetableManager
 
         private void preferTag_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(preferSubject.Text.ToString() != null)
+            /*if(preferSubject.Text.ToString() != null)
             { 
                 using (SQLiteConnection conn = new SQLiteConnection(App.connString))
                 {
@@ -934,33 +934,50 @@ namespace TimetableManager
 
 
                 }
-            }
 
-            else if (preferSubject.Text.ToString() == null && preferTag.Text.ToString() != null)
+
+            }*/
+            
+            if (preferSubject.Text.ToString() != null)
             {
                 using (SQLiteConnection conn = new SQLiteConnection(App.connString))
                 {
 
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT distinct(r_name) FROM Room_Names, Room_Names_Tag WHERE (room_type = rt_type AND tag_room = @tag)";
-                    command.Parameters.AddWithValue("@tag", preferTag.Text.ToString());
+                    command.CommandText = @"SELECT distinct(r_name) FROM Room_Names WHERE room_type = @type";
+                    command.Parameters.AddWithValue("@type", preferTag.Text.ToString());
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string tag = reader["r_name"].ToString();
-                        selectRoomAssign.Items.Add(tag);
+
+                        string rname = reader["r_name"].ToString();
+                        selectRoomAssign.Items.Add(rname);
                     }
-
-
                 }
-            }
 
-            else
-            {
-                
             }
         }
+
+        /*public void loadRoomAssignCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT r_name FROM Room_Names WHERE room_type = @type";
+                command.Parameters.AddWithValue("@type", preferTag.Text.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string rname = reader["r_name"].ToString();
+                    selectRoomAssign.Items.Add(rname);
+                }
+
+            }
+        }*/
 
         private void tagAssign_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -999,6 +1016,45 @@ namespace TimetableManager
                 }
 
 
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            RoomAssign room = new RoomAssign();
+
+            room.Sid = int.Parse(sessionId.Text);
+            room.Scode = subjectCodeAssign.Text;
+            room.SubID = groupIdAssign.Text;
+            room.Tag = tagAssign.Text;
+            room.RoomName = selectRoomAssign.Text;
+
+            RoomAssignDAO.insertNewRoomSessions(room);
+            PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+        }
+
+
+        private void PopulateTableRoomAssignNew(List<RoomAssign> list)
+        {
+
+            var observableList = new ObservableCollection<RoomAssign>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewAssignedSession.ItemsSource = observableList;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            RoomAssign room = (RoomAssign)listviewAssignedSession.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a tag from the Table.");
+            }
+            else
+            {
+                RoomAssignDAO.deleteRoomAssign(room.Sid);
+                PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
             }
         }
     }
