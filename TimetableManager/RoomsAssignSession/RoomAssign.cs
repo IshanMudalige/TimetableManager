@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TimetableManager.NormalSessionsDAO
+namespace TimetableManager.RoomsAssignSession
 {
-    class NormalSessions
+    class RoomAssign
     {
-        private int sid;
         private string lecturers;
         private string s_name;
         private string s_code;
@@ -17,13 +16,13 @@ namespace TimetableManager.NormalSessionsDAO
         private string sub_id;
         private int no_students;
         private double duration;
+        private string r_name;
+        private string r_type;
 
+        public RoomAssign() { }
 
-        public NormalSessions() { }
-
-        public NormalSessions(int sid, string lecturers, string s_name, string s_code, string tag, string grp_id, string sub_id, int no_students, double duration)
+        public RoomAssign(string lecturers, string s_name, string s_code, string tag, string grp_id, string sub_id, int no_students, double duration, string roomName, string roomType)
         {
-            this.sid = sid;
             this.lecturers = lecturers;
             this.s_name = s_name;
             this.s_code = s_code;
@@ -32,9 +31,9 @@ namespace TimetableManager.NormalSessionsDAO
             this.sub_id = sub_id;
             this.no_students = no_students;
             this.duration = duration;
+            this.r_name = roomName;
+            this.r_type = roomType;
         }
-
-        public int Sid { get => sid; set => sid = value; }
 
         public string Lecturers { get => lecturers; set => lecturers = value; }
 
@@ -52,6 +51,9 @@ namespace TimetableManager.NormalSessionsDAO
 
         public double Duration { get => duration; set => duration = value; }
 
+        public string RoomName { get => r_name; set => r_name = value; }
+
+        public string RoomType { get => r_type; set => r_type = value; }
+
     }
- 
 }
