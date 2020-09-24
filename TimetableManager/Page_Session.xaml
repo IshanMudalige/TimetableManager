@@ -143,12 +143,12 @@
                         <StackPanel>
                             <ListView  Margin="40,10,10,10" x:Name="listViewSession" Grid.ColumnSpan="2" Height="440">
                                 <ListView.View>
-                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Lecturers" Width="240"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Subject" Width="120"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubName}" Header="Group ID" Width="120"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Tag" Width="100"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding SubCode}" Header="Duration" Width="100"/>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="NormalSessions Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Lecturers}" Header="Lecturers" Width="240"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Sname}" Header="Subject" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding GrpID}" Header="Group ID" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Duration}" Header="Duration" Width="100"/>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
