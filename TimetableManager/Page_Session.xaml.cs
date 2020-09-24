@@ -33,11 +33,18 @@ namespace TimetableManager
             loadSubjectNames();
             loadfacultyCombo();
             loaddepartmentCombo();
-            loadcenterCombo();
-            loadtimeCombobox();
+            
             loadSUBCombobox();
-            loadStimeCombobox();
+            loadSUBGRPCombobox();
+            loadGRPTagCombobox();
+            loadSUBGRPSubjectCMB();
+            loadSUBGRPTagCombobox();
+
+
             PopulatenotavailableLec(NotAvaLecDao.getAll());
+            PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
+            PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+            PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
 
         }
 
@@ -393,55 +400,8 @@ namespace TimetableManager
             }
         }
 
-        //==========================================Center Combo Box=====================================================
-
-        public void loadcenterCombo()
-        {
-            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
-            {
-                try
-                {
-                    conn.Open();
-                    SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT center FROM Lecturer";
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string ct = reader["center"].ToString();
-                        selectCenter.Items.Add(ct);
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("-" + e);
-                }
-            }
-        }
-
-        //==========================================Time Combo Box=====================================================
-
-        public void loadtimeCombobox()
-        {
-            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
-            {
-                try
-                {
-                    conn.Open();
-                    SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT hours FROM Weekday_Days";
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string t = reader["hours"].ToString();
-                        selectnotavailabletime.Items.Add(t);
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("-" + e);
-                }
-            }
-        }
+        
+    
 
         //=========================================================Retrive Specific LECTUERS========================================== 
         private void submit_Click(object sender, RoutedEventArgs e)
@@ -450,8 +410,7 @@ namespace TimetableManager
 
             notAvaLec.Faculty = selectfaculty.Text;
             notAvaLec.Department = selectDepartment.Text;
-            notAvaLec.Center = selectCenter.Text;
-            PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department, notAvaLec.Center));
+            PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department));
 
         }
 
@@ -463,7 +422,8 @@ namespace TimetableManager
 
                 avaLec.LecID = int.Parse(txtNAID.Text);
                 avaLec.LecName = txtNAlec.Text;
-                avaLec.Lectime = double.Parse(selectnotavailabletime.Text);
+                avaLec.LecDay = selectnotavailableDay.Text;
+                avaLec.Lectime = selectnotavailabletime.Text;
                 NotAvaLecDao.insertnotAvailableLec( avaLec);
                 PopulatenotavailableLec(NotAvaLecDao.getAll());
             
@@ -516,6 +476,7 @@ namespace TimetableManager
             {
                 txtNAID.Text = avaLec.LecID.ToString();
                 txtNAlec.Text = avaLec.LecName;
+                selectnotavailableDay.Text = avaLec.LecDay;
                 selectnotavailabletime.Text = avaLec.Lectime.ToString();
 
 
@@ -528,6 +489,7 @@ namespace TimetableManager
             txtNAID.Text = "";
             txtNAlec.Text = "";
             selectnotavailabletime.Text = "";
+            selectnotavailableDay.Text = "";
         }
 
         //=================================---------------------------Not Available Sessions-----------------====================================================================================
@@ -579,7 +541,7 @@ namespace TimetableManager
                 }
             }
         }
-        //===========================-----------------------------Retrive Normal Sessions------------------==================================
+        //===========================-----------------------------Retrive Normal Sessions to not availabel------------------==================================
         private void sessionsubmitBtn_Click(object sender, RoutedEventArgs e)
         {
             NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
@@ -607,36 +569,14 @@ namespace TimetableManager
             NotAvailableSessions notSessions = new NotAvailableSessions();
 
             notSessions.NotAvaSessionID= int.Parse(txtNASessionid.Text);
-            notSessions.NotAvaSesionTime = double.Parse(selectStime.Text);
+            notSessions.NotAvaSessionDay = selectNotAvaDays.Text;
+            notSessions.NotAvaSesionTime = selectStime.Text;
             NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
             
             PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
         }
 
-        //==========================================Not Available Time Combo Box=====================================================
-
-        public void loadStimeCombobox()
-        {
-            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
-            {
-                try
-                {
-                    conn.Open();
-                    SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT hours FROM Weekday_Days";
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string t = reader["hours"].ToString();
-                        selectStime.Items.Add(t);
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("-" + e);
-                }
-            }
-        }
+       
 
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -656,7 +596,10 @@ namespace TimetableManager
         {
             txtNASessionid.Text = "";
             selectStime.Text = "";
+            selectNotAvaDays.Text = "";
         }
+
+        //==============================================================DELETE NOT AVAILABLE SESSIONS=======================================================
         private void DeleteNotAvaSessionBTN_Click(object sender, RoutedEventArgs e)
         {
 
@@ -671,6 +614,287 @@ namespace TimetableManager
                 NotAvailableSessionDAO.deletenotavailableSessions(notAvaSesion.NotAvaSessionID);
                 PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
                 clearnotavailableSessions();
+            }
+        }
+        //===========================================================NOT Available Group======================================
+
+        //==================================NOT AVAILABLE LEC==============================
+
+        //============================LOAD SUBJECT COMBO BOX===============================
+
+        public void loadSUBGRPCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subj_name"].ToString();
+                        selectSubCMB.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //============================LOAD Tag COMBO BOX===============================
+
+        public void loadGRPTagCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT tag FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["tag"].ToString();
+                        selectTagCMB.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        private void PopulatenotavailableGroup(List<NotAvailableGroup> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableGroup>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewGROUP.ItemsSource = observableList;
+
+        }
+
+        private void PopulateNotAVAGroup(List<NotAvailableGroup> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableGroup>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewGROUP_COPY.ItemsSource = observableList;
+
+        }
+        private void GROUP_subbtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableGroup notAvailableGroup = new NotAvailableGroup();
+
+            notAvailableGroup.NotAvaSubname = selectSubCMB.Text;
+            notAvailableGroup.NotAvaGrpTAG = selectTagCMB.Text;
+            PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAllGroups(notAvailableGroup.NotAvaSubname,notAvailableGroup.NotAvaGrpTAG));
+        }
+
+        private void listViewGROUP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableGroup avagroup = (NotAvailableGroup)listViewGROUP.SelectedItem;
+
+            if (avagroup != null)
+            {
+                txtNotAvaGID.Text = avagroup.NotAvaGroupID;
+                txtNotAvaGSub.Text = avagroup.NotAvaSubname;
+
+                
+
+            }
+        }
+
+        private void ADDgrpbtn_Click(object sender, RoutedEventArgs e)
+        {
+           NotAvailableGroup notGroups = new NotAvailableGroup();
+
+            notGroups.NotAvaGroupID = txtNotAvaGID.Text;
+            notGroups.NotAvaSubname = txtNotAvaGSub.Text;
+            notGroups.NotAvaGrpDay = selectgrpdayscmb.Text;
+            notGroups.NotAvaGrpTime = selectNotAvagrouptime.Text;
+            
+            NotAvailableGroupDetailsDao.insertnotAvailableGroup(notGroups);
+            PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
+
+
+        }
+
+        private void listViewGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableGroup avagrp = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
+
+            if (avagrp != null)
+            {
+                txtNotAvaGID.Text = avagrp.NotAvaGroupID;
+                txtNotAvaGSub.Text = avagrp.NotAvaSubname;
+                selectNotAvaDays.Text = avagrp.NotAvaGrpDay;
+                selectNotAvagrouptime.Text = avagrp.NotAvaGrpTime;
+
+
+
+            }
+        }
+
+        //=====================================================----------------Not Avaiable Subgroups------------------------======================================================  
+        //============================LOAD SUBJECT COMBO BOX===============================
+
+        public void loadSUBGRPSubjectCMB()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subj_name"].ToString();
+                        cmbsub.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //============================LOAD Tag COMBO BOX===============================
+
+        public void loadSUBGRPTagCombobox()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT tag FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["tag"].ToString();
+                        cmbtag.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============Populate not available subgroups=====================
+
+        private void PopulatenotavailableSubGroup(List<NotAvailableSubGroup> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableSubGroup>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewSUBGROUP.ItemsSource = observableList;
+
+        }
+
+        private void PopulateNotAVASubGroup(List<NotAvailableSubGroup> list)
+        {
+
+
+            var observableList = new ObservableCollection<NotAvailableSubGroup>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewSUBGROUP_COPY.ItemsSource = observableList;
+
+        }
+
+        private void listViewSUBGROUP_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableSubGroup avasubgroup = (NotAvailableSubGroup)listViewSUBGROUP.SelectedItem;
+
+            if (avasubgroup != null)
+            {
+                txtnotsubgrpid.Text = avasubgroup.NotAvaSubGrpId;
+                txtnotsubgrpsubname.Text = avasubgroup.NotAvaSubGrpSubname;
+
+
+
+            }
+        }
+
+        private void btnSubgroupsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableSubGroup notAvailablesubGroup = new NotAvailableSubGroup();
+
+            notAvailablesubGroup.NotAvaSubGrpSubname = cmbsub.Text;
+            notAvailablesubGroup.NotAvaSubGrpTag = cmbtag.Text;
+
+
+            PopulatenotavailableSubGroup(NotAvailableSubGroupDAO.getAllSubGroups(notAvailablesubGroup.NotAvaSubGrpSubname,notAvailablesubGroup.NotAvaSubGrpTag));
+        }
+
+        private void btnaddsubgroups_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableSubGroup notsubGroups = new NotAvailableSubGroup();
+
+            notsubGroups.NotAvaSubGrpId = txtnotsubgrpid.Text;
+            notsubGroups.NotAvaSubGrpSubname = txtnotsubgrpsubname.Text;
+            notsubGroups.NotAvaSubGrpDays = selectnotavaSubgroupDays.Text;
+            notsubGroups.NotAvaSubGrpTime = selectNotavaSubgrpTime.Text;
+
+
+            NotAvailableSubGroupDAO.insertnotAvailableSubGroup(notsubGroups);
+            PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+        }
+
+        private void listViewSUBGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotAvailableSubGroup avasgrp = (NotAvailableSubGroup)listViewSUBGROUP_COPY.SelectedItem;
+
+            if (avasgrp != null)
+            {
+                txtnotsubgrpid.Text = avasgrp.NotAvaSubGrpId;
+                txtnotsubgrpsubname.Text = avasgrp.NotAvaSubGrpSubname;
+
+                selectnotavaSubgroupDays.Text = avasgrp.NotAvaSubGrpDays;
+                selectNotavaSubgrpTime.Text = avasgrp.NotAvaSubGrpTime;
+
+
+
+            }
+        }
+
+        public void clearnotavailableSubGroups()
+        {
+            txtnotsubgrpid.Text = "";
+            txtnotsubgrpsubname.Text = "";
+            selectnotavaSubgroupDays.Text = "";
+            selectNotavaSubgrpTime.Text = "";
+        }
+        private void btnsubgrpdelete_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableSubGroup notAvaSub = (NotAvailableSubGroup)listViewSUBGROUP_COPY.SelectedItem;
+
+            if (notAvaSub == null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvaSubGrpId);
+                NotAvailableSubGroupDAO.getAll();
+                clearnotavailableSubGroups();
             }
         }
     }

@@ -26,10 +26,11 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "INSERT INTO Not_Available_Lec(lec_id,lec_name,time)VALUES (@lecid,@lecname,@lectime)";
+                    command.CommandText = "INSERT INTO Not_Available_Lec(lec_id,lec_name,lec_day,lec_time)VALUES (@lecid,@lecname,@lecday,@lectime)";
 
                     command.Parameters.AddWithValue("@lecid", notAvaLec.LecID);
                     command.Parameters.AddWithValue("@lecname", notAvaLec.LecName);
+                    command.Parameters.AddWithValue("@lecday", notAvaLec.LecDay);
                     command.Parameters.AddWithValue("@lectime", notAvaLec.Lectime);
 
 
@@ -55,14 +56,15 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT lec_name,time FROM  Not_Available_Lec";
+                    command.CommandText = @"SELECT lec_name,lec_day,lec_time FROM  Not_Available_Lec";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvaLec notAvaLec = new NotAvaLec();
                        // notAvaLec.LecID = int.Parse(reader["lec_id"].ToString());
                         notAvaLec.LecName = reader["lec_name"].ToString();
-                        notAvaLec.Lectime = double.Parse(reader["time"].ToString());
+                        notAvaLec.LecDay = reader["lec_day"].ToString();
+                        notAvaLec.Lectime = reader["lec_time"].ToString();
 
 
                         NotAvaLecList.Add(notAvaLec);
@@ -81,7 +83,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 
         //------------------------------LOAD LECTUERS-------------------------------------------------------------------
 
-        public static List<NotAvaLec> getAllLec(string faculty, string department, string center)
+        public static List<NotAvaLec> getAllLec(string faculty, string department)
         {
             List<NotAvaLec> LecList = new List<NotAvaLec>();
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -90,7 +92,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT LecID ,name  FROM  Lecturer WHERE faculty='"+faculty+ "' AND  department='" + department + "' AND center='" + center+ "'";
+                    command.CommandText = @"SELECT LecID ,name  FROM  Lecturer WHERE faculty='"+faculty+ "' AND  department='" + department + "'";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {

@@ -10,7 +10,7 @@
 
     <Grid Background="White">
         <TabControl Margin="20,18,20,1" >
-    <!--Normal Sessions-->
+            <!--Normal Sessions-->
             <TabItem Header="Normal SESSION">
                 <StackPanel>
                     <!--Left Side-->
@@ -172,11 +172,12 @@
                         <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
                             <Grid.ColumnDefinitions>
 
-                                <ColumnDefinition Width="400*"/>
-                                <ColumnDefinition Width="400*"/>
+                                <ColumnDefinition Width="94*"/>
+                                <ColumnDefinition Width="465*"/>
+                                <ColumnDefinition Width="559*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView" SelectionChanged="listView_SelectionChanged" FontWeight="Bold"   >
+                            <ListView  Margin="10,10,10,251" x:Name="listView" SelectionChanged="listView_SelectionChanged" FontWeight="Bold" Grid.ColumnSpan="2"   >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding LecID}" Header="ID" Width="150" x:Name="lecgrid"/>
@@ -187,32 +188,54 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button x:Name="submit" Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Click="submit_Click" FontWeight="Bold" />
-                            <ComboBox x:Name="selectfaculty" HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox  x:Name="selectDepartment" HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox  x:Name="selectCenter" HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="Faculty" VerticalAlignment="Top" FontWeight="Bold"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="Department" VerticalAlignment="Top" FontWeight="Bold"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="Center" VerticalAlignment="Top" FontWeight="Bold"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listView_Copy" Grid.Column="1" FontWeight="Bold" SelectionChanged="listView_Copy_SelectionChanged"   >
+                            <Button x:Name="submit" Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Click="submit_Click" FontWeight="Bold" Grid.ColumnSpan="2" />
+                            <ComboBox x:Name="selectfaculty" HorizontalAlignment="Left" Margin="94.262,306,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <ComboBox  x:Name="selectDepartment" HorizontalAlignment="Left" Margin="94.262,372,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="Faculty" VerticalAlignment="Top" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,387,0,0" TextWrapping="Wrap" Text="Department" VerticalAlignment="Top" FontWeight="Bold" Grid.ColumnSpan="2"/>
+                            <ListView  Margin="45,214,83,47" x:Name="listView_Copy" Grid.Column="2" FontWeight="Bold" SelectionChanged="listView_Copy_SelectionChanged"   >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Not Available Lecturer Information">
                                         <!--<GridViewColumn DisplayMemberBinding="{Binding LecID}" Header="ID" Width="150"/>-->
                                         <GridViewColumn DisplayMemberBinding="{Binding LecName}" Header="LECTUERS NAME" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LecDay}" Header="DAY" Width="150"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Lectime}" Header="TIME" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox x:Name="selectnotavailabletime" Grid.Column="1" HorizontalAlignment="Left" Margin="386,92,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,104,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-                            <Button x:Name="NAL_ADD_BTN" Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="245,143,0,0" VerticalAlignment="Top" Width="75" Click="NAL_ADD_BTN_Click" FontWeight="Bold"/>
-                            <Button x:Name="NAL_DeleteBTN" Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91" FontWeight="Bold" Click="NAL_DeleteBTN_Click" />
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,27,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,63,0,0" TextWrapping="Wrap" Text="Lecturer Name" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
-                            <TextBox x:Name="txtNAID" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="386,24,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148"/>
-                            <TextBox x:Name="txtNAlec" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="386,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148"/>
+                            <!-- ===========================Load Time Comobo Box======================-->
+                            <ComboBox x:Name="selectnotavailabletime" Grid.Column="2" HorizontalAlignment="Left" Margin="244,137,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                                <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                                <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                                <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                                <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                                <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                                <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                                <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+
+
+                            </ComboBox>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,141,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                            <Button x:Name="NAL_ADD_BTN" Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="470,177,0,0" VerticalAlignment="Top" Width="64" Click="NAL_ADD_BTN_Click" FontWeight="Bold"/>
+                            <Button x:Name="NAL_DeleteBTN" Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="458,483,0,0" VerticalAlignment="Top" Width="91" FontWeight="Bold" Click="NAL_DeleteBTN_Click" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,27,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,63,0,0" TextWrapping="Wrap" Text="Lecturer Name" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+                            <TextBox x:Name="txtNAID" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="244,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148"/>
+                            <TextBox x:Name="txtNAlec" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="244,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="148"/>
+                            <!--========================Load not Available Days==========================================-->
+                            <ComboBox x:Name="selectnotavailableDay" Grid.Column="2" HorizontalAlignment="Left" Margin="244,104,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="Monday"></ComboBoxItem>
+                                <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                                <ComboBoxItem Content="Friday"></ComboBoxItem>
+                                <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                                <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,104,0,0" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" RenderTransformOrigin="0.191,0.677"/>
                         </Grid>
                     </TabItem>
                     <!--Avaibility Session Tab-->
@@ -221,11 +244,12 @@
                             <Grid.ColumnDefinitions>
 
                                 <ColumnDefinition Width="28*"/>
-                                <ColumnDefinition Width="522*"/>
-                                <ColumnDefinition Width="549*"/>
+                                <ColumnDefinition Width="13*"/>
+                                <ColumnDefinition Width="518*"/>
+                                <ColumnDefinition Width="559*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="2" SelectionChanged="listView1_SelectionChanged"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listView1" Grid.ColumnSpan="3" SelectionChanged="listView1_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" Information">
                                         <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubject}" Header="SUBJECT" Width="150"/>
@@ -236,25 +260,51 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button x:Name="sessionsubmitBtn" Content="SUBMIT" HorizontalAlignment="Left" Margin="50.5,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.Column="1" Click="sessionsubmitBtn_Click"/>
-                            <ComboBox x:Name="selectsubject" HorizontalAlignment="Left" Margin="159,358,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="50,373,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="1"/>
-                            <ListView  Margin="61,207,67,54" x:Name="listView1_COPY" Grid.Column="2" SelectionChanged="listView1_COPY_SelectionChanged"  >
+                            <Button x:Name="sessionsubmitBtn" Content="SUBMIT" HorizontalAlignment="Left" Margin="36.656,476,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="-2.027,0.312" Grid.Column="2" Click="sessionsubmitBtn_Click"/>
+                            <ComboBox x:Name="selectsubject" HorizontalAlignment="Left" Margin="145.656,358,0,0" VerticalAlignment="Top" Width="278" Grid.Column="2"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="36.656,373,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" Grid.Column="2"/>
+                            <ListView  Margin="61,207,67,54" x:Name="listView1_COPY" Grid.Column="3" SelectionChanged="listView1_COPY_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSessionID}" Header="SESSION ID" Width="250"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSesionTime}" Header="TIME" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSessionID}" Header="SESSION ID" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSessionDay}" Header="DAY" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSesionTime}" Header="TIME" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox x:Name="selectStime" Grid.Column="2" HorizontalAlignment="Left" Margin="344,99,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,114,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" RenderTransformOrigin="0.445,-0.104" FontWeight="Bold"/>
-                            <Button x:Name="AddSessionBTN" Content="ADD" Grid.Column="2" HorizontalAlignment="Left" Margin="246,159,0,0" VerticalAlignment="Top" Width="75" Click="AddSessionBTN_Click"/>
-                            <Button x:Name="DeleteNotAvaSessionBTN" Content="DELETE" Grid.Column="2" HorizontalAlignment="Left" Margin="442,476,0,0" VerticalAlignment="Top" Width="91" Click="DeleteNotAvaSessionBTN_Click" />
-                            <TextBox x:Name="txtNASessionid" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="344,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="87,63,0,0" TextWrapping="Wrap" Text="Session ID" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <!--==================================Load Session time box===============================================================================-->
+
+                            <ComboBox x:Name="selectStime" Grid.Column="3" HorizontalAlignment="Left" Margin="344,125,0,0" VerticalAlignment="Top" Width="148">
+
+                                <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                                <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                                <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                                <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                                <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                                <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                                <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                                <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="87,137,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" RenderTransformOrigin="0.445,-0.104" FontWeight="Bold"/>
+                            <Button x:Name="AddSessionBTN" Content="ADD" Grid.Column="3" HorizontalAlignment="Left" Margin="442,170,0,0" VerticalAlignment="Top" Width="75" Click="AddSessionBTN_Click"/>
+                            <Button x:Name="DeleteNotAvaSessionBTN" Content="DELETE" Grid.Column="3" HorizontalAlignment="Left" Margin="442,483,0,0" VerticalAlignment="Top" Width="91" Click="DeleteNotAvaSessionBTN_Click" />
+                            <TextBox x:Name="txtNASessionid" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="344,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="87,35,0,0" TextWrapping="Wrap" Text="Session ID" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="87,84,0,0" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top" FontWeight="Bold" Width="29"/>
+
+                            <!--==========================Load Session Day combo box========================================================-->
+                            <ComboBox x:Name="selectNotAvaDays" Grid.Column="3" HorizontalAlignment="Left" Margin="344,72,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="Monday"></ComboBoxItem>
+                                <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                                <ComboBoxItem Content="Friday"></ComboBoxItem>
+                                <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                                <ComboBoxItem Content="Sunday"></ComboBoxItem>
+
+                            </ComboBox>
                         </Grid>
                     </TabItem>
                     <!--Avaibility Group Tab-->
@@ -266,40 +316,73 @@
                                 <ColumnDefinition Width="400*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="10,10,10,251" x:Name="listViewGROUP"  >
+                            <ListView  Margin="10,10,10,251" x:Name="listViewGROUP" SelectionChanged="listViewGROUP_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" GROUP_Information">
 
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SESSION" Width="100"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="SUBJECT" Width="100"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="GROUP ID" Width="100"/>
+
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NotAvaSubname}" Header="SUBJECT" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaGroupID}" Header="GROUP ID" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,306,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,414,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,318,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,372,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,429,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listViewGROUP_COPY" Grid.Column="1"  >
+                            <Button  x:Name="GROUP_subbtn" Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Click="GROUP_subbtn_Click"/>
+                            <ComboBox x:Name="selectSubCMB" HorizontalAlignment="Left" Margin="188,336,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ComboBox  x:Name="selectTagCMB" HorizontalAlignment="Left" Margin="188,398,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,348,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="78,410,0,0" TextWrapping="Wrap" Text="TAG" VerticalAlignment="Top"/>
+                            <ListView  Margin="44,196,20,65" x:Name="listViewGROUP_COPY" Grid.Column="1" SelectionChanged="listViewGROUP_COPY_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="GROUP Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="GROUP ID" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaGroupID }" Header="GROUP ID" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubname}" Header="SUBJECT" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaGrpDay}" Header="DAYS" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaGrpTime}" Header="TIME" Width="100"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="235,132,0,0" VerticalAlignment="Top" Width="76"/>
-                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <!--=============================GROUP TIME COMBO BOX===========================-->
+                            <ComboBox  x:Name="selectNotAvagrouptime" Grid.Column="1" HorizontalAlignment="Left" Margin="196,138,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                                <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                                <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                                <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                                <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                                <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                                <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                                <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,150,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" RenderTransformOrigin="0.782,2.729" FontWeight="Bold"/>
+                            <Button x:Name="ADDgrpbtn" Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="446,159,0,0" VerticalAlignment="Top" Width="76" Click="ADDgrpbtn_Click"/>
+                            <Button x:Name="Deletegrpbtn" Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,42,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,79,0,0" TextWrapping="Wrap" Text="Group ID" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <TextBox x:Name="txtNotAvaGID"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="196,69,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148"/>
+                            <TextBox x:Name="txtNotAvaGSub" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="196,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" RenderTransformOrigin="0.5,0.5">
+                                <TextBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="0.712"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </TextBox.RenderTransform>
+                            </TextBox>
+                            <!--=============================GROUP DAYS COMBO BOX===========================-->
+                            <ComboBox  x:Name="selectgrpdayscmb" HorizontalAlignment="Left" Margin="196,105,0,0" VerticalAlignment="Top" Width="148" Grid.Column="1">
+                                <ComboBoxItem Content="Monday"></ComboBoxItem>
+                                <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                                <ComboBoxItem Content="Friday"></ComboBoxItem>
+                                <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                                <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock HorizontalAlignment="Left" Margin="92,114,0,0" TextWrapping="Wrap" Text="Days" VerticalAlignment="Top" Grid.Column="1" FontWeight="Bold"/>
                         </Grid>
                     </TabItem>
 
@@ -314,42 +397,64 @@
                                 <ColumnDefinition Width="500*"/>
                             </Grid.ColumnDefinitions>
 
-                            <ListView  Margin="43,10,25,288" x:Name="listViewSUBGROUP"  >
+                            <ListView  Margin="43,10,25,288" x:Name="listViewSUBGROUP" SelectionChanged="listViewSUBGROUP_SelectionChanged"   >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip=" SUB_GROUP_Information">
 
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="SubgroupID" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Session" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubGrpSubname}" Header="Subject" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NotAvaSubGrpId}" Header="Subgroup ID" Width="150"/>
 
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,258,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,315,0,0" VerticalAlignment="Top" Width="278"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="78,270,0,0" TextWrapping="Wrap" Text="YEAR" VerticalAlignment="Top" RenderTransformOrigin="0.893,1.844"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="69,327,0,0" TextWrapping="Wrap" Text="SEMESTER" VerticalAlignment="Top"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="69,372,0,0" TextWrapping="Wrap" Text="PROGRAMME" VerticalAlignment="Top"/>
-                            <ListView  Margin="44,196,84,65" x:Name="listViewSUBGROUP_COPY" Grid.Column="1"  >
+                            <Button x:Name="btnSubgroupsubmit" Content="SUBMIT" HorizontalAlignment="Left" Margin="78,476,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Click="btnSubgroupsubmit_Click"/>
+                            <ComboBox  x:Name="cmbsub" HorizontalAlignment="Left" Margin="188,360,0,0" VerticalAlignment="Top" Width="278"/>
+                            <ListView  Margin="44,211,39,65" x:Name="listViewSUBGROUP_COPY" Grid.Column="1" SelectionChanged="listViewSUBGROUP_COPY_SelectionChanged"  >
                                 <ListView.View>
                                     <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="GROUP Information">
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SUBGROUP ID" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="SESSION" Width="150"/>
-                                        <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="150"/>
-
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NotAvaSubGrpSubname}" Header="Subject" Width="95"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NotAvaSubGrpId}" Header="SubGroup ID" Width="95"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NotAvaSubGrpDays}" Header="Day" Width="95"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NotAvaSubGrpTime}" Header="Time" Width="95"/>
 
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="87,48,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" Height="28" Width="52"/>
-                            <Button Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="87,138,0,0" VerticalAlignment="Top" Width="75"/>
-                            <Button Content="UPDATE" Grid.Column="1" HorizontalAlignment="Left" Margin="410,138,0,0" VerticalAlignment="Top" Width="93"/>
-                            <Button Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="188,411,0,0" VerticalAlignment="Top" Width="278"/>
-                            <TextBlock HorizontalAlignment="Left" Margin="69,426,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.25"/>
+                            <!--Subgroup Time ComboBox-->
+                            <ComboBox x:Name="selectNotavaSubgrpTime" Grid.Column="1" HorizontalAlignment="Left" Margin="286,147,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                                <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                                <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                                <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                                <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                                <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                                <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                                <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+
+                            </ComboBox>
+
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="110,147,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Height="28" Width="52" FontWeight="Bold"/>
+                            <Button  x:Name="btnaddsubgroups" Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="519,159,0,0" VerticalAlignment="Top" Width="75" Click="btnaddsubgroups_Click"/>
+                            <Button  x:Name="btnsubgrpdelete" Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="519,476,0,0" VerticalAlignment="Top" Width="91" Click="btnsubgrpdelete_Click"/>
+                            <ComboBox x:Name="cmbtag" HorizontalAlignment="Left" Margin="188,411,0,0" VerticalAlignment="Top" Width="278"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="69,426,0,0" TextWrapping="Wrap" Text="Tag" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.25"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="69,372,0,0" TextWrapping="Wrap" Text="SUBJECT" VerticalAlignment="Top" RenderTransformOrigin="0.087,0.25"/>
+                            <!--Subgroup Days combox-->
+                            <ComboBox x:Name="selectnotavaSubgroupDays" Grid.Column="1" HorizontalAlignment="Left" Margin="286,114,0,0" VerticalAlignment="Top" Width="148">
+                                <ComboBoxItem Content="Monday"></ComboBoxItem>
+                                <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                                <ComboBoxItem Content="Friday"></ComboBoxItem>
+                                <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                                <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="110,119,0,0" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top" Height="28" Width="52" FontWeight="Bold"/>
+                            <TextBox x:Name="txtnotsubgrpid" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="286,86,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148"/>
+                            <TextBox x:Name="txtnotsubgrpsubname" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="286,58,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="107,65,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="107,93,0,0" TextWrapping="Wrap" Text="Subgroup ID" VerticalAlignment="Top" FontWeight="Bold"/>
                         </Grid>
 
                     </TabItem>

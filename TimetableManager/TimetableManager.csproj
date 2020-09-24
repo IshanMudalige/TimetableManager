@@ -84,8 +84,12 @@
     <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
     <Compile Include="NormalSessionsDAO\NormalSessions.cs" />
     <Compile Include="NormalSessionsDAO\NorSessionsDetailsDAO.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvailableGroup.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvailableGroupDetailsDao.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvailableSessionDAO.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvailableSessions.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvailableSubGroup.cs" />
+    <Compile Include="Not AvailableSessionsDAO\NotAvailableSubGroupDAO.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvaLec.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvaLecDao.cs" />
     <Compile Include="RoomsDAO\Room.cs" />

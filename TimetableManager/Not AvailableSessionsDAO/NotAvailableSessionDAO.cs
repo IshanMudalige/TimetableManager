@@ -26,9 +26,10 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = "INSERT INTO Not_Available_Session(not_session_id,time)VALUES (@nsid,@nstime)";
+                    command.CommandText = "INSERT INTO Not_Available_Session(not_session_id,not_session_day,not_session_time)VALUES (@nsid,@nsday,@nstime)";
 
                     command.Parameters.AddWithValue("@nsid", notAvailableSessions.NotAvaSessionID);
+                    command.Parameters.AddWithValue("@nsday", notAvailableSessions.NotAvaSessionDay);
                     command.Parameters.AddWithValue("@nstime", notAvailableSessions.NotAvaSesionTime);
                     
 
@@ -91,13 +92,14 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT not_session_id,time FROM  Not_Available_Session";
+                    command.CommandText = @"SELECT not_session_id,not_session_day,not_session_time FROM  Not_Available_Session";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvailableSessions notAvaSessions = new NotAvailableSessions();
                         notAvaSessions.NotAvaSessionID = int.Parse(reader["not_session_id"].ToString());
-                        notAvaSessions.NotAvaSesionTime = double.Parse(reader["time"].ToString());
+                        notAvaSessions.NotAvaSessionDay = reader["not_session_day"].ToString();
+                        notAvaSessions.NotAvaSesionTime = reader["not_session_time"].ToString();
                          
 
 
