@@ -12,7 +12,42 @@
         <TabControl Height="560" Margin="10,10,10,0" VerticalAlignment="Top" >
             <TabItem Header="Generate Timetables">
                 <StackPanel>
-                    <Button Content="generate" Width="100" Margin="103,0,961,0" Click="Generate"/>
+                    <materialDesign:Card Margin="10,10,10,10" Height="512">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="0,50,0,0" >
+                                <TextBox x:Name="txLec" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="45,0,0,0"/>
+                                <TextBox x:Name="txSub" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="30,0,0,0"/>
+                                <TextBox x:Name="txGroups" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="30,0,0,0"/>
+                                <TextBox x:Name="txRoom" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="30,0,0,0"/>
+                                <TextBox x:Name="txSess" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="30,0,0,0"/>
+                                <TextBox x:Name="txWeek" Text="00" Background="#FF2196F3" Foreground="White" FontWeight="Bold" FontSize="40" Width="150" Height="65" TextAlignment="Center" Margin="30,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="No of Lecturers" FontSize="20" Margin="45,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+                                <TextBlock Text="No of Subjects" FontSize="20" Margin="35,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+                                <TextBlock Text="No of Groups" FontSize="20" Margin="38,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+                                <TextBlock Text="No of Rooms" FontSize="20" Margin="35,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+                                <TextBlock Text="No of Session" FontSize="20" Margin="35,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+                                <TextBlock Text="No of Weeks" FontSize="20" Margin="35,0,0,0" FontWeight="Bold" Width="145" Height="30" TextAlignment="Center"/>
+
+                            </StackPanel>
+
+                            <StackPanel Margin="45,20,50,0" Height="334" Orientation="Horizontal">
+                                <StackPanel Width="514">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="318">
+                                        <TextBlock x:Name="txlog" Background="Black" Foreground="White" Padding="10,0,0,0"/>
+                                    </ScrollViewer>
+                                </StackPanel>
+                                <StackPanel Width="524" Orientation="Vertical">
+                                    <StackPanel>
+                                        <Button Content="Generate" Click="Generate" Height="40" FontSize="16" FontWeight="Bold" Margin="30,0,0,0" Background="#FFE48D10" BorderBrush="#FFE48D10" />
+                                    </StackPanel>
+                                    
+                                </StackPanel>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </materialDesign:Card>
 
                 </StackPanel>
 
@@ -69,7 +104,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </materialDesign:Card>
-                       
+
                     </StackPanel>
 
                 </StackPanel>

@@ -4,12 +4,15 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Xps.Packaging;
+using TimetableManager.DaysHoursDAO;
 using TimetableManager.Generator;
 using TimetableManager.SubjectDAO;
 
@@ -22,16 +25,29 @@ namespace TimetableManager
     /// </summary>
     public partial class Page_Timetable : Page
     {
-        public Page_Timetable()
-        {
-            InitializeComponent();
-        }
-
         List<StudentGroups> sgList;
         List<Hall> hList;
         List<Lecturers> lList;
-        List<Hall> rList;
+        
+        public Page_Timetable()
+        {
+            InitializeComponent();
+            sgList = GeneratorDAO.getAllGroups();
+            hList = GeneratorDAO.getAllRooms();
+            lList = GeneratorDAO.getAllLecturers();
+            List<Session> sesList = GeneratorDAO.getAllSessions();
+            List<Subject> subList = SubjectDetailsDAO.getAll();
+            List<Weekday> weekList = WeekdayDAO.getAll();
 
+            txGroups.Text = sgList.Count.ToString();
+            txSess.Text = sesList.Count.ToString();
+            txRoom.Text = hList.Count.ToString();
+            txLec.Text = lList.Count.ToString();
+            txSub.Text = subList.Count.ToString();
+            txWeek.Text = weekList.Count.ToString();
+        }
+
+      
         public void Generate(object sender, RoutedEventArgs e)
         {
 
@@ -252,13 +268,15 @@ namespace TimetableManager
             lList = GeneratorDAO.getAllLecturers();
             List<Session> sList = GeneratorDAO.getAllSessions();
             Days days = GeneratorDAO.getDays();
-
+            int noOfSuccess = 0;
 
 
             foreach (Session x in sList)
             {
                 Subject sub = GeneratorDAO.getSubject(x.Sub_name);
                 Console.WriteLine("\nSession - " + x.Lecturer + "/" + x.Sub_name + "/" + x.Tag + "/" + x.Grp_id);
+                WriteLn("--------------------------------------------------------------------------");
+                WriteLn("Session - " + x.Lecturer + "/" + x.Sub_name + "/" + x.Tag + "/" + x.Grp_id);
                 Lecturers lec = new Lecturers();
                 foreach (Lecturers z in lList)
                 {
@@ -266,6 +284,7 @@ namespace TimetableManager
                     {
                         lec = z;
                         Console.WriteLine("Lecture - " + z.LecturerName);
+                        WriteLn("Lecture - " + z.LecturerName);
                     }
                 }
 
@@ -276,6 +295,7 @@ namespace TimetableManager
                     if (std.GroupId.Equals(x.Grp_id))
                     {
                         Console.WriteLine("StGroup - " + std.GroupId);
+                        WriteLn("StGroup - " + std.GroupId);
                         for (int i = 0; i < 8; i++)
                         {
                             int flag = 0;
@@ -284,17 +304,21 @@ namespace TimetableManager
 
                                 if (x.Duration == 1)
                                 {
+                                   
                                     if (std.Student[i, j] == null && lec.Lecturer[i, j] == null)
                                     {
-                                        Console.WriteLine("---------");
+                                       
                                         foreach (Hall hall in hList)
                                         {
+                                           
                                             if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null)
                                             {
                                                 std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id;
-                                                hall.Halls[i, j] = x.Sub_name + " " + x.Sub_code + " " + x.Lecturer;
-                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned");
+                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id+"\n"+hall.HallName;
+                                                hall.Halls[i, j] = x.Grp_id+"\n"+x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                WriteLn("Session -" + x.Sub_name+" "+std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                noOfSuccess++;
                                                 flag = 1;
                                                 break;
                                             }
@@ -304,20 +328,23 @@ namespace TimetableManager
                                     }
                                 }else if (x.Duration == 2)
                                 {
+                                   
                                     if (std.Student[i, j] == null && lec.Lecturer[i, j] == null && std.Student[i+1, j] == null && lec.Lecturer[i+1, j] == null)
                                     {
-                                        Console.WriteLine("---------");
+                                       
                                         foreach (Hall hall in hList)
                                         {
                                             if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null && hall.Halls[i+1, j] == null)
                                             {
                                                 std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id;
-                                                hall.Halls[i, j] = x.Sub_name + " " + x.Sub_code + " " + x.Lecturer;
+                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id+"\n"+hall.HallName;
+                                                hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
                                                 std.Student[i+1, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i+1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id;
-                                                hall.Halls[i+1, j] = x.Sub_name + " " + x.Sub_code + " " + x.Lecturer;
-                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned");
+                                                lec.Lecturer[i+1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                hall.Halls[i+1, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                WriteLn("Session -"+x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                noOfSuccess++;
                                                 flag = 1;
                                                 break;
                                             }
@@ -339,14 +366,27 @@ namespace TimetableManager
 
                 }
                     
-                }
-
             }
-
+            WriteLn("\n> No of Sessions successfully a assigned ---- "+ noOfSuccess);
+            WriteLn("> No of Sessions failed to assigned ---- " +(sList.Count-noOfSuccess));
         }
 
+        private void WriteLn(string text)
+        {
+            
+            txlog.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                txlog.Text += text + Environment.NewLine;
+            }));
+           
+        }
+
+      
 
     }
+
+
+}
 
 
 

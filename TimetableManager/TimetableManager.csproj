@@ -85,6 +85,7 @@
     <Compile Include="Generator\GeneratorDAO.cs" />
     <Compile Include="Generator\Hall.cs" />
     <Compile Include="Generator\Lecturers.cs" />
+    <Compile Include="Generator\Model.cs" />
     <Compile Include="Generator\Session.cs" />
     <Compile Include="Generator\StudentGroups.cs" />
     <Compile Include="Generator\Tables.cs" />
