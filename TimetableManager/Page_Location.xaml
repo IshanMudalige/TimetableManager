@@ -85,7 +85,7 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding BuildingName}" Header="Building Name" Width="160"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding RoomName}" Header="Room Name" Width="160"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding RoomType}" Header="Room Type" Width="125"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Capacity}" Header="Capacity" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Capacity}" Header="Capacity" Width="90"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -108,7 +108,61 @@
 
 
                         <TabItem Header="Assign Rooms For Sessions">
-                            <Grid Background="White"/>
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <ListView x:Name="listviewSessionsOld" Height="345" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionsOld_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding Sid}" Header="Sid" Width="50"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding GrpID}" Header="Group ID" Width="100"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Scode}" Header="Subject Code" Width="110"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag" Width="80"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Lecturers}" Header="Lecturers" Width="105"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,188.4" TextWrapping="Wrap" Text="Session ID" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="sessionId" Height="25" Margin="233,380,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,141.4" TextWrapping="Wrap" Text="Subject Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="subjectCodeAssign" Height="25" Margin="233,427,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="subjectCodeAssign_TextChanged"/>
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="48.4,23,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                                <ComboBox x:Name="selectRoomAssign" HorizontalAlignment="Left" Margin="248.4,20,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1"/>
+
+                                <TextBox x:Name="preferSubject" Height="25" Margin="391,427,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" IsReadOnly="True"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,95.4" TextWrapping="Wrap" Text="Group Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="groupIdAssign" Height="25" Margin="233,473,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="groupIdAssign_TextChanged"/>
+                                <TextBox x:Name="noOfStudentsAssign" Height="25" Margin="391,473,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+
+                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,47.4" TextWrapping="Wrap" Text="Tag" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="tagAssign" Height="25" Margin="233,520,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="tagAssign_TextChanged"/>
+                                <TextBox x:Name="preferTag" Height="25" Margin="391,520,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="preferTag_TextChanged"/>
+
+
+                                <Button Content="Add Session" Grid.Column="1" HorizontalAlignment="Left" Margin="352.4,75,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_4"/>
+                                <ListView x:Name="listviewAssignedSession" Height="394" Margin="10.4,132,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="1">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding Sid}" Header="Sid" Width="50"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubID}" Header="Group ID" Width="100"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Scode}" Header="Subject Code" Width="110"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag" Width="80"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding RoomName}" Header="Room Name" Width="105"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <Button Content="Remove Session" Grid.Column="1" HorizontalAlignment="Left" Margin="394.4,552,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_5"/>
+
+
+                            </Grid>
                         </TabItem>
 
 
@@ -262,13 +316,13 @@
 
                                 <TextBlock HorizontalAlignment="Left" Margin="40,48,0,0" TextWrapping="Wrap" Text="Select Specific Tag" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectTagRoom" HorizontalAlignment="Left" Margin="266,46,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
-                                
-                                
+
+
                                 <TextBlock HorizontalAlignment="Left" Margin="40,116,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectRoomTypeTag" HorizontalAlignment="Left" Margin="266,114,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
                                 <Button x:Name="addTagRoom" Content="Add" HorizontalAlignment="Left" Margin="216,214,0,0" VerticalAlignment="Top" Width="127" Click="addTagRoom_Click"/>
-                                
-                                
+
+
                                 <ListView x:Name="listviewTagRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
@@ -291,12 +345,16 @@
             </TabItem>
 
 
-            <TabItem Header="Add Fixed Event">
-                <Grid Background="#FFE5E5E5">
+            <TabItem Header="Add Fixed Event/Not Available ">
+                <Grid Background="White">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="289*"/>
                         <ColumnDefinition Width="288*"/>
                     </Grid.ColumnDefinitions>
+
+
+
+
                 </Grid>
             </TabItem>
 

@@ -8,6 +8,7 @@ namespace TimetableManager.NormalSessionsDAO
 {
     class NormalSessions
     {
+        private int sid;
         private string lecturers;
         private string s_name;
         private string s_code;
@@ -20,8 +21,9 @@ namespace TimetableManager.NormalSessionsDAO
 
         public NormalSessions() { }
 
-        public NormalSessions(string lecturers, string s_name, string s_code, string tag, string grp_id, string sub_id, int no_students, double duration)
+        public NormalSessions(int sid, string lecturers, string s_name, string s_code, string tag, string grp_id, string sub_id, int no_students, double duration)
         {
+            this.sid = sid;
             this.lecturers = lecturers;
             this.s_name = s_name;
             this.s_code = s_code;
@@ -31,6 +33,8 @@ namespace TimetableManager.NormalSessionsDAO
             this.no_students = no_students;
             this.duration = duration;
         }
+
+        public int Sid { get => sid; set => sid = value; }
 
         public string Lecturers { get => lecturers; set => lecturers = value; }
 

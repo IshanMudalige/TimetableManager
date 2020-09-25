@@ -19,7 +19,7 @@ namespace TimetableManager.RoomsSubjectDAO
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = "INSERT INTO Room_Names_Subject(s_code,b_name,r_name) VALUES (@scode,@bname,@rname)";
+                command.CommandText = "INSERT INTO Room_Names_Subject(s_code,b_name,rs_name) VALUES (@scode,@bname,@rname)";
 
                 command.Parameters.AddWithValue("@scode", room.SubjectCode);
                 command.Parameters.AddWithValue("@bname", room.SubBuildingName);
@@ -42,14 +42,14 @@ namespace TimetableManager.RoomsSubjectDAO
 
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT s_code, b_name, r_name FROM Room_Names_Subject";
+                command.CommandText = @"SELECT s_code, b_name, rs_name FROM Room_Names_Subject";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     RoomSubject room = new RoomSubject();
                     room.SubjectCode = reader["s_code"].ToString();
                     room.SubBuildingName = reader["b_name"].ToString();
-                    room.SubRoomName = reader["r_name"].ToString();
+                    room.SubRoomName = reader["rs_name"].ToString();
 
                     roomSubject.Add(room);
 

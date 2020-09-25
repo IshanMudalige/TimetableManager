@@ -21,6 +21,8 @@ using TimetableManager.RoomsLecturerDAO;
 using TimetableManager.RoomsSubjectDAO;
 using TimetableManager.RoomsGroupDAO;
 using TimetableManager.RoomsTag;
+using TimetableManager.NormalSessionsDAO;
+using TimetableManager.RoomsAssignSession;
 
 namespace TimetableManager
 {
@@ -51,6 +53,12 @@ namespace TimetableManager
             PopulateTableRoomSubject(RoomSubjectDAO.getAll());
             PopulateTableRoomGroups(RoomGroupDAO.getAll());
             PopulateTableRoomTag(RoomTagDAO.getAll());
+            PopulateTableRoomAssignOld(NorSessionsDetailsDAO.getAllSessionsAssign());
+
+            PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+            //loadRoomAssignCombo();
+
+
         }
 
         //Building Names COMBO BOX - ROOMS PAGE
@@ -843,6 +851,210 @@ namespace TimetableManager
             {
                 RoomTagDAO.deleteRoomTag(room.Tag);
                 PopulateTableRoomTag(RoomTagDAO.getAll());
+            }
+        }
+
+
+
+
+
+
+
+
+        //======================================
+        //-----ASSIGN SESSIONS -----
+        //======================================
+
+
+
+        private void PopulateTableRoomAssignOld(List<NormalSessions> list)
+        {
+
+            var observableList = new ObservableCollection<NormalSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewSessionsOld.ItemsSource = observableList;
+
+            
+        }
+
+        private void listviewSessionsOld_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            NormalSessions room = (NormalSessions)listviewSessionsOld.SelectedItem;
+
+            if (room != null)
+            {
+                subjectCodeAssign.Text = room.Scode;
+                sessionId.Text = room.Sid.ToString();
+                groupIdAssign.Text = room.SubID;
+                tagAssign.Text = room.Tag;
+            }
+        }
+
+        
+
+        private void groupIdAssign_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT no_students FROM Sessions WHERE subgrp_id = @subgroupId";
+                command.Parameters.AddWithValue("@subgroupId", groupIdAssign.Text.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string stCount = reader["no_students"].ToString();
+                    noOfStudentsAssign.Text = stCount;
+                }
+
+
+            }
+        }
+
+        private void preferTag_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            /*if(preferSubject.Text.ToString() != null)
+            { 
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name FROM Room_Names, Room_Names_Subject WHERE (r_name = rs_name AND rs_name = @rname)"; 
+                    command.Parameters.AddWithValue("@rname", preferSubject.Text.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string rtype = reader["r_name"].ToString();
+                        selectRoomAssign.Items.Add(rtype);
+                    }
+
+
+                }
+
+
+            }*/
+            
+            if (preferSubject.Text.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT distinct(r_name) FROM Room_Names WHERE room_type = @type";
+                    command.Parameters.AddWithValue("@type", preferTag.Text.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string rname = reader["r_name"].ToString();
+                        selectRoomAssign.Items.Add(rname);
+                    }
+                }
+
+            }
+        }
+
+        /*public void loadRoomAssignCombo()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT r_name FROM Room_Names WHERE room_type = @type";
+                command.Parameters.AddWithValue("@type", preferTag.Text.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string rname = reader["r_name"].ToString();
+                    selectRoomAssign.Items.Add(rname);
+                }
+
+            }
+        }*/
+
+        private void tagAssign_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT rt_type FROM Room_Names_Tag WHERE tag_room = @tag";
+                command.Parameters.AddWithValue("@tag", tagAssign.Text.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string rtype = reader["rt_type"].ToString();
+                    preferTag.Text = rtype;
+                }
+
+
+            }
+        }
+
+        private void subjectCodeAssign_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT rs_name FROM Room_Names_Subject WHERE s_code = @scode";
+                command.Parameters.AddWithValue("@scode", subjectCodeAssign.Text.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string suname = reader["rs_name"].ToString();
+                    preferSubject.Text = suname;
+                }
+
+
+            }
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            RoomAssign room = new RoomAssign();
+
+            room.Sid = int.Parse(sessionId.Text);
+            room.Scode = subjectCodeAssign.Text;
+            room.SubID = groupIdAssign.Text;
+            room.Tag = tagAssign.Text;
+            room.RoomName = selectRoomAssign.Text;
+
+            RoomAssignDAO.insertNewRoomSessions(room);
+            PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+        }
+
+
+        private void PopulateTableRoomAssignNew(List<RoomAssign> list)
+        {
+
+            var observableList = new ObservableCollection<RoomAssign>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewAssignedSession.ItemsSource = observableList;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            RoomAssign room = (RoomAssign)listviewAssignedSession.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a tag from the Table.");
+            }
+            else
+            {
+                RoomAssignDAO.deleteRoomAssign(room.Sid);
+                PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
             }
         }
     }
