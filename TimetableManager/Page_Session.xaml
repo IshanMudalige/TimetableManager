@@ -472,43 +472,70 @@
                         <ColumnDefinition Width="592*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListView  Margin="10,48,95,252" x:Name="listViewConsecutive" Grid.ColumnSpan="3"  >
+                    <ListView  Margin="36,35,69,265" x:Name="listViewConsecutive" Grid.ColumnSpan="3" SelectionChanged="listViewConsecutive_SelectionChanged"  >
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Session ID" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Tag" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Duration" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding  NSession}" Header="Session ID" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Ntag}" Header="Tag" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding NSubject}" Header="Subject" Width="150"/>
 
 
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Content="SUBMIT" HorizontalAlignment="Left" Margin="78,536,0,0" VerticalAlignment="Top" Width="95" RenderTransformOrigin="-2.027,0.312" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="74,382,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="74,428,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="74,476,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="88,394,0,0" TextWrapping="Wrap" Text="Year" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="16" Width="39"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="88,443,0,0" TextWrapping="Wrap" Text="Semester" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="88,488,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <ListView  Margin="26,230,28,88" x:Name="listViewCONSECUTIVE_Copy" Grid.Column="3"  >
+                    <Button x:Name="consecutivesubmitbtn" Content="SUBMIT" HorizontalAlignment="Left" Margin="203,334,0,0" VerticalAlignment="Top" Width="84" RenderTransformOrigin="-2.027,0.312" Grid.Column="2" Click="consecutivesubmitbtn_Click"/>
+                    <ComboBox x:Name="cmbconsecutiveSub" HorizontalAlignment="Left" Margin="10,327,0,0" VerticalAlignment="Top" Width="278" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="36,339,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                    <ListView  Margin="31,259,23,59" x:Name="listViewCONSECUTIVE_Copy" Grid.Column="3" SelectionChanged="listViewCONSECUTIVE_Copy_SelectionChanged"  >
                         <ListView.View>
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Lecturer Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Session Id" Width="250"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="TIME" Width="250"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveSubject}" Header="Subject" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveDay}" Header="Day" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveTime}" Header="Time" Width="150"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveTag}" Header="Tag" Width="150"/>
 
 
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="337,48,0,0" VerticalAlignment="Top" Width="148"/>
-                    <Button Content="DELETE" Grid.Column="3" HorizontalAlignment="Left" Margin="473,547,0,0" VerticalAlignment="Top" Width="91"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" Text="Session Details" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="114,65,0,0" TextWrapping="Wrap" Text="Session 1" VerticalAlignment="Top"/>
-                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="114,110,0,0" TextWrapping="Wrap" Text="Session 2" VerticalAlignment="Top"/>
-                    <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="337,98,0,0" VerticalAlignment="Top" Width="148" Height="28"/>
-                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="283,17,0,0" TextWrapping="Wrap" Text="Merge Sessions" VerticalAlignment="Top"/>
-                    <Button Content="EDIT" Grid.Column="3" HorizontalAlignment="Left" Margin="72,547,0,0" VerticalAlignment="Top" Width="91"/>
-                    <Button Content="MERGE" Grid.Column="3" HorizontalAlignment="Left" Margin="242,163,0,0" VerticalAlignment="Top" Width="91"/>
+                    <ComboBox  x:Name="Csession1" Grid.Column="3" HorizontalAlignment="Left" Margin="191,38,0,0" VerticalAlignment="Top" Width="148"  />
+                    <Button x:Name="btnconsecutivedelete" Content="DELETE" Grid.Column="3" HorizontalAlignment="Left" Margin="471,531,0,0" VerticalAlignment="Top" Width="91" Click="btnconsecutivedelete_Click"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="90,10,0,0" TextWrapping="Wrap" Text="Session Details" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="2" TextDecorations="Underline" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="85,53,0,0" TextWrapping="Wrap" Text="Session 1" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="85,81,0,0" TextWrapping="Wrap" Text="Session 2" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <ComboBox  x:Name="Csession2" Grid.Column="3" HorizontalAlignment="Left" Margin="191,71,0,0" VerticalAlignment="Top" Width="148" Height="28"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="283,17,0,0" TextWrapping="Wrap" Text="Merge Sessions" VerticalAlignment="Top" FontWeight="Bold" TextDecorations="Underline"/>
+                    <Button x:Name="BTNMerged" Content="ADD" Grid.Column="3" HorizontalAlignment="Left" Margin="458,208,0,0" VerticalAlignment="Top" Width="91" Click="BTNMerged_Click"/>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="85,110,0,0" TextWrapping="Wrap" Text=" Tag" VerticalAlignment="Top" RenderTransformOrigin="-0.092,0.307" FontWeight="Bold"/>
+                    <TextBox  x:Name="txtnewtag" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="191,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148" SelectionChanged="txtnewtag_SelectionChanged" />
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="89,142,0,0" TextWrapping="Wrap" Text="Day" VerticalAlignment="Top" RenderTransformOrigin="-0.389,-0.808" FontWeight="Bold"/>
+                    <!--Consecutive Session days-->
+                    <ComboBox x:Name="Cday" Grid.Column="3" HorizontalAlignment="Left" Margin="202,142,0,0" VerticalAlignment="Top" Width="137">
+                        <ComboBoxItem Content="Monday"></ComboBoxItem>
+                        <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                        <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                        <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                        <ComboBoxItem Content="Friday"></ComboBoxItem>
+                        <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                        <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="89,180,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" RenderTransformOrigin="-0.389,-0.808" FontWeight="Bold"/>
+                    <!--Consecutive Session Time-->
+                    <ComboBox x:Name="Ctime" Grid.Column="3" HorizontalAlignment="Left" Margin="202,180,0,0" VerticalAlignment="Top" Width="137">
+
+                        <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                        <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                        <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                        <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                        <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                        <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                        <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                        <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Left" Margin="368,154,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" RenderTransformOrigin="-0.389,-0.808" FontWeight="Bold"/>
+                    <TextBox x:Name="Csubname" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="419,147,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="130"/>
+                    <TextBox x:Name="selectsession1tag" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="368,43,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" SelectionChanged="selectsession1tag_SelectionChanged"/>
+                    <TextBox x:Name="selectsession2tag" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="368,81,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" SelectionChanged="selectsession2tag_SelectionChanged"/>
                 </Grid>
             </TabItem>
             <!--PARALLEL Sessions-->
