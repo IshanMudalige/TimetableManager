@@ -89,6 +89,8 @@
     <Compile Include="Generator\Session.cs" />
     <Compile Include="Generator\StudentGroups.cs" />
     <Compile Include="Generator\Tables.cs" />
+    <Compile Include="ConsecutiveSessionsDAO\ConsecutiveSession.cs" />
+    <Compile Include="ConsecutiveSessionsDAO\ConsecutiveSessionsDao.cs" />
     <Compile Include="GroupDAO\Groups.cs" />
     <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
     <Compile Include="NormalSessionsDAO\NormalSessions.cs" />

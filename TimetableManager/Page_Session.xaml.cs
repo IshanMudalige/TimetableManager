@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using TimetableManager.NormalSessionsDAO;
 using System.Collections.ObjectModel;
 using TimetableManager.Not_AvailableSessionsDAO;
+using TimetableManager.ConsecutiveSessionsDAO;
 
 namespace TimetableManager
 {
@@ -39,6 +40,9 @@ namespace TimetableManager
             loadGRPTagCombobox();
             loadSUBGRPSubjectCMB();
             loadSUBGRPTagCombobox();
+            loadConsecutiveSubject();
+            loadSessionid1cmb();
+            loadSessionid2cmb();
 
 
             PopulatenotavailableLec(NotAvaLecDao.getAll());
@@ -46,6 +50,7 @@ namespace TimetableManager
             PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
             PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
             PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+            PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
 
         }
 
@@ -909,6 +914,249 @@ namespace TimetableManager
                 NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvaSubGrpId);
                 NotAvailableSubGroupDAO.getAll();
                 clearnotavailableSubGroups();
+            }
+        }
+
+        //==============================--------------------------------------Consecutive Session---------------============================================
+
+        //==============---------------Load Consecutive subject========================
+        public void loadConsecutiveSubject()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subj_name"].ToString();
+                        cmbconsecutiveSub.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============Populate all c sessions =====================
+
+        private void PopulateCsession(List<ConsecutiveSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ConsecutiveSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewConsecutive.ItemsSource = observableList;
+
+        }
+
+        //=============Populate consecutive sessions =====================
+
+        private void PopulateConsecutivetable(List<ConsecutiveSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ConsecutiveSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewCONSECUTIVE_Copy.ItemsSource = observableList;
+
+        }
+
+        private void consecutivesubmitbtn_Click(object sender, RoutedEventArgs e)
+        {
+            ConsecutiveSession consecutive = new ConsecutiveSession();
+
+            consecutive.NSubject = cmbconsecutiveSub.Text;
+            PopulateCsession(ConsecutiveSessionsDao.getAllSesions(consecutive.NSubject));
+        }
+
+        //==============-------------------------------load session id1---------------------------------------======================================
+        public void loadSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        Csession1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id2---------------------------------------======================================
+        public void loadSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        Csession2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        
+        private void selectsession1tag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+
+            string s1 = Csession1.SelectedItem.ToString();
+
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT tag FROM Sessions WHERE session_id='"+s1+"'";
+                    
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string stag1 = reader["tag"].ToString();
+                        selectsession1tag.Text = stag1;
+                    }
+
+
+                }
+            
+        }
+
+        private void selectsession2tag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+
+            string s2 = Csession2.SelectedItem.ToString();
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT tag FROM Sessions WHERE session_id='" + s2 + "'";
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string stag1 = reader["tag"].ToString();
+                    selectsession2tag.Text = stag1;
+                }
+
+
+            }
+
+        }
+
+        private void listViewConsecutive_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ConsecutiveSession csession = (ConsecutiveSession)listViewConsecutive.SelectedItem;
+
+            if (csession != null)
+            {
+                Csubname.Text = csession.NSubject;
+         
+
+
+
+            }
+        }
+
+        private void txtnewtag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string tag1 = selectsession1tag.Text;
+            string tag2 = selectsession2tag.Text;
+
+            txtnewtag.Text = tag1 +"/"+ tag2;
+        }
+
+        private void BTNMerged_Click(object sender, RoutedEventArgs e)
+        {
+
+            ConsecutiveSession cSession = new ConsecutiveSession();
+
+            cSession.SessionID1 = Csession1.Text;
+            cSession.SessionID2 = Csession2.Text;
+            cSession.ConsecutiveTag = txtnewtag.Text;
+            cSession.ConsecutiveSubject = Csubname.Text;
+            cSession.ConsecutiveDay = Cday.Text;
+            cSession.ConsecutiveTime = Ctime.Text;
+
+            ConsecutiveSessionsDao.insertConsecutivesession(cSession);
+            PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+        }
+
+        public void clearnotConsecutiveSessions()
+        {
+            Csession1.Text = "";
+            Csession2.Text = "";
+            txtnewtag.Text = "";
+            Csubname.Text = "";
+            Cday.Text = "";
+            Ctime.Text = "";
+
+        }
+        private void btnconsecutivedelete_Click(object sender, RoutedEventArgs e)
+        {
+            ConsecutiveSession notAvaSub = (ConsecutiveSession)listViewCONSECUTIVE_Copy.SelectedItem;
+
+            if (notAvaSub == null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                ConsecutiveSessionsDao.deleteConsecutiveSession(notAvaSub.ConsecutiveSubject);
+                ConsecutiveSessionsDao.getAll();
+                clearnotConsecutiveSessions();
+            }
+        }
+
+        private void listViewCONSECUTIVE_Copy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            ConsecutiveSession csession = (ConsecutiveSession)listViewCONSECUTIVE_Copy.SelectedItem;
+
+            if (csession != null)
+            {
+                Csubname.Text = csession.NSubject;
+
+                Csession1.Text = csession.SessionID1;
+                Csession2.Text = csession.SessionID2;
+                txtnewtag.Text = csession.ConsecutiveTag;
+                Csubname.Text = csession.ConsecutiveSubject;
+                Cday.Text = csession.ConsecutiveDay;
+                Ctime.Text = csession.ConsecutiveTime;
+
+
             }
         }
     }
