@@ -1,4 +1,4 @@
-﻿<Page xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  x:Class="TimetableManager.Page_Timetable"
+﻿<Page xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  x:Class="TimetableManager.Page_Timetable"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,53 +6,71 @@
       xmlns:local="clr-namespace:TimetableManager"
       mc:Ignorable="d" 
       d:DesignHeight="620" d:DesignWidth="1190"
-      Title="Page_Timetable">
+      Title="Page_Timetable" MaxWidth="1190">
 
     <Grid Background="White">
         <TabControl Height="560" Margin="10,10,10,0" VerticalAlignment="Top" >
             <TabItem Header="Generate Timetables">
-                
-                <Button Content="generate" Width="100" Margin="103,0,961,0"/>
-               
+                <StackPanel>
+                    <Button Content="generate" Width="100" Margin="103,0,961,0" Click="Generate"/>
+
+                </StackPanel>
+
+
+
             </TabItem>
             <TabItem Header="View Timetables">
-                <StackPanel>
-                    <StackPanel Width="320" HorizontalAlignment="Left" Height="532">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Width="251" HorizontalAlignment="Left" Height="532">
                         <materialDesign:Card HorizontalContentAlignment="Center" Height="515" Margin="10,10,10,10">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Margin="10,20,0,0" Orientation="Horizontal">
                                     <Label Content="Week" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
-                                    <ComboBox x:Name="cbWeekT" Width="180" VerticalAlignment="Top" Margin="50,0,0,0" BorderThickness="1">
-                                        <ComboBoxItem Content="Weekday"></ComboBoxItem>
-                                        <ComboBoxItem Content="Weekend"></ComboBoxItem>
+                                    <ComboBox x:Name="cbWeekT" Width="109" VerticalAlignment="Top" Margin="50,0,0,0" BorderThickness="1">
+                                        <ComboBoxItem Content="Weekday"/>
+                                        <ComboBoxItem Content="Weekend"/>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Margin="10,20,0,0" Orientation="Horizontal">
                                     <Label Content="Type" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" FontSize="15"/>
-                                    <ComboBox x:Name="cbTypeT" Width="180" VerticalAlignment="Top" Margin="54,0,0,0" BorderThickness="1">
+                                    <ComboBox x:Name="cbTypeT" Width="109" VerticalAlignment="Top" Margin="54,0,0,0" BorderThickness="1" DropDownClosed="cbTypeT_DropDownClosed">
                                         <ComboBoxItem Content="Lecture"></ComboBoxItem>
                                         <ComboBoxItem Content="Student"></ComboBoxItem>
                                         <ComboBoxItem Content="Hall"></ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
-                                <StackPanel Margin="14,20,14,0">
-                                    <TextBox x:Name="searchFieldT" BorderThickness="1"/>
+                                <StackPanel Margin="16,20,25,0">
+                                    <TextBox x:Name="searchFieldT" BorderThickness="1" Margin="0,0,-9,0"/>
                                 </StackPanel>
                                 <StackPanel Margin="14,20,14,0">
-                                    <ListView   x:Name="listViewT" Grid.ColumnSpan="2" Height="440" >
+                                    <ListView   x:Name="listViewT" Grid.ColumnSpan="2" Height="346" SelectionChanged="listViewT_SelectionChanged" >
                                         <ListView.View>
                                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Available Timetables">
-                                                <GridViewColumn DisplayMemberBinding="{Binding Week_type}" Header="Availables" Width="100"/>
-                                
+                                                <!--GridViewColumn DisplayMemberBinding="{Binding GroupId}" Header="Availables" Width="100"/-->
+
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
                                 </StackPanel>
                             </StackPanel>
 
+
                         </materialDesign:Card>
                     </StackPanel>
-
+                    <StackPanel Margin="10,10,10,0" Width="903">
+                        <materialDesign:Card Height="515" Margin="10,0">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel x:Name="printView" Height="474" Orientation="Vertical">
+                                    <TextBlock x:Name="heading" TextAlignment="Center" FontSize="14" FontWeight="Bold"/>
+                                    <DataGrid x:Name="dgSimple" RowHeight="60" RowHeaderWidth="0.2" MaxColumnWidth="130" MinColumnWidth="130" GridLinesVisibility="All" VerticalGridLinesBrush="#FFDEDEDE" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell" Cursor="Arrow" CanUserSortColumns="False" Margin="10,0" Height="441" FontSize="11"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Button x:Name="btnPdf" Content="PDF" Margin="0,0,10,10" Height="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Click="btnPdf_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
+                       
+                    </StackPanel>
 
                 </StackPanel>
             </TabItem>

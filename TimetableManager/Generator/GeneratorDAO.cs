@@ -1,0 +1,272 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using TimetableManager.DaysHoursDAO;
+using TimetableManager.SubjectDAO;
+
+namespace TimetableManager.Generator
+{
+    class GeneratorDAO
+    {
+        public static List<Session> getAllSessions()
+        {
+            List<Session> ssList = new List<Session>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id,lecturers,subj_name,subj_code,tag,grp_id,duration FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Session ss = new Session();
+                        ss.Id = int.Parse(reader["session_id"].ToString());
+                        ss.Lecturer = reader["lecturers"].ToString();
+                        ss.Sub_name = reader["subj_name"].ToString();
+                        ss.Sub_code = reader["subj_code"].ToString();
+                        ss.Tag = reader["tag"].ToString();
+                        ss.Grp_id = reader["grp_id"].ToString();
+                        ss.Duration = double.Parse(reader["duration"].ToString());
+                       
+
+                        ssList.Add(ss);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return ssList;
+
+        }
+
+        public static Days getDays()
+        {
+            List<Weekday> dayList = new List<Weekday>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT days FROM Weekday_Days WHERE week_type='Weekday'";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Weekday ss = new Weekday();
+                        ss.Days = reader["days"].ToString();
+                        dayList.Add(ss);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+          }
+
+            int mon=0, tue=0, wed=0, thu=0, fri=0;
+      
+            foreach(Weekday x in dayList)
+            {
+
+                string[] days = x.Days.Split(',');
+                foreach(string y in days)
+                {
+                    if (y.Equals("Monday"))
+                    {
+                        mon++;
+                    }
+                    else if (y.Equals("Tuesday"))
+                    {
+                        tue++;
+                    }
+                    else if( y.Equals("Wednesday"))
+                    {
+                        wed++;
+                    }
+                    else if (y.Equals("Thursday"))
+                    {
+                        thu++;
+                    }
+                    else if (y.Equals("Friday"))
+                    {
+                        fri++;
+                    }
+                }
+            }
+
+            Days d = new Days(mon,tue,wed,thu,fri);
+
+            return d;
+
+        }
+
+        public static List<StudentGroups> getAllGroups()
+        {
+            List<StudentGroups> list = new List<StudentGroups>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT group_id FROM Groups_Info";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        StudentGroups sg = new StudentGroups();
+                        
+                        sg.GroupId = reader["group_id"].ToString();
+                     
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        public static List<Lecturers> getAllLecturers()
+        {
+            List<Lecturers> list = new List<Lecturers>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT name FROM Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Lecturers ll = new Lecturers();
+
+                        ll.LecturerName = reader["name"].ToString();
+
+                        list.Add(ll);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        public static List<Hall> getAllRooms()
+        {
+            List<Hall> list = new List<Hall>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name,room_type,capacity FROM Room_Names";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Hall hh = new Hall();
+
+                        hh.HallName = reader["r_name"].ToString();
+                        hh.Type = reader["room_type"].ToString();
+                        hh.Capacity = int.Parse(reader["capacity"].ToString());
+
+                        list.Add(hh);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        public static List<Hall> getRoomsByType(string type)
+        {
+            List<Hall> list = new List<Hall>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name,room_type,capacity FROM Room_Names WHERE room_type=@type";
+                    command.Parameters.AddWithValue("@type", type);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Hall hh = new Hall();
+
+                        hh.HallName = reader["r_name"].ToString();
+                        hh.Type = reader["room_type"].ToString();
+                        hh.Capacity = int.Parse(reader["capacity"].ToString());
+
+                        list.Add(hh);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        public static Subject getSubject(String name)
+        {
+            Subject sub = new Subject();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT sub_name,lec_hrs,sub_code FROM Subjects WHERE sub_name = @name";
+                    command.Parameters.AddWithValue("@name", name);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+
+                        sub.SubName = reader["sub_name"].ToString();
+                        sub.LecHrs = double.Parse(reader["lec_hrs"].ToString());
+                        sub.SubCode = reader["sub_code"].ToString();
+
+   
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return sub;
+
+        }
+
+    }
+}
