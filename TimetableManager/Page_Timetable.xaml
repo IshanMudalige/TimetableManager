@@ -32,17 +32,19 @@
 
                             </StackPanel>
 
-                            <StackPanel Margin="45,20,50,0" Height="334" Orientation="Horizontal">
+                            <StackPanel Margin="50,20,50,0" Height="334" Orientation="Horizontal">
                                 <StackPanel Width="514">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="318">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="334">
                                         <TextBlock x:Name="txlog" Background="Black" Foreground="White" Padding="10,0,0,0"/>
                                     </ScrollViewer>
                                 </StackPanel>
                                 <StackPanel Width="524" Orientation="Vertical">
                                     <StackPanel>
-                                        <Button Content="Generate" Click="Generate" Height="40" FontSize="16" FontWeight="Bold" Margin="30,0,0,0" Background="#FFE48D10" BorderBrush="#FFE48D10" />
+                                        <Button Content="GENERATE TIMETABLES" Click="Generate" Height="40" FontSize="16" FontWeight="Bold" Margin="30,0,0,0" Background="#FF2196F3" BorderBrush="#FF2196F3" />
                                     </StackPanel>
-                                    
+                                    <StackPanel>
+                                        <Button Content="CLEAR TIMETABLES" Click="Button_Click" Height="40" FontSize="16" FontWeight="Bold" Background="#FFE48D10" BorderBrush="#FFE48D10" Margin="30,20,0,0"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
 
