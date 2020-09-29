@@ -28,7 +28,7 @@ namespace TimetableManager
         List<StudentGroups> sgList;
         List<Hall> hList;
         List<Lecturers> lList;
-        
+
         public Page_Timetable()
         {
             InitializeComponent();
@@ -51,74 +51,13 @@ namespace TimetableManager
         public void Generate(object sender, RoutedEventArgs e)
         {
 
-            AssignToMonday();
-           /* sgList = GeneratorDAO.getAllGroups();
-            hList = GeneratorDAO.getAllRooms();
-            lList = GeneratorDAO.getAllLecturers();
-            List<Session> sList = GeneratorDAO.getAllSessions();
-            Days days = GeneratorDAO.getDays();
-
+            TimetableGenerator();
+            GeneratorDAO.clearTables();
+            SaveLecturerTimetables();
+            SaveRoomTimetables();
+            SaveStudentTimetables();
+            WriteLn("> All generated timetables saved");
           
-
-            foreach (Session x in sList)
-            {
-                Subject sub = GeneratorDAO.getSubject(x.Sub_name);
-                Console.WriteLine("\nSession - " + x.Lecturer + "/" + x.Sub_name + "/" + x.Tag + "/" + x.Grp_id);
-                Lecturers lec = new Lecturers();
-                foreach (Lecturers z in lList)
-                {
-                    if (z.LecturerName.Equals(x.Lecturer))
-                    {
-                        lec = z;
-                        Console.WriteLine("Lecture - "+z.LecturerName);
-                    }
-                }
-
-                
-                foreach (StudentGroups std in sgList)
-                {
-                       
-                        if (std.GroupId.Equals(x.Grp_id))
-                        {
-                            Console.WriteLine("StGroup - " + std.GroupId);
-                            for(int i = 0; i < 4; i++)
-                            {
-                            int flag = 0;
-                                for(int j = 0; j < 5; j++)
-                                {
-
-                                    if (std.Student[i, j] == null && lec.Lecturer[i, j] == null)
-                                    {
-                                        //foreach (Hall h in hList)
-                                        //{
-                                           // if (h.Type.Equals(x.Tag) && h.Halls[i, j] == null)
-                                            //{
-                                                std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Tag + "\n" + x.Lecturer;
-                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id;
-                                               // h.Halls[i, j] = x.Sub_name + " " + x.Sub_code + " " + x.Lecturer;
-                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName +" "+" Assigned");
-                                                flag = 1;
-                                                break;
-                                            //}
-                                           
-                                           
-                                        //}
-                                    }
-                                //if (flag == 1)
-                                    //break;
-                            }
-                            if (flag == 1)
-                                break;
-                            
-                            
-                            }
-                        
-                        }
-                    
-                }
-               
-            }*/
-           
         }
 
         //dropdown handler
@@ -126,7 +65,7 @@ namespace TimetableManager
         {
             GridView myGridView = new GridView();
             myGridView.AllowsColumnReorder = true;
-            myGridView.ColumnHeaderToolTip = "Employee Information";
+            myGridView.ColumnHeaderToolTip = "Information";
 
             GridViewColumn column = new GridViewColumn();
             if (cbTypeT.SelectedIndex == 0)
@@ -135,7 +74,7 @@ namespace TimetableManager
                 column.Header = "Lecturer Name";
                 myGridView.Columns.Add(column);
                
-                PopulateLecturerTable(lList);
+                PopulateLecturerTable(ReadLecturerTimetables());
             }
             else if(cbTypeT.SelectedIndex == 1)
             {
@@ -143,14 +82,14 @@ namespace TimetableManager
                 column.Header = "Student Groups";
                 myGridView.Columns.Add(column);
 
-                PopulateStudentTable(sgList);
+                PopulateStudentTable(ReadStudentTimetables());
             }
             else if(cbTypeT.SelectedIndex == 2)
             {
                 column.DisplayMemberBinding = new Binding("HallName");
                 column.Header = "Halls";
                 myGridView.Columns.Add(column);
-                PopulateHallTable(hList);
+                PopulateHallTable(ReadRoomTimetables());
             }
 
             listViewT.View = myGridView;
@@ -261,7 +200,7 @@ namespace TimetableManager
 
         }
 
-        private void AssignToMonday()
+        private void TimetableGenerator()
         {
             sgList = GeneratorDAO.getAllGroups();
             hList = GeneratorDAO.getAllRooms();
@@ -270,7 +209,7 @@ namespace TimetableManager
             Days days = GeneratorDAO.getDays();
             int noOfSuccess = 0;
 
-
+            //================ Go through sessions =================
             foreach (Session x in sList)
             {
                 Subject sub = GeneratorDAO.getSubject(x.Sub_name);
@@ -288,7 +227,10 @@ namespace TimetableManager
                     }
                 }
 
-
+                List<Model> subRoomList = new List<Model>(); 
+                subRoomList = GeneratorDAO.getSubjectRooms(sub.SubCode);
+                
+                //========= Search and get student group=============
                 foreach (StudentGroups std in sgList)
                 {
 
@@ -296,81 +238,146 @@ namespace TimetableManager
                     {
                         Console.WriteLine("StGroup - " + std.GroupId);
                         WriteLn("StGroup - " + std.GroupId);
+
                         for (int i = 0; i < 8; i++)
                         {
                             int flag = 0;
                             for (int j = 0; j < 5; j++)
                             {
-
+                                //========================================================= Duration 1 =============================================================
                                 if (x.Duration == 1)
                                 {
-                                   
+
                                     if (std.Student[i, j] == null && lec.Lecturer[i, j] == null)
                                     {
-                                       
-                                        foreach (Hall hall in hList)
+                                        
+                                        if (subRoomList != null && subRoomList.Count>0)//Has a specific room for subject
                                         {
-                                           
-                                            if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null)
+                                            WriteLn("Subject has preffered rooms");
+                                            foreach (Model m in subRoomList)
                                             {
-                                                std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id+"\n"+hall.HallName;
-                                                hall.Halls[i, j] = x.Grp_id+"\n"+x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
-                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
-                                                WriteLn("Session -" + x.Sub_name+" "+std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
-                                                noOfSuccess++;
-                                                flag = 1;
-                                                break;
+                                               
+                                                foreach (Hall hall in hList)
+                                                {
+                                                    Console.WriteLine(hall.HallName);
+                                                    if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null)
+                                                    {
+                                                        std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                        lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                        hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                        Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        noOfSuccess++;
+                                                        flag = 1;
+                                                        Console.WriteLine(x.Sub_code+" saved for" + hall.HallName);
+                                                        break;
+                                                    }
+                                                }
+                                                if (flag == 1)
+                                                    break;
                                             }
                                         }
-
-
-                                    }
-                                }else if (x.Duration == 2)
-                                {
-                                   
-                                    if (std.Student[i, j] == null && lec.Lecturer[i, j] == null && std.Student[i+1, j] == null && lec.Lecturer[i+1, j] == null)
-                                    {
-                                       
-                                        foreach (Hall hall in hList)
+                                        else //No specific room for subject
                                         {
-                                            if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null && hall.Halls[i+1, j] == null)
+                                            
+                                            foreach (Hall hall in hList)
                                             {
-                                                std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id+"\n"+hall.HallName;
-                                                hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
-                                                std.Student[i+1, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
-                                                lec.Lecturer[i+1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
-                                                hall.Halls[i+1, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
-                                                Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
-                                                WriteLn("Session -"+x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
-                                                noOfSuccess++;
-                                                flag = 1;
-                                                break;
+
+                                                if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null)
+                                                {
+                                                    std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                    lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                    hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                    Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                    WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                    noOfSuccess++;
+                                                    flag = 1;
+                                                    break;
+                                                }
                                             }
+
+
                                         }
-
-
                                     }
                                 }
-                                if (flag == 1)
+                                //======================================================= Duration 2 ===============================================================
+                                else if (x.Duration == 2)
+                                {
+                                    try
+                                    {
+                                        if (std.Student[i, j] == null && lec.Lecturer[i, j] == null && std.Student[i + 1, j] == null && lec.Lecturer[i + 1, j] == null)
+                                        {
+                                            if (subRoomList != null && subRoomList.Count>0)
+                                            {
+                                                foreach (Model m in subRoomList)
+                                                {
+                                                    foreach (Hall hall in hList)
+                                                    {
+                                                        if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null && hall.Halls[i + 1, j] == null)
+                                                        {
+                                                            std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                            lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                            hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                            std.Student[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                            lec.Lecturer[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                            hall.Halls[i + 1, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                            Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                            WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                            noOfSuccess++;
+                                                            flag = 1;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (flag == 1)
+                                                        break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                foreach (Hall hall in hList)
+                                                {
+                                                    if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null && hall.Halls[i + 1, j] == null)
+                                                    {
+                                                        std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                        lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                        hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                        std.Student[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                        lec.Lecturer[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                        hall.Halls[i + 1, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                        Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        noOfSuccess++;
+                                                        flag = 1;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+
+                                        }
+                                    }
+                                    catch (IndexOutOfRangeException e) { Console.WriteLine(e); }
+                                }
+                                if (flag == 1)//second for loop
                                     break;
-                            }
-                            if (flag == 1)
+
+                            }//end of second for loop
+                            if (flag == 1)//first for loop
                                 break;
 
 
-                        }
+                        }//end of first for loop
 
                     }
 
-                }
+                }//end of student loop
                     
-            }
-            WriteLn("\n> No of Sessions successfully a assigned ---- "+ noOfSuccess);
-            WriteLn("> No of Sessions failed to assigned ---- " +(sList.Count-noOfSuccess));
+            }//end of session loop
+            WriteLn("\n> No of Sessions successfully assigned ---- "+ noOfSuccess);
+            WriteLn("> No of Sessions failed to assigned -------- " +(sList.Count-noOfSuccess));
         }
 
+        //console writer
         private void WriteLn(string text)
         {
             
@@ -381,10 +388,211 @@ namespace TimetableManager
            
         }
 
-      
+        //save student timetables into DB
+        private void SaveStudentTimetables()
+        {
+            
+            foreach (StudentGroups x in sgList)
+            {
+                string[,] board = new string[8, 5];
+                board = x.Student;
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < 8; i++)//for each row
+                {
+                    for (int j = 0; j < 5; j++)//for each column
+                    {
+                        builder.Append(board[i, j] + "");//append to the output string
+                        if (j < board.Length - 1)//if this is not the last row element
+                            builder.Append(",");//then add comma (if you don't like commas you can use spaces)
+                    }
+                    //builder.Append(",");//append new line at the end of the row
+                }
+                Model model = new Model(x.GroupId,builder.ToString());
+                GeneratorDAO.insertStudentTable(model);
+            }
+
+            /*string fileName = @"testFile.txt";
+            StreamWriter writer = new StreamWriter(fileName);
+            writer.WriteLine(builder.ToString());
+            writer.Close();*/
+
+        }
+
+        //save lecturer timetables into DB
+        private void SaveLecturerTimetables()
+        {
+
+            foreach (Lecturers x in lList)
+            {
+                string[,] board = new string[8, 5];
+                board = x.Lecturer;
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < 8; i++)//for each row
+                {
+                    for (int j = 0; j < 5; j++)//for each column
+                    {
+                        builder.Append(board[i, j] + "");//append to the output string
+                        if (j < board.Length - 1)//if this is not the last row element
+                            builder.Append(",");//then add comma (if you don't like commas you can use spaces)
+                    }
+                   
+                }
+                Model model = new Model(x.LecturerName, builder.ToString());
+                GeneratorDAO.insertLecturerTable(model);
+            }
+
+        }
+
+        //save room timetables into DB
+        private void SaveRoomTimetables()
+        {
+
+            foreach (Hall x in hList)
+            {
+                string[,] board = new string[8, 5];
+                board = x.Halls;
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < 8; i++)//for each row
+                {
+                    for (int j = 0; j < 5; j++)//for each column
+                    {
+                        builder.Append(board[i, j] + "");//append to the output string
+                        if (j < board.Length - 1)//if this is not the last row element
+                            builder.Append(",");//then add comma (if you don't like commas you can use spaces)
+                    }
+
+                }
+                Model model = new Model(x.HallName, builder.ToString());
+                GeneratorDAO.insertRoomTable(model);
+            }
+
+        }
+
+        // read student timetables from DB
+        private List<StudentGroups> ReadStudentTimetables()
+        {
+
+            List<StudentGroups> studentGroups = new List<StudentGroups>();
+            List<Model> stdTableList = GeneratorDAO.getStudentTables();
+            foreach (Model m in stdTableList)
+            {
+                string[,] board = new string[8, 5];
+                string line = m.RoomName;
+                string[] arr = line.Split(',');
+
+                int count = 0;
+               
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        board[i, j] = arr[count];
+                        count++;
+                    }
+                }
+                StudentGroups stdg = new StudentGroups();
+                stdg.GroupId = m.Key;
+                stdg.Student = board;
+                studentGroups.Add(stdg);
+
+            }
+
+            //string fileName = @"testFile.txt";  
+            //StreamReader reader = new StreamReader(fileName);
+            //int row = 0;
+            //String line = reader.ReadToEnd();
+            //while ((line = reader.ReadLine()) != null)
+            //{
+            //    String[] cols = line.Split(','); //note that if you have used space as separator you have to split on " "
+            //    int col = 0;
+            //    foreach (String c in cols)
+            //    {
+            //        board[row,col] = c;
+            //        col++;
+            //    }
+            //    row++;
+            //}
+
+
+            //reader.Close();
+           
+            return studentGroups;
+            
+        }
+
+        // read lecturer timetables from DB
+        private List<Lecturers> ReadLecturerTimetables()
+        {
+
+            List<Lecturers> lecturers = new List<Lecturers>();
+            List<Model> lecTableList = GeneratorDAO.getLecturerTables();
+            foreach (Model m in lecTableList)
+            {
+                string[,] board = new string[8, 5];
+                string line = m.RoomName;
+                string[] arr = line.Split(',');
+
+                int count = 0;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        board[i, j] = arr[count];
+                        count++;
+                    }
+                }
+                Lecturers lec = new Lecturers();
+                lec.LecturerName = m.Key;
+                lec.Lecturer = board;
+                lecturers.Add(lec);
+            }
+            return lecturers;
+        }
+
+        // read rooms timetables from DB
+        private List<Hall> ReadRoomTimetables()
+        {
+
+            List<Hall> rooms = new List<Hall>();
+            List<Model> roomTableList = GeneratorDAO.getRoomsTables();
+            foreach (Model m in roomTableList)
+            {
+                string[,] board = new string[8, 5];
+                string line = m.RoomName;
+                string[] arr = line.Split(',');
+
+                int count = 0;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        board[i, j] = arr[count];
+                        count++;
+                    }
+                }
+                Hall rm = new Hall();
+                rm.HallName = m.Key;
+                rm.Halls = board;
+                rooms.Add(rm);
+            }
+            return rooms;
+        }
+
+        // clear timetables
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            GeneratorDAO.clearTables();
+            WriteLn("> All tables cleared");
+        }
+
+
 
     }
-
 
 }
 

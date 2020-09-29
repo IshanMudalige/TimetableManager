@@ -361,6 +361,24 @@ namespace TimetableManager
             listViewSession.ItemsSource = observableList;
         }
 
+        //Deleting Normal sessions
+        private void btnSesDelete_Click(object sender, RoutedEventArgs e)
+        {
+            NormalSessions normalSessions = (NormalSessions)listViewSession.SelectedItem;
+
+            if (normalSessions == null)
+            {
+                MessageBox.Show("Please Select Required subject from the Table.");
+            }
+            else
+            {
+                NorSessionsDetailsDAO.deleteNormalSessions(normalSessions.Sid);
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+
+            }
+
+        }
+
 
 
         //==================================NOT AVAILABLE LEC==============================
@@ -1519,5 +1537,7 @@ namespace TimetableManager
 
             
         }
+
+        
     }
 }

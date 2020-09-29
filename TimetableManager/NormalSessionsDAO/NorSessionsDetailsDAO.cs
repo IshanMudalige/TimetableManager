@@ -56,12 +56,13 @@ namespace TimetableManager.NormalSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT lecturers,subj_name,subj_code,tag,grp_id,subgrp_id,no_students,duration FROM Sessions";
+                    command.CommandText = @"SELECT session_id,lecturers,subj_name,subj_code,tag,grp_id,subgrp_id,no_students,duration FROM Sessions";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NormalSessions normalSessions = new NormalSessions();
 
+                        normalSessions.Sid = int.Parse(reader["session_id"].ToString());
                         normalSessions.Lecturers = reader["lecturers"].ToString();
                         normalSessions.Sname = reader["subj_name"].ToString();
                         normalSessions.Scode = reader["subj_code"].ToString();
@@ -123,6 +124,27 @@ namespace TimetableManager.NormalSessionsDAO
             }
 
             return NorSessList;
+        }
+
+        //========================================Normal Session Delete================================================
+        public static void deleteNormalSessions(int id)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "DELETE FROM Sessions WHERE session_id = @sid";
+                    command.Parameters.AddWithValue("@sid", id);
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch(SQLiteException e)
+                {
+                    MessageBox.Show("Error in Deleting" + e.Message);
+                }
+            }
         }
 
     }
