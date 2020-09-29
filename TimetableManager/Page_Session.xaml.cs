@@ -17,6 +17,8 @@ using TimetableManager.NormalSessionsDAO;
 using System.Collections.ObjectModel;
 using TimetableManager.Not_AvailableSessionsDAO;
 using TimetableManager.ConsecutiveSessionsDAO;
+using TimetableManager.ParallelSessionsDAO;
+using TimetableManager.NonOverlappingSessionsDAO;
 
 namespace TimetableManager
 {
@@ -43,6 +45,16 @@ namespace TimetableManager
             loadConsecutiveSubject();
             loadSessionid1cmb();
             loadSessionid2cmb();
+            loadSubgroupidcmb();
+            loadPSessionid1cmb();
+            loadPSessionid2cmb();
+            loadPSessionid3cmb();
+            loadPSessionid4cmb();
+            loadNONSubgroupidcmb();
+            loadNSessionid1cmb();
+            loadNSessionid2cmb();
+            loadNSessionid3cmb();
+            loadNSessionid4cmb();
 
 
             PopulatenotavailableLec(NotAvaLecDao.getAll());
@@ -51,6 +63,8 @@ namespace TimetableManager
             PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
             PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
             PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+            PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+            PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
 
         }
 
@@ -1158,6 +1172,352 @@ namespace TimetableManager
 
 
             }
+        }
+
+        //========================================Parallel SessionS========================================================================
+
+        //==============-------------------------------load parallel Subgroupids---------------------------------------======================================
+        public void loadSubgroupidcmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subgrp_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subgrp_id"].ToString();
+                        txtPsubGrp.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============Populate Noramalp sessions =====================
+
+        private void PopulateNPsesionstable(List<ParallelSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ParallelSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewParellel.ItemsSource = observableList;
+
+        }
+
+        //=============Populate Parallel sessions =====================
+
+        private void PopulateParallelsesionstable(List<ParallelSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ParallelSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewParellelAdded.ItemsSource = observableList;
+
+        }
+
+        //Submit Parallel
+        private void btnPsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            ParallelSession parallelSession = new ParallelSession();
+
+            parallelSession.NSubgroupid = txtPsubGrp.Text;
+             PopulateNPsesionstable(ParallelSessionDAO.getAllSesions(parallelSession.NSubgroupid));
+        }
+
+        //==============-------------------------------load session id1 Parallel---------------------------------------======================================
+        public void loadPSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        //==============-------------------------------load session id2 Parallel---------------------------------------======================================
+        public void loadPSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id3 Parallel---------------------------------------======================================
+        public void loadPSessionid3cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID3.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id4 Parallel---------------------------------------======================================
+        public void loadPSessionid4cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID4.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //===================================Parallel Sessions add================================
+        private void btnPadd_Click(object sender, RoutedEventArgs e)
+        {
+            ParallelSession Pseesions = new ParallelSession();
+
+            Pseesions.PSession1= int.Parse(txtSID1.Text);
+            Pseesions.PSession2 = int.Parse(txtSID2.Text);
+            Pseesions.PSession3 = int.Parse(txtSID3.Text);
+            Pseesions.PSession4 = int.Parse(txtSID4.Text);
+            Pseesions.PDAY = txtPday.Text;
+            Pseesions.PTIME = txtPtime.Text;
+
+             ParallelSessionDAO.insertParallelsession(Pseesions);
+            PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+            
+        }
+
+        //================================================-------------------Non Overlapping Sessions--------------========================================
+
+
+        //=============Populate Noramaln sessions =====================
+
+        private void PopulatenoramalSTONONsesionstable(List<NonOverlappingSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NonOverlappingSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewNonOverlapping.ItemsSource = observableList;
+
+        }
+
+        //=============Populate Parallel sessions =====================
+
+        private void PopulateNonOverlappingsesionstable(List<NonOverlappingSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NonOverlappingSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewNonOverAdded.ItemsSource = observableList;
+
+        }
+
+        //==============-------------------------------load session id1 Non overlapping---------------------------------------======================================
+        public void loadNSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        //==============-------------------------------load session id2 Nonoverlaapping---------------------------------------======================================
+        public void loadNSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id3 Nonoverlapping---------------------------------------======================================
+        public void loadNSessionid3cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID3.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id4 Nonoverlapping---------------------------------------======================================
+        public void loadNSessionid4cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID4.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load NonOverlapping Subgroupids---------------------------------------======================================
+        public void loadNONSubgroupidcmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subgrp_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subgrp_id"].ToString();
+                        txtNOsubGrp.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        private void btnNOsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            NonOverlappingSessions nonoverlapSession = new NonOverlappingSessions();
+
+            nonoverlapSession.NonSubgroupid = txtNOsubGrp.Text;
+            PopulatenoramalSTONONsesionstable(NonOverlappingSessionDAO.getAllSesions(nonoverlapSession.NonSubgroupid));
+        }
+
+        private void btnNonadd_Click(object sender, RoutedEventArgs e)
+        {
+            NonOverlappingSessions Nonseesions = new NonOverlappingSessions();
+
+            Nonseesions.NonSession1 = int.Parse(txtNonSID1.Text);
+            Nonseesions.NonSession2 = int.Parse(txtNonSID2.Text);
+            Nonseesions.NonSession3 = int.Parse(txtNonSID3.Text);
+            Nonseesions.NonSession4 = int.Parse(txtNonSID4.Text);
+
+
+            NonOverlappingSessionDAO.insertNonoverlappingsession(Nonseesions);
+            PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
+
+
+            
         }
     }
 }

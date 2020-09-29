@@ -538,22 +538,254 @@
                     <TextBox x:Name="selectsession2tag" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="368,81,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" SelectionChanged="selectsession2tag_SelectionChanged"/>
                 </Grid>
             </TabItem>
-            <!--PARALLEL Sessions-->
+            <!--===============================================PARALLEL Sessions=================================-->
             <TabItem Header="PARALLEL">
-                <Grid Background="#FFE5E5E5" RenderTransformOrigin="0.26,0.433">
-                    <Grid.ColumnDefinitions>
+                <StackPanel>
+                    <!--Left Side-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="580" Margin="0 15 0 0" Visibility="Visible">
+                        <StackPanel>
+                            <ListView  Margin="40,10,10,10" x:Name="listViewParellel" Grid.ColumnSpan="2" Height="400">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="ParallelSessions Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding NormalS}" Header="Session ID" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NTags}" Header="Tag" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NDuration}" Header="Duration" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NSubjname}" Header="Subject" Width="150"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
 
-                        <ColumnDefinition Width="400*"/>
-                        <ColumnDefinition Width="400*"/>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
 
-                    </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="SubGroup ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                                <ComboBox x:Name="txtPsubGrp" Grid.Column="1" Margin="10,0,0,20" BorderThickness="1"/>
+                            </Grid>
+                        </StackPanel>
 
-                </Grid>
+                        <Button  x:Name="btnPsubmit" Content="SUBMIT" Width="120" Height="30" HorizontalAlignment="Center" Click="btnPsubmit_Click"/>
 
+                    </StackPanel>
+
+                    <!--Right Side-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="590" Margin="0 -490 0 10" Visibility="Visible">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 1" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtSID1" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 2" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtSID2" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 3" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtSID3" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 4" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtSID4" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Day" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtPday" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2">
+                                <ComboBoxItem Content="Monday"></ComboBoxItem>
+                                <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                                <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                                <ComboBoxItem Content="Friday"></ComboBoxItem>
+                                <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                                <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Time" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtPtime" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2">
+                                <ComboBoxItem Content="8.30 - 9.30"></ComboBoxItem>
+                                <ComboBoxItem Content="9.30 - 10.30"></ComboBoxItem>
+                                <ComboBoxItem Content="10.30 - 11.30"></ComboBoxItem>
+                                <ComboBoxItem Content="11.30 - 12.30"></ComboBoxItem>
+                                <ComboBoxItem Content="12.30 - 01.30"></ComboBoxItem>
+                                <ComboBoxItem Content="01.30 - 02.30"></ComboBoxItem>
+                                <ComboBoxItem Content="02.30 - 03.30"></ComboBoxItem>
+                                <ComboBoxItem Content="03.30 - 04.30"></ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+
+                        <Button  x:Name="btnPadd" Content="ADD" Width="120" Height="30" HorizontalAlignment="Center" Click="btnPadd_Click"/>
+
+                        <StackPanel>
+                            <ListView  Margin="40,10,10,10" x:Name="listViewParellelAdded" Grid.ColumnSpan="2" Height="400">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="ParallelSessions Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding PSession1}" Header="Session 1" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PSession2}" Header="Session 2" Width="87"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PSession3}" Header="Session 3" Width="87"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PSession4}" Header="Session 4" Width="87"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PDAY}" Header="Day" Width="90"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PTIME}" Header="Time" Width="90"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                </StackPanel>
 
             </TabItem>
             <!--NonOverlapping Sesssions-->
-            <TabItem Header="NON-OVERLAPPING"></TabItem>
+            <TabItem Header="NON-OVERLAPPING">
+                <StackPanel>
+                    <!--Left Side-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="580" Margin="0 15 0 0" Visibility="Visible">
+                        <StackPanel>
+                            <ListView  Margin="40,10,10,10" x:Name="listViewNonOverlapping" Grid.ColumnSpan="2" Height="400">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="NonOverlapping Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding NONNormalS}" Header="Session ID" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NonTags}" Header="Tag" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NonDuration}" Header="Duration" Width="120"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NonSubjname}" Header="Subject" Width="150"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="SubGroup ID" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                                <ComboBox x:Name="txtNOsubGrp" Grid.Column="1" Margin="10,0,0,20" BorderThickness="1"/>
+                            </Grid>
+                        </StackPanel>
+
+                        <Button  x:Name="btnNOsubmit" Content="SUBMIT" Width="120" Height="30" HorizontalAlignment="Center" Click="btnNOsubmit_Click" />
+
+                    </StackPanel>
+
+                    <!--Right Side-->
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="590" Margin="0 -490 0 10" Visibility="Visible">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 1" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtNonSID1" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 2" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtNonSID2" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 3" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtNonSID3" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="Session ID 4" FontSize="15" FontWeight="Bold" Margin="15 0 0 0"/>
+                            <ComboBox x:Name="txtNonSID4" Margin="187,0,10,20" BorderThickness="1" Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+
+                        <Button  x:Name="btnNonadd" Content="ADD" Width="120" Height="30" HorizontalAlignment="Center" Click="btnNonadd_Click" />
+
+                        <StackPanel>
+                            <ListView  Margin="40,10,10,10" x:Name="listViewNonOverAdded" Grid.ColumnSpan="2" Height="400">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="NonOverlappingSessions Information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NonSession1}" Header="Session 1" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding NonSession2}" Header="Session 2" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NonSession3}" Header="Session 3" Width="150"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding  NonSession4}" Header="Session 4" Width="150"/>
+                                        
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+                
+            </TabItem>
 
         </TabControl>
     </Grid>

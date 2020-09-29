@@ -93,6 +93,8 @@
     <Compile Include="ConsecutiveSessionsDAO\ConsecutiveSessionsDao.cs" />
     <Compile Include="GroupDAO\Groups.cs" />
     <Compile Include="GroupDAO\GroupDetailsDAO.cs" />
+    <Compile Include="NonOverlappingSessionsDAO\NonOverlappingSessionDAO.cs" />
+    <Compile Include="NonOverlappingSessionsDAO\NonOverlappingSessions.cs" />
     <Compile Include="NormalSessionsDAO\NormalSessions.cs" />
     <Compile Include="NormalSessionsDAO\NorSessionsDetailsDAO.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvailableGroup.cs" />
@@ -103,6 +105,8 @@
     <Compile Include="Not AvailableSessionsDAO\NotAvailableSubGroupDAO.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvaLec.cs" />
     <Compile Include="Not AvailableSessionsDAO\NotAvaLecDao.cs" />
+    <Compile Include="ParallelSessionsDAO\ParallelSession.cs" />
+    <Compile Include="ParallelSessionsDAO\ParallelSessionDAO.cs" />
     <Compile Include="RoomsAssignSession\RoomAssign.cs" />
     <Compile Include="RoomsAssignSession\RoomAssignDAO.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
