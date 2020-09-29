@@ -611,6 +611,8 @@ namespace TimetableManager
               
                 selectStime.Text = avasessions.NotAvaSesionTime.ToString();
 
+                selectNotAvaDays.Text = avasessions.NotAvaSessionDay.ToString();
+
 
             }
         }
@@ -669,7 +671,7 @@ namespace TimetableManager
         }
         //===========================================================NOT Available Group======================================
 
-        //==================================NOT AVAILABLE LEC==============================
+        
 
         //============================LOAD SUBJECT COMBO BOX===============================
 
@@ -787,14 +789,36 @@ namespace TimetableManager
             {
                 txtNotAvaGID.Text = avagrp.NotAvaGroupID;
                 txtNotAvaGSub.Text = avagrp.NotAvaSubname;
-                selectNotAvaDays.Text = avagrp.NotAvaGrpDay;
+                selectgrpdayscmb.Text = avagrp.NotAvaGrpDay;
                 selectNotAvagrouptime.Text = avagrp.NotAvaGrpTime;
-
-
-
+               
             }
         }
 
+        public void clearnotavailableGroups()
+        {
+            txtNotAvaGSub.Text = "";
+            txtNotAvaGID.Text = "";
+            selectgrpdayscmb.Text = "";
+            selectNotAvagrouptime.Text = "";
+        }
+
+        //======================delete group===============================
+        private void Deletegrpbtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableGroup notAvailableGroup = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
+
+            if (notAvailableGroup==null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvailableGroupDetailsDao.deletenotavailablegroups(notAvailableGroup.NotAvaGroupID);
+                PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAll());
+                clearnotavailableGroups();
+            }
+        }
         //=====================================================----------------Not Avaiable Subgroups------------------------======================================================  
         //============================LOAD SUBJECT COMBO BOX===============================
 
@@ -937,7 +961,7 @@ namespace TimetableManager
         {
             NotAvailableSubGroup notAvaSub = (NotAvailableSubGroup)listViewSUBGROUP_COPY.SelectedItem;
 
-            if (notAvaSub == null)
+            if (notAvaSub==null)
             {
                 MessageBox.Show("please select required row from the table");
             }
@@ -1180,7 +1204,6 @@ namespace TimetableManager
             if (csession != null)
             {
                 Csubname.Text = csession.NSubject;
-
                 Csession1.Text = csession.SessionID1;
                 Csession2.Text = csession.SessionID2;
                 txtnewtag.Text = csession.ConsecutiveTag;
@@ -1192,7 +1215,7 @@ namespace TimetableManager
             }
         }
 
-        //========================================Parallel SessionS========================================================================
+        //========================================Parallel Sessions========================================================================
 
         //==============-------------------------------load parallel Subgroupids---------------------------------------======================================
         public void loadSubgroupidcmb()
@@ -1538,6 +1561,6 @@ namespace TimetableManager
             
         }
 
-        
+       
     }
 }

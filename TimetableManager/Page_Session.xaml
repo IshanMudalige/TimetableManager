@@ -358,7 +358,7 @@
                             </ComboBox>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,150,0,0" TextWrapping="Wrap" Text="TIME" VerticalAlignment="Top" RenderTransformOrigin="0.782,2.729" FontWeight="Bold"/>
                             <Button x:Name="ADDgrpbtn" Content="ADD" Grid.Column="1" HorizontalAlignment="Left" Margin="446,159,0,0" VerticalAlignment="Top" Width="76" Click="ADDgrpbtn_Click"/>
-                            <Button x:Name="Deletegrpbtn" Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91"/>
+                            <Button x:Name="Deletegrpbtn" Content="DELETE" Grid.Column="1" HorizontalAlignment="Left" Margin="431,476,0,0" VerticalAlignment="Top" Width="91" Click="Deletegrpbtn_Click"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,42,0,0" TextWrapping="Wrap" Text="Subject" VerticalAlignment="Top" FontWeight="Bold"/>
                             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="91,79,0,0" TextWrapping="Wrap" Text="Group ID" VerticalAlignment="Top" FontWeight="Bold"/>
                             <TextBox x:Name="txtNotAvaGID"  Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="196,69,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="148"/>

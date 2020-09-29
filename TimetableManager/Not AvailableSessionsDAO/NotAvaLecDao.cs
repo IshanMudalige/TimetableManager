@@ -56,12 +56,12 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT lec_name,lec_day,lec_time FROM  Not_Available_Lec";
+                    command.CommandText = @"SELECT lec_id,lec_name,lec_day,lec_time FROM  Not_Available_Lec";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvaLec notAvaLec = new NotAvaLec();
-                       // notAvaLec.LecID = int.Parse(reader["lec_id"].ToString());
+                        notAvaLec.LecID = int.Parse(reader["lec_id"].ToString());
                         notAvaLec.LecName = reader["lec_name"].ToString();
                         notAvaLec.LecDay = reader["lec_day"].ToString();
                         notAvaLec.Lectime = reader["lec_time"].ToString();

@@ -121,5 +121,30 @@ namespace TimetableManager.Not_AvailableSessionsDAO
             return grpList;
 
         }
+
+        //==================Delete Not available groups=================
+
+
+        public static void deletenotavailablegroups(string ngrpid)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+
+                    command.CommandText = "DELETE FROM Not_Available_Groups  WHERE not_grpid = @n_notavasid";
+                    command.Parameters.AddWithValue("@n_notavasid", ngrpid);
+
+                    var s = command.ExecuteNonQuery();
+
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error in Deleting" + e.Message);
+                }
+            }
+        }
     }
 }

@@ -122,8 +122,8 @@ namespace TimetableManager.ConsecutiveSessionsDAO
 
         }
 
-        //DElete Consecutive Sessions
-        //==================Delete Not available Subgroups=================
+        //===================DElete Consecutive Sessions=================================
+        
 
 
         public static void deleteConsecutiveSession(string nsubid)
@@ -135,7 +135,7 @@ namespace TimetableManager.ConsecutiveSessionsDAO
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
 
-                    command.CommandText = " DELETE FROM Consecutive_Sessions  WHERE subject = @n_notavasid";
+                    command.CommandText = "DELETE FROM Consecutive_Sessions  WHERE subject = @n_notavasid";
                     command.Parameters.AddWithValue("@n_notavasid", nsubid);
 
                     var s = command.ExecuteNonQuery();
