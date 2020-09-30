@@ -1191,7 +1191,8 @@ namespace TimetableManager
             else
             {
                 ConsecutiveSessionsDao.deleteConsecutiveSession(notAvaSub.ConsecutiveSubject);
-                ConsecutiveSessionsDao.getAll();
+                //ConsecutiveSessionsDao.getAll();
+                PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
                 clearnotConsecutiveSessions();
             }
         }
