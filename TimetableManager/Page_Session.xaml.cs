@@ -33,7 +33,6 @@ namespace TimetableManager
             loadLecturerCombo();
             loadTags();
             loadGroupId();
-            loadSubjectNames();
             loadfacultyCombo();
             loaddepartmentCombo();
             
@@ -152,7 +151,7 @@ namespace TimetableManager
             string grpId = "";
             if (txtGrpID.SelectedIndex >= 0)
                 grpId = txtGrpID.SelectedItem.ToString();
-            Console.WriteLine("grpid is = " + grpId);
+            
 
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -180,60 +179,52 @@ namespace TimetableManager
         //Loading subject names to normal sessions
         public void loadSubjectNames()
         {
+            string grpId = "";
+            if (txtGrpID.SelectedIndex >= 0)
+                grpId = txtGrpID.SelectedItem.ToString();
 
+            Console.WriteLine("grpid is = " + grpId);
+
+            string[] year = grpId.Split('.');
+            string year1 = "";
+
+
+            foreach (string y in year)
+            {
+                if (y.Equals("Y1"))
+                {
+                    year1 = "Y1";
+                }
+                else if (y.Equals("Y2"))
+                {
+                    year1 = "Y2";
+                }
+                else if (y.Equals("Y3"))
+                {
+                    year1 = "Y3";
+                }
+                else if (y.Equals("Y4"))
+                {
+                    year1 = "Y4";
+                }
+            }
+
+            Console.WriteLine("year is = " + year1);
 
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-
-                /*string year = "";
-                string year1 = "Y1";
-                string year2 = "Y2";
-                string year3 = "Y3";
-                string year4 = "Y4";
-
-                string check = "";
-                if (txtGrpID.SelectedIndex >= 0)
-                    check = txtGrpID.SelectedItem.ToString();
-
-                //int length = check.Length - check.IndexOf(".") + 1;
-                string subCheck = check.Substring(1, check.IndexOf("."));
-
-
-                if (subCheck.Equals(year1))
-                {
-                    year = year1;
-                }
-                else if (subCheck.Equals(year2))
-                {
-                    year = year2;
-                }
-                else if (subCheck.Equals(year3))
-                {
-                    year = year3;
-                }
-                else
-                {
-                    year = year4;
-                }*/
-
 
                 try
                 {
 
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT sub_name FROM Subjects";
+                    command.CommandText = @"SELECT sub_name FROM Subjects WHERE offer_year='" + year1 + "'";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
 
                         string Sname = reader["sub_name"].ToString();
-                        //string Syr = reader["offer_year"].ToString();
-                        /*string[] items = new string[] {Sname +"." + Syr};
-                        foreach (string item in items)
-                        {
-                            txtSubNames.Items.Add(item);
-                        }*/
                         txtSubNames.Items.Add(Sname);
 
                     }
@@ -245,10 +236,11 @@ namespace TimetableManager
             }
         }
 
-        //Calling the losdSubGrpID method when GrpID is changing
+        //Calling the losdSubGrpID method and loadSubjectNames method when GrpID is changing
         private void txtGrpID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             loadSubGrpId();
+            loadSubjectNames();
         }
 
         //Load no of students to normal sessions
@@ -377,6 +369,35 @@ namespace TimetableManager
 
             }
 
+        }
+
+        //Search normal sessions
+        private void searchFieldNorSess_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string type = "";
+            if(RdLec.IsChecked == true)
+            {
+                type = "lecturer";
+                
+            }
+            else if(RdSub.IsChecked == true)
+            {
+                type = "subject";
+            }
+            else if (RdGrp.IsChecked == true)
+            {
+                type = "group";
+            }
+
+
+            if (searchFieldNorSess.Text.Equals(""))
+            {
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+            }
+            else
+            {
+                PopulateTableNormalSess(NorSessionsDetailsDAO.search(searchFieldNorSess.Text,type));
+            }
         }
 
 

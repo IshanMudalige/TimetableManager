@@ -147,5 +147,51 @@ namespace TimetableManager.NormalSessionsDAO
             }
         }
 
+
+        //=======================================Normal session Search===================================================
+        public static List<NormalSessions> search(String text, string type)
+        {
+            List<NormalSessions> NorSessionList = new List<NormalSessions>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+
+                if(type.Equals("lecturer"))
+                {
+                    command.CommandText = @"SELECT session_id,lecturers,subj_name,subj_code,tag,grp_id,subgrp_id,no_students,duration FROM Sessions WHERE lecturers LIKE '%" + text + "%'";
+                }
+                else if(type.Equals("subject"))
+                {
+                    command.CommandText = @"SELECT session_id,lecturers,subj_name,subj_code,tag,grp_id,subgrp_id,no_students,duration FROM Sessions WHERE subj_name LIKE '%" + text + "%'";
+                }
+                else if(type.Equals("group"))
+                {
+                    command.CommandText = @"SELECT session_id,lecturers,subj_name,subj_code,tag,grp_id,subgrp_id,no_students,duration FROM Sessions WHERE grp_id LIKE '%" + text + "%'";
+                }
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    NormalSessions normalSessions = new NormalSessions();
+
+                    normalSessions.Sid = int.Parse(reader["session_id"].ToString());
+                    normalSessions.Lecturers = reader["lecturers"].ToString();
+                    normalSessions.Sname = reader["subj_name"].ToString();
+                    normalSessions.Scode = reader["subj_code"].ToString();
+                    normalSessions.Tag = reader["tag"].ToString();
+                    normalSessions.GrpID = reader["grp_id"].ToString();
+                    normalSessions.SubID = reader["subgrp_id"].ToString();
+                    normalSessions.NoStu = int.Parse(reader["no_students"].ToString());
+                    normalSessions.Duration = double.Parse(reader["duration"].ToString());
+
+                    NorSessionList.Add(normalSessions);
+                }
+
+            }
+
+            return NorSessionList;
+        }
+
     }
 }
