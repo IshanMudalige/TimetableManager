@@ -8,6 +8,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 {
     class NotAvailableGroup
     {
+        private int notavailablegrpid;
         private string not_grpid;
         private string not_sub_name;
         private string not_grp_days;
@@ -20,8 +21,9 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 
         }
 
-        public NotAvailableGroup(string notavagrpid, string notavasSubname, string notavagrpday, string notavagrptime,string notavatag)
+        public NotAvailableGroup(int notavailablegrpid,string notavagrpid, string notavasSubname, string notavagrpday, string notavagrptime,string notavatag)
         {
+            this.notavailablegrpid = notavailablegrpid;
             this.not_grpid = notavagrpid;
             this.not_sub_name = notavasSubname;
             this.not_grp_days = notavagrpday;
@@ -29,6 +31,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
             this.not_grp_tag = notavatag;
         }
 
+        public int NotAvailableGrpID { get => notavailablegrpid; set => notavailablegrpid = value; }
         public string NotAvaGroupID { get => not_grpid; set => not_grpid = value; }
 
         public string NotAvaSubname { get => not_sub_name; set => not_sub_name = value; }

@@ -808,14 +808,15 @@ namespace TimetableManager
         {
             NotAvailableGroup notAvailableGroup = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
 
-            if (notAvailableGroup==null)
+            if (notAvailableGroup == null)
             {
                 MessageBox.Show("please select required row from the table");
             }
             else
             {
-                NotAvailableGroupDetailsDao.deletenotavailablegroups(notAvailableGroup.NotAvaGroupID);
-                PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAll());
+                NotAvailableGroupDetailsDao.deletenotavailablegroups(notAvailableGroup.NotAvailableGrpID);
+
+                PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
                 clearnotavailableGroups();
             }
         }
@@ -967,9 +968,11 @@ namespace TimetableManager
             }
             else
             {
-                NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvaSubGrpId);
-                NotAvailableSubGroupDAO.getAll();
+                NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvailableSubGrpId);
+                PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
                 clearnotavailableSubGroups();
+
+                
             }
         }
 
