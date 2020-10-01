@@ -149,6 +149,43 @@ namespace TimetableManager.ConsecutiveSessionsDAO
         }
 
 
+
+
+
+        public static List<ConsecutiveSession> getConsectiveAll()
+        {
+            List<ConsecutiveSession> CsList = new List<ConsecutiveSession>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT consecutive_sid,subject,day,time,newtag FROM Consecutive_Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ConsecutiveSession csession = new ConsecutiveSession();
+
+                        csession.ConsSesId = int.Parse(reader["consecutive_sid"].ToString());
+                        csession.ConsecutiveSubject = reader["subject"].ToString();
+                        csession.ConsecutiveDay = reader["day"].ToString();
+                        csession.ConsecutiveTime = reader["time"].ToString();
+                        csession.ConsecutiveTag = reader["newtag"].ToString();
+
+
+
+                        CsList.Add(csession);
+
+                    }
+                
+            }
+
+            return CsList;
+
+        }
+
+
     }
 
 }

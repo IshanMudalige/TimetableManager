@@ -8,6 +8,7 @@ namespace TimetableManager.RoomsNotAvailableDAO
 {
     class RoomNotAvailable
     {
+        private int nid;
         private String b_name;
         private String r_name;
         private String description;
@@ -17,8 +18,9 @@ namespace TimetableManager.RoomsNotAvailableDAO
 
         public RoomNotAvailable () {}
 
-        public RoomNotAvailable(String b_name, String r_name, String description, String day, String from, String to)
+        public RoomNotAvailable(int nid, String b_name, String r_name, String description, String day, String from, String to)
         {
+            this.nid = nid;
             this.b_name = b_name;
             this.r_name = r_name;
             this.description = description;
@@ -26,6 +28,8 @@ namespace TimetableManager.RoomsNotAvailableDAO
             this.from = from;
             this.to = to;
         }
+
+        public int Nid { get => nid; set => nid = value; }
 
         public String BuildingNameNA { get => b_name; set => b_name = value; }
 

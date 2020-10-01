@@ -168,6 +168,64 @@
                         </TabItem>
 
 
+
+
+
+                        <TabItem Header="For Consecutive Sessions">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="289*"/>
+                                    <ColumnDefinition Width="288*"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <ListView x:Name="listviewSessionCons" Height="345" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionCons_SelectionChanged">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsSesId}" Header="Sid" Width="60"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveSubject}" Header="Subject" Width="100"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveDay}" Header="Day" Width="110"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveTime}" Header="Time" Width="70"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsecutiveTag}" Header="Tag" Width="110"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+
+                                <TextBox x:Name="consSesId" Height="25" Margin="116,392,325.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBox x:Name="consSubName" Height="25" Margin="320,392,121.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBox x:Name="consDay" Height="25" Margin="37,446,404.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBox x:Name="consTime" Height="25" Margin="219,446,222.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBox x:Name="consTag" Height="25" Margin="398,446,43.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+
+
+                                <TextBlock HorizontalAlignment="Left" Margin="36.4,23,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                                <ComboBox x:Name="selectConsType" HorizontalAlignment="Left" Margin="262.4,21,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1" SelectionChanged="selectConsType_SelectionChanged"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="36.4,70,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                                <ComboBox x:Name="selectConsRoom" HorizontalAlignment="Left" Margin="262.4,70,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1"/>
+                                
+                                <ListView x:Name="listviewConsNew" Height="345" Margin="7.4,177,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="1">
+                                    <ListView.View>
+                                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
+                                            <GridViewColumn DisplayMemberBinding="{Binding ConsSesIdNew}" Header="Sid" Width="60"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding SubjectCons}" Header="Subject" Width="80"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding DayCons}" Header="Day" Width="80"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding TimeCons}" Header="Time" Width="70"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding TagCons}" Header="Tag" Width="110"/>
+                                            <GridViewColumn DisplayMemberBinding="{Binding RoomCons}" Header="Room" Width="110"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                
+                                <Button Content="Add Session" Grid.Column="1" HorizontalAlignment="Left" Margin="366.4,122,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_7"/>
+                                <Button Content="Remove Session" Grid.Column="1" HorizontalAlignment="Left" Margin="366.4,535,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_8"/>
+
+
+
+                            </Grid>
+                        </TabItem>
+
+
                         <TabItem Header="For Lecturers">
                             <Grid Background="White">
                                 <Grid.ColumnDefinitions>
@@ -369,22 +427,30 @@
 
 
                     <TextBlock HorizontalAlignment="Left" Margin="57,0,0,274.4" TextWrapping="Wrap" Text="Select Date" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <DatePicker x:Name="datePick" HorizontalAlignment="Left" Height="25" Margin="253,343,0,0" VerticalAlignment="Top" Width="263"/>
+                    
 
-
+                    <ComboBox x:Name="datePick" HorizontalAlignment="Left" Margin="253,343,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1">
+                        <ComboBoxItem Content="Monday"></ComboBoxItem>
+                        <ComboBoxItem Content="Tuesday"></ComboBoxItem>
+                        <ComboBoxItem Content="Wednesday"></ComboBoxItem>
+                        <ComboBoxItem Content="Thursday"></ComboBoxItem>
+                        <ComboBoxItem Content="Friday"></ComboBoxItem>
+                        <ComboBoxItem Content="Saturday"></ComboBoxItem>
+                        <ComboBoxItem Content="Sunday"></ComboBoxItem>
+                    </ComboBox>
 
 
 
 
                     <materialDesign:TimePicker x:Name="timeFrom" HorizontalAlignment="Left" Height="25" Margin="57,475,0,0" VerticalAlignment="Top" Width="165"/>
                     <materialDesign:TimePicker x:Name="timeTo" HorizontalAlignment="Left" Height="25" Margin="351,475,0,0" VerticalAlignment="Top" Width="165"/>
-                    
+
                     <TextBlock HorizontalAlignment="Left" Margin="57,0,0,190.4" TextWrapping="Wrap" Text="From" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
                     <TextBlock HorizontalAlignment="Left" Margin="351,0,0,190.4" TextWrapping="Wrap" Text="To" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
-                    
+
                     <Button Content="Add" HorizontalAlignment="Left" Margin="357,551,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_6"/>
-                    
-                    <ListView x:Name="listviewNotAvailableRoom" Grid.Column="1" Height="439" Margin="11.6,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+
+                    <ListView x:Name="listviewNotAvailableRoom" Grid.Column="1" Height="439" Margin="11.6,35,0,0" VerticalAlignment="Top" Width="554" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Not Available Session Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding BuildingNameNA}" Header="Buidling Name" Width="120"/>
@@ -395,6 +461,9 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    
+                    <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="367.6,503,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_9"/>
+                    
 
 
 
