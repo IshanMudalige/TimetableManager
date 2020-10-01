@@ -116,7 +116,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Button Grid.Column="0" x:Name="btnSessionAdd" Content="GENERATE SESSION" Width="160" Height="40" Click="btnSessionAdd_Click"/>
-                            <Button Grid.Column="1" x:Name="btnSeClear" Content="CLEAR" Width="100" Height="40"/>
+                            <Button Grid.Column="1" x:Name="btnSeClear" Content="CLEAR" Width="100" Height="40" Click="btnSeClear_Click"/>
                         </Grid>
 
                     </StackPanel>
