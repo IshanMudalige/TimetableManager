@@ -102,21 +102,26 @@ namespace TimetableManager
 
         private void btnLecAdd_Click(object sender, RoutedEventArgs e)
         {
-            Lecturer lecturer = new Lecturer();
+            if(ValidateFields())
+            {
+                Lecturer lecturer = new Lecturer();
 
-            lecturer.Name = txtLecName.Text;
-            lecturer.EmployeeID = txtLecID.Text;
-            lecturer.Faculty = cmbLecFaculty.Text;
-            lecturer.Department = txtLecDepartment.Text;
-            lecturer.Center = cmbLecCenter.Text;
-            lecturer.Building = txtLecBuilding.Text;
-            lecturer.Category = cmbLecCategory.Text;
-            lecturer.Level = txtLevel.Text;
-            lecturer.Rank = txtLecRank.Text;
+                lecturer.Name = txtLecName.Text;
+                lecturer.EmployeeID = txtLecID.Text;
+                lecturer.Faculty = cmbLecFaculty.Text;
+                lecturer.Department = txtLecDepartment.Text;
+                lecturer.Center = cmbLecCenter.Text;
+                lecturer.Building = txtLecBuilding.Text;
+                lecturer.Category = cmbLecCategory.Text;
+                lecturer.Level = txtLevel.Text;
+                lecturer.Rank = txtLecRank.Text;
 
-            LecturerDetailsDAO.insertLecture(lecturer);
-            PopulateTable(LecturerDetailsDAO.getAll());
-            clear();
+                LecturerDetailsDAO.insertLecture(lecturer);
+                PopulateTable(LecturerDetailsDAO.getAll());
+                clear();
+            }
+
+            
         }
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)

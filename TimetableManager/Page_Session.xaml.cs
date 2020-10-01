@@ -328,19 +328,23 @@ namespace TimetableManager
         //Inserting Normal Sessions 
         private void btnSessionAdd_Click(object sender, RoutedEventArgs e)
         {
-            NormalSessions normalSessions = new NormalSessions();
+            if(ValidateNorSessions())
+            {
+                NormalSessions normalSessions = new NormalSessions();
 
-            normalSessions.Lecturers = txtLecNames.Text;
-            normalSessions.GrpID = txtGrpID.Text;
-            normalSessions.SubID = txtSubGrpID.Text;
-            normalSessions.NoStu = int.Parse(txtNoOfStudents.Text);
-            normalSessions.Sname = txtSubNames.Text;
-            normalSessions.Scode = txtSubjCode.Text;
-            normalSessions.Tag = txtTag.Text;
-            normalSessions.Duration = double.Parse(txtDuration.Text);
+                normalSessions.Lecturers = txtLecNames.Text;
+                normalSessions.GrpID = txtGrpID.Text;
+                normalSessions.SubID = txtSubGrpID.Text;
+                normalSessions.NoStu = int.Parse(txtNoOfStudents.Text);
+                normalSessions.Sname = txtSubNames.Text;
+                normalSessions.Scode = txtSubjCode.Text;
+                normalSessions.Tag = txtTag.Text;
+                normalSessions.Duration = double.Parse(txtDuration.Text);
 
-            NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
-            PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+                NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+                ClearNorSessions();
+            }
 
         }
 
@@ -398,6 +402,74 @@ namespace TimetableManager
             {
                 PopulateTableNormalSess(NorSessionsDetailsDAO.search(searchFieldNorSess.Text,type));
             }
+        }
+
+        //Validate normal sessions
+        private Boolean ValidateNorSessions()
+        {
+            if(cmbLecNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select a Lecturer name");
+            }
+            else if(txtLecNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the selected Lecturer name to the text feild");
+            }
+            else if (txtGrpID.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a groupID");
+            }
+            else if (txtSubGrpID.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a sub-group ID");
+            }
+            else if (txtNoOfStudents.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the get the number of students related to the sub group");
+            }
+            else if (txtSubNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a subject");
+            }
+            else if (txtSubjCode.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the subject code");
+            }
+            else if (txtTag.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a tag");
+            }
+            else if (txtDuration.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter the duration");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //Clear the text feilds in normal sessions
+        public void ClearNorSessions()
+        {
+            cmbLecNames.Text = "";
+            txtLecNames.Text = "";
+            txtGrpID.Text = "";
+            txtSubGrpID.Text = "";
+            txtNoOfStudents.Text = "";
+            txtSubNames.Text = "";
+            txtSubjCode.Text = "";
+            txtTag.Text = "";
+            txtDuration.Text = "";
+
+        }
+
+        //Calling clear normal session method
+        private void btnSeClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearNorSessions();
         }
 
 
@@ -1586,6 +1658,6 @@ namespace TimetableManager
             
         }
 
-       
+        
     }
 }
