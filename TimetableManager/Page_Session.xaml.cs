@@ -478,26 +478,54 @@ namespace TimetableManager
         //=========================================================Retrive Specific LECTUERS========================================== 
         private void submit_Click(object sender, RoutedEventArgs e)
         {
-            NotAvaLec notAvaLec = new NotAvaLec();
+            if (ValidateNotAvaLECSubmit())
+            {
+                NotAvaLec notAvaLec = new NotAvaLec();
 
-            notAvaLec.Faculty = selectfaculty.Text;
-            notAvaLec.Department = selectDepartment.Text;
-            PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department));
+                notAvaLec.Faculty = selectfaculty.Text;
+                notAvaLec.Department = selectDepartment.Text;
+                PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department));
+            }
+           
 
         }
 
+        private Boolean ValidateNotAvaLECSubmit()
+        {
+            if (selectfaculty.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select  Faculty ");
+            }
+            if (selectDepartment.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select  Department ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         //====================================================ADD NOT Available Lectuers =================================
         private void NAL_ADD_BTN_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (Validate())
+            {
                 NotAvaLec avaLec = new NotAvaLec();
 
                 avaLec.LecID = int.Parse(txtNAID.Text);
                 avaLec.LecName = txtNAlec.Text;
                 avaLec.LecDay = selectnotavailableDay.Text;
                 avaLec.Lectime = selectnotavailabletime.Text;
-                NotAvaLecDao.insertnotAvailableLec( avaLec);
+                NotAvaLecDao.insertnotAvailableLec(avaLec);
                 PopulatenotavailableLec(NotAvaLecDao.getAll());
+            }
+            else
+            {
+                MessageBox.Show("Please select the required Lectuer from the table");
+            }
             
         }
 
@@ -564,6 +592,32 @@ namespace TimetableManager
             selectnotavailableDay.Text = "";
         }
 
+        private Boolean Validate()
+        {
+            if (txtNAID.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Lectuerid");
+            }
+            if (txtNAlec.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Lectuer Name");
+            }
+            if (selectnotavailableDay.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Not Available Day");
+            }
+            if (selectnotavailabletime.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter  Not Available time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         //=================================---------------------------Not Available Sessions-----------------====================================================================================
 
         //==================================NOT AVAILABLE Sessions Populate Table=============================
@@ -616,11 +670,20 @@ namespace TimetableManager
         //===========================-----------------------------Retrive Normal Sessions to not availabel------------------==================================
         private void sessionsubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
+            if (ValidateNotAvaSessionSubmit())
+            {
+                NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
 
-            notAvailableSessions.NotAvaSubject= selectsubject.Text;
-            PopulatenotavailableSessions(NotAvailableSessionDAO.getAllSesions(notAvailableSessions.NotAvaSubject));
+                notAvailableSessions.NotAvaSubject = selectsubject.Text;
+                PopulatenotavailableSessions(NotAvailableSessionDAO.getAllSesions(notAvailableSessions.NotAvaSubject));
+            }
+            else
+            {
+
+            }
         }
+
+
 
         private void listView1_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -640,17 +703,58 @@ namespace TimetableManager
         //==============================================================ADD NOT AVAILABLE SESSIONS=======================================================
         private void AddSessionBTN_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSessions notSessions = new NotAvailableSessions();
+            if (ValidateNotAvaSession())
+            {
+                NotAvailableSessions notSessions = new NotAvailableSessions();
 
-            notSessions.NotAvaSessionID= int.Parse(txtNASessionid.Text);
-            notSessions.NotAvaSessionDay = selectNotAvaDays.Text;
-            notSessions.NotAvaSesionTime = selectStime.Text;
-            NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
-            
-            PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+                notSessions.NotAvaSessionID = int.Parse(txtNASessionid.Text);
+                notSessions.NotAvaSessionDay = selectNotAvaDays.Text;
+                notSessions.NotAvaSesionTime = selectStime.Text;
+                NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
+
+                PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+            }
+           
         }
 
-       
+        private Boolean ValidateNotAvaSession()
+        {
+            if (txtNASessionid.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Session ID from the Table");
+            }
+            if (selectNotAvaDays.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectStime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private Boolean ValidateNotAvaSessionSubmit()
+        {
+            if (selectsubject.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+      
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -766,11 +870,33 @@ namespace TimetableManager
         }
         private void GROUP_subbtn_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableGroup notAvailableGroup = new NotAvailableGroup();
+            if (ValidateNotAvaGroupSubmit())
+            {
+                NotAvailableGroup notAvailableGroup = new NotAvailableGroup();
 
-            notAvailableGroup.NotAvaSubname = selectSubCMB.Text;
-            notAvailableGroup.NotAvaGrpTAG = selectTagCMB.Text;
-            PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAllGroups(notAvailableGroup.NotAvaSubname,notAvailableGroup.NotAvaGrpTAG));
+                notAvailableGroup.NotAvaSubname = selectSubCMB.Text;
+                notAvailableGroup.NotAvaGrpTAG = selectTagCMB.Text;
+                PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAllGroups(notAvailableGroup.NotAvaSubname, notAvailableGroup.NotAvaGrpTAG));
+            }
+        }
+
+        private Boolean ValidateNotAvaGroupSubmit()
+        {
+            if (selectSubCMB.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            if (selectTagCMB.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Tag ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void listViewGROUP_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -789,19 +915,46 @@ namespace TimetableManager
 
         private void ADDgrpbtn_Click(object sender, RoutedEventArgs e)
         {
-           NotAvailableGroup notGroups = new NotAvailableGroup();
+            if (ValidateNotAvaGroup())
+            {
+                NotAvailableGroup notGroups = new NotAvailableGroup();
 
-            notGroups.NotAvaGroupID = txtNotAvaGID.Text;
-            notGroups.NotAvaSubname = txtNotAvaGSub.Text;
-            notGroups.NotAvaGrpDay = selectgrpdayscmb.Text;
-            notGroups.NotAvaGrpTime = selectNotAvagrouptime.Text;
-            
-            NotAvailableGroupDetailsDao.insertnotAvailableGroup(notGroups);
-            PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
+                notGroups.NotAvaGroupID = txtNotAvaGID.Text;
+                notGroups.NotAvaSubname = txtNotAvaGSub.Text;
+                notGroups.NotAvaGrpDay = selectgrpdayscmb.Text;
+                notGroups.NotAvaGrpTime = selectNotAvagrouptime.Text;
 
+                NotAvailableGroupDetailsDao.insertnotAvailableGroup(notGroups);
+                PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
 
+            }
         }
 
+        private Boolean ValidateNotAvaGroup()
+        {
+            if (txtNotAvaGID.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Group from the Table");
+            }
+            if (txtNotAvaGSub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject from the Table");
+            }
+            if (selectgrpdayscmb.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectgrpdayscmb.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         private void listViewGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NotAvailableGroup avagrp = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
@@ -931,28 +1084,80 @@ namespace TimetableManager
         }
 
         private void btnSubgroupsubmit_Click(object sender, RoutedEventArgs e)
+
         {
-            NotAvailableSubGroup notAvailablesubGroup = new NotAvailableSubGroup();
+            if (ValidateNotAvaSubGroupSubmit())
+            {
+                NotAvailableSubGroup notAvailablesubGroup = new NotAvailableSubGroup();
 
-            notAvailablesubGroup.NotAvaSubGrpSubname = cmbsub.Text;
-            notAvailablesubGroup.NotAvaSubGrpTag = cmbtag.Text;
+                notAvailablesubGroup.NotAvaSubGrpSubname = cmbsub.Text;
+                notAvailablesubGroup.NotAvaSubGrpTag = cmbtag.Text;
 
 
-            PopulatenotavailableSubGroup(NotAvailableSubGroupDAO.getAllSubGroups(notAvailablesubGroup.NotAvaSubGrpSubname,notAvailablesubGroup.NotAvaSubGrpTag));
+                PopulatenotavailableSubGroup(NotAvailableSubGroupDAO.getAllSubGroups(notAvailablesubGroup.NotAvaSubGrpSubname, notAvailablesubGroup.NotAvaSubGrpTag));
+            }
+        }
+
+        private Boolean ValidateNotAvaSubGroupSubmit()
+        {
+            if (cmbsub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            if (cmbtag.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Tag ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void btnaddsubgroups_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSubGroup notsubGroups = new NotAvailableSubGroup();
+            if (ValidateNotAvaSubGroup())
+            {
+                NotAvailableSubGroup notsubGroups = new NotAvailableSubGroup();
 
-            notsubGroups.NotAvaSubGrpId = txtnotsubgrpid.Text;
-            notsubGroups.NotAvaSubGrpSubname = txtnotsubgrpsubname.Text;
-            notsubGroups.NotAvaSubGrpDays = selectnotavaSubgroupDays.Text;
-            notsubGroups.NotAvaSubGrpTime = selectNotavaSubgrpTime.Text;
+                notsubGroups.NotAvaSubGrpId = txtnotsubgrpid.Text;
+                notsubGroups.NotAvaSubGrpSubname = txtnotsubgrpsubname.Text;
+                notsubGroups.NotAvaSubGrpDays = selectnotavaSubgroupDays.Text;
+                notsubGroups.NotAvaSubGrpTime = selectNotavaSubgrpTime.Text;
 
 
-            NotAvailableSubGroupDAO.insertnotAvailableSubGroup(notsubGroups);
-            PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+                NotAvailableSubGroupDAO.insertnotAvailableSubGroup(notsubGroups);
+                PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+            }
+        }
+
+        private Boolean ValidateNotAvaSubGroup()
+        {
+            if (txtnotsubgrpid.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  SubGroup from the Table");
+            }
+            if (txtnotsubgrpsubname.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject from the Table");
+            }
+            if (selectnotavaSubgroupDays.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectNotavaSubgrpTime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void listViewSUBGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1051,12 +1256,28 @@ namespace TimetableManager
 
         private void consecutivesubmitbtn_Click(object sender, RoutedEventArgs e)
         {
-            ConsecutiveSession consecutive = new ConsecutiveSession();
+            if (ValidateConsecutiveSubmit())
+            {
+                ConsecutiveSession consecutive = new ConsecutiveSession();
 
-            consecutive.NSubject = cmbconsecutiveSub.Text;
-            PopulateCsession(ConsecutiveSessionsDao.getAllSesions(consecutive.NSubject));
+                consecutive.NSubject = cmbconsecutiveSub.Text;
+                PopulateCsession(ConsecutiveSessionsDao.getAllSesions(consecutive.NSubject));
+            }
         }
 
+        private Boolean ValidateConsecutiveSubmit()
+        {
+            if (cmbconsecutiveSub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         //==============-------------------------------load session id1---------------------------------------======================================
         public void loadSessionid1cmb()
         {
@@ -1180,20 +1401,56 @@ namespace TimetableManager
 
         private void BTNMerged_Click(object sender, RoutedEventArgs e)
         {
+            if (ValidateConsecutive())
+            {
 
-            ConsecutiveSession cSession = new ConsecutiveSession();
+                ConsecutiveSession cSession = new ConsecutiveSession();
 
-            cSession.SessionID1 = Csession1.Text;
-            cSession.SessionID2 = Csession2.Text;
-            cSession.ConsecutiveTag = txtnewtag.Text;
-            cSession.ConsecutiveSubject = Csubname.Text;
-            cSession.ConsecutiveDay = Cday.Text;
-            cSession.ConsecutiveTime = Ctime.Text;
+                cSession.SessionID1 = Csession1.Text;
+                cSession.SessionID2 = Csession2.Text;
+                cSession.ConsecutiveTag = txtnewtag.Text;
+                cSession.ConsecutiveSubject = Csubname.Text;
+                cSession.ConsecutiveDay = Cday.Text;
+                cSession.ConsecutiveTime = Ctime.Text;
 
-            ConsecutiveSessionsDao.insertConsecutivesession(cSession);
-            PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+                ConsecutiveSessionsDao.insertConsecutivesession(cSession);
+                PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+            }
         }
 
+        private Boolean ValidateConsecutive()
+        {
+            if (Csession1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session 1");
+            }
+            if (Csession2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session 2");
+            }
+            if (txtnewtag.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter tag");
+            }
+            if (Csubname.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Subject From the table");
+            }
+            if (Cday.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Day");
+            }
+            if (Ctime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         public void clearnotConsecutiveSessions()
         {
             Csession1.Text = "";
@@ -1295,10 +1552,27 @@ namespace TimetableManager
         //Submit Parallel
         private void btnPsubmit_Click(object sender, RoutedEventArgs e)
         {
-            ParallelSession parallelSession = new ParallelSession();
+            if (ValidateParallelSubmit())
+            {
+                ParallelSession parallelSession = new ParallelSession();
 
-            parallelSession.NSubgroupid = txtPsubGrp.Text;
-             PopulateNPsesionstable(ParallelSessionDAO.getAllSesions(parallelSession.NSubgroupid));
+                parallelSession.NSubgroupid = txtPsubGrp.Text;
+                PopulateNPsesionstable(ParallelSessionDAO.getAllSesions(parallelSession.NSubgroupid));
+            }
+        }
+
+        private Boolean ValidateParallelSubmit()
+        {
+            if (txtPsubGrp.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         //==============-------------------------------load session id1 Parallel---------------------------------------======================================
@@ -1399,18 +1673,54 @@ namespace TimetableManager
         //===================================Parallel Sessions add================================
         private void btnPadd_Click(object sender, RoutedEventArgs e)
         {
-            ParallelSession Pseesions = new ParallelSession();
+            if (ValidateParallel())
+            {
+                ParallelSession Pseesions = new ParallelSession();
 
-            Pseesions.PSession1= int.Parse(txtSID1.Text);
-            Pseesions.PSession2 = int.Parse(txtSID2.Text);
-            Pseesions.PSession3 = int.Parse(txtSID3.Text);
-            Pseesions.PSession4 = int.Parse(txtSID4.Text);
-            Pseesions.PDAY = txtPday.Text;
-            Pseesions.PTIME = txtPtime.Text;
+                Pseesions.PSession1 = int.Parse(txtSID1.Text);
+                Pseesions.PSession2 = int.Parse(txtSID2.Text);
+                Pseesions.PSession3 = int.Parse(txtSID3.Text);
+                Pseesions.PSession4 = int.Parse(txtSID4.Text);
+                Pseesions.PDAY = txtPday.Text;
+                Pseesions.PTIME = txtPtime.Text;
 
-             ParallelSessionDAO.insertParallelsession(Pseesions);
-            PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+                ParallelSessionDAO.insertParallelsession(Pseesions);
+                PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+            }
             
+        }
+        private Boolean ValidateParallel()
+        {
+            if (txtSID1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 1");
+            }
+            if (txtSID2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 2");
+            }
+            if (txtSID3.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 3");
+            }
+            if (txtSID4.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 4");
+            }
+            if (txtPday.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Day");
+            }
+            if (txtPtime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         //================================================-------------------Non Overlapping Sessions--------------========================================
@@ -1563,29 +1873,75 @@ namespace TimetableManager
 
         private void btnNOsubmit_Click(object sender, RoutedEventArgs e)
         {
-            NonOverlappingSessions nonoverlapSession = new NonOverlappingSessions();
+            if (ValidateNonoverlappingSubmit())
+            {
+                NonOverlappingSessions nonoverlapSession = new NonOverlappingSessions();
 
-            nonoverlapSession.NonSubgroupid = txtNOsubGrp.Text;
-            PopulatenoramalSTONONsesionstable(NonOverlappingSessionDAO.getAllSesions(nonoverlapSession.NonSubgroupid));
+                nonoverlapSession.NonSubgroupid = txtNOsubGrp.Text;
+                PopulatenoramalSTONONsesionstable(NonOverlappingSessionDAO.getAllSesions(nonoverlapSession.NonSubgroupid));
+            }
+        }
+
+        private Boolean ValidateNonoverlappingSubmit()
+        {
+            if (txtNOsubGrp.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void btnNonadd_Click(object sender, RoutedEventArgs e)
         {
-            NonOverlappingSessions Nonseesions = new NonOverlappingSessions();
+            if (ValidateNonOverlapping())
+            {
+                NonOverlappingSessions Nonseesions = new NonOverlappingSessions();
 
-            Nonseesions.NonSession1 = int.Parse(txtNonSID1.Text);
-            Nonseesions.NonSession2 = int.Parse(txtNonSID2.Text);
-            Nonseesions.NonSession3 = int.Parse(txtNonSID3.Text);
-            Nonseesions.NonSession4 = int.Parse(txtNonSID4.Text);
-
-
-            NonOverlappingSessionDAO.insertNonoverlappingsession(Nonseesions);
-            PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
+                Nonseesions.NonSession1 = int.Parse(txtNonSID1.Text);
+                Nonseesions.NonSession2 = int.Parse(txtNonSID2.Text);
+                Nonseesions.NonSession3 = int.Parse(txtNonSID3.Text);
+                Nonseesions.NonSession4 = int.Parse(txtNonSID4.Text);
 
 
+                NonOverlappingSessionDAO.insertNonoverlappingsession(Nonseesions);
+                PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
+
+            }
             
         }
 
-       
+        private Boolean ValidateNonOverlapping()
+        {
+            if (txtNonSID1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 1");
+            }
+            if (txtNonSID2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 2");
+            }
+            if (txtNonSID3.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 3");
+            }
+            if (txtNonSID4.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 4");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
     }
 }

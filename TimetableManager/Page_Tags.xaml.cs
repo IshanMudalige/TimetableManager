@@ -30,12 +30,19 @@ namespace TimetableManager
 
         private void addtag_Click(object sender, RoutedEventArgs e)
         {
-            Tag tag = new Tag();
-            tag.Tags = txttag.Text;
+            if (Validate())
+            {
+                Tag tag = new Tag();
+                tag.Tags = txttag.Text;
 
-            TagDetailsDAO.inserttag(tag);
-            PopulateTableTag(TagDetailsDAO.getAll());
-            cleartags();
+                TagDetailsDAO.inserttag(tag);
+                PopulateTableTag(TagDetailsDAO.getAll());
+                cleartags();
+            }
+            else
+            {
+                MessageBox.Show("Please select the required Tag from the table");
+            }
         }
 
         private void PopulateTableTag(List<Tag> list)
@@ -100,6 +107,21 @@ namespace TimetableManager
         private void cleartag_Click(object sender, RoutedEventArgs e)
         {
             cleartags();
+        }
+
+        private Boolean Validate()
+        {
+            if (txttag.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Tag");
+            }
+            
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
