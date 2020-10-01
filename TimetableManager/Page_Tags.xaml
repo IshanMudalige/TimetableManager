@@ -1,4 +1,4 @@
-﻿<Page x:Class="TimetableManager.Page_Tags"
+﻿<Page xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"  x:Class="TimetableManager.Page_Tags"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,47 +9,38 @@
       Title="Page_Tags">
 
     <Grid Background="White" >
-
-
-
-
-
-        <TextBlock HorizontalAlignment="Left"  Text="Tag" TextWrapping="Wrap"   Margin="30,200,0,0" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Width="51"/>
-        <TextBox x:Name="txttag" HorizontalAlignment="Left" Height="25"  Margin="111,205,0,0"  VerticalAlignment="Top" BorderThickness="1" Width="261" ></TextBox>
-
-        <Button x:Name="addtag" Content="ADD" HorizontalAlignment="Left" Margin="30,400,0,0" VerticalAlignment="Top" Width="85" Click="addtag_Click"/>
-        <Button x:Name="updatetag" Content="UPDATE" HorizontalAlignment="Left" Margin="160,400,0,0" VerticalAlignment="Top" Width="85" Click="updatetag_Click"/>
-        <Button x:Name="cleartag" Content="CLEAR" HorizontalAlignment="Left" Margin="297,400,0,0" VerticalAlignment="Top" Width="90" Click="cleartag_Click"/>
-
-
-
-
-        <!--Right Side-->
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0,15,0,0" Grid.Column="1">
-
-
-
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="749" Margin="40,10,20,0">
-                <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1" Margin="102,0,65,0" Height="30" TextChanged="searchFieldtag_TextChanged" />
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="408">
+                <materialDesign:Card Margin="10,10,10,10" Height="560" Width="383" HorizontalAlignment="Left" >
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="20,200,0,0">
+                            <TextBlock HorizontalAlignment="Left"  Text="Tag" TextWrapping="Wrap"  VerticalAlignment="Top" FontWeight="Bold" FontSize="15" />
+                            <TextBox x:Name="txttag" HorizontalAlignment="Left" VerticalAlignment="Top" BorderThickness="1" Width="260" Margin="60,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="20,50,0,0">
+                            <Button x:Name="addtag" Content="ADD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="addtag_Click"/>
+                            <Button x:Name="updatetag" Content="UPDATE" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="updatetag_Click" Margin="22,0,0,0"/>
+                            <Button x:Name="cleartag" Content="CLEAR" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Click="cleartag_Click" Margin="22,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
             </StackPanel>
+            <StackPanel Width="802">
+                <materialDesign:Card Margin="0,10,10,10" Height="560">
+                    <StackPanel Orientation="Vertical">
+                        <TextBox x:Name="searchFieldtag" FontSize="16" BorderThickness="1"  TextChanged="searchFieldtag_TextChanged" Margin="10,20,10,0" />
+                        <ListView   x:Name="listViewtag"  SelectionChanged="listViewtag_SelectionChanged"  FontWeight="Bold" FontSize="16"  Height="371" Margin="10,20,10,0" >
+                            <ListView.View>
+                                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="tag Information">
+                                    <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags" Width="100"/>
 
-            <StackPanel>
-                <ListView   x:Name="listViewtag"  SelectionChanged="listViewtag_SelectionChanged"  FontWeight="Bold" FontSize="16" HorizontalAlignment="Right"  Height="371" Margin="0,10,10,10" Width="656" >
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="tag Information">
-                            <GridViewColumn DisplayMemberBinding="{Binding Tags}" Header="Tags" Width="100"/>
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button x:Name="deletetag" Content="DELETE" Click="deletetag_Click" Height="32" HorizontalAlignment="Right" Width="100" Margin="0,20,10,0"/>
+                    </StackPanel>
+                </materialDesign:Card>
             </StackPanel>
-            <StackPanel Margin="0,8,20,0">
-                <Button x:Name="deletetag" Content="DELETE" Click="deletetag_Click" Margin="0,100,33,100" Height="34" HorizontalAlignment="Right" Width="199" />
-            </StackPanel>
-
         </StackPanel>
-
-
-
     </Grid>
 </Page>
