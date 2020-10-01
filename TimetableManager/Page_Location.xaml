@@ -357,7 +357,7 @@
 
 
                     <TextBlock HorizontalAlignment="Left" Margin="57,54,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <ComboBox x:Name="selectBuildingNameNot" HorizontalAlignment="Left" Margin="253,51,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                    <ComboBox x:Name="selectBuildingNameNot" HorizontalAlignment="Left" Margin="253,51,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingNameNot_SelectionChanged"/>
 
 
 
@@ -377,12 +377,24 @@
 
 
                     <materialDesign:TimePicker x:Name="timeFrom" HorizontalAlignment="Left" Height="25" Margin="57,475,0,0" VerticalAlignment="Top" Width="165"/>
-
-
-
                     <materialDesign:TimePicker x:Name="timeTo" HorizontalAlignment="Left" Height="25" Margin="351,475,0,0" VerticalAlignment="Top" Width="165"/>
+                    
                     <TextBlock HorizontalAlignment="Left" Margin="57,0,0,190.4" TextWrapping="Wrap" Text="From" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
                     <TextBlock HorizontalAlignment="Left" Margin="351,0,0,190.4" TextWrapping="Wrap" Text="To" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
+                    
+                    <Button Content="Add" HorizontalAlignment="Left" Margin="357,551,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_6"/>
+                    
+                    <ListView x:Name="listviewNotAvailableRoom" Grid.Column="1" Height="439" Margin="11.6,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                        <ListView.View>
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Not Available Session Information">
+                                <GridViewColumn DisplayMemberBinding="{Binding BuildingNameNA}" Header="Buidling Name" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding RoomNameNA}" Header="Room Name" Width="120"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Day}" Header="Date" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding From}" Header="From" Width="80"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding To}" Header="To" Width="80"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
 
 

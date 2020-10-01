@@ -115,6 +115,8 @@
     <Compile Include="RoomsGroupDAO\RoomGroupDAO.cs" />
     <Compile Include="RoomsLecturerDAO\RoomLecturer.cs" />
     <Compile Include="RoomsLecturerDAO\RoomLecturerDAO.cs" />
+    <Compile Include="RoomsNotAvailableDAO\RoomNotAvailable.cs" />
+    <Compile Include="RoomsNotAvailableDAO\RoomNotAvailableDAO.cs" />
     <Compile Include="RoomsSubjectDAO\RoomSubject.cs" />
     <Compile Include="RoomsSubjectDAO\RoomSubjectDAO.cs" />
     <Compile Include="RoomsTag\RoomTag.cs" />

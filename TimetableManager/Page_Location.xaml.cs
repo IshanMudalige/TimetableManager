@@ -23,6 +23,7 @@ using TimetableManager.RoomsGroupDAO;
 using TimetableManager.RoomsTag;
 using TimetableManager.NormalSessionsDAO;
 using TimetableManager.RoomsAssignSession;
+using TimetableManager.RoomsNotAvailableDAO;
 
 namespace TimetableManager
 {
@@ -58,6 +59,8 @@ namespace TimetableManager
             PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
             //loadRoomAssignCombo();
 
+            PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+
 
         }
 
@@ -77,6 +80,7 @@ namespace TimetableManager
                     string bname = reader["b_name"].ToString();
                     selectBuildingName.Items.Add(bname);
                     selectBuildingGroup.Items.Add(bname);
+                    selectBuildingNameNot.Items.Add(bname);
                 }
 
             }
@@ -1056,6 +1060,66 @@ namespace TimetableManager
                 RoomAssignDAO.deleteRoomAssign(room.Sid);
                 PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
             }
+        }
+
+
+
+
+
+
+
+
+        //======================================
+        //-----NOT AVAILABLE ROOMS -----
+        //======================================
+
+        private void selectBuildingNameNot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (selectBuildingNameNot.SelectedValue.ToString() != null)
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT r_name FROM Room_Names WHERE b_name = @bname";
+                    command.Parameters.AddWithValue("@bname", selectBuildingNameNot.SelectedValue.ToString());
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        string rname = reader["r_name"].ToString();
+                        selectRoomNameNot.Items.Add(rname);
+
+                    }
+
+                }
+            }
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            RoomNotAvailable room = new RoomNotAvailable();
+
+            room.BuildingNameNA = selectBuildingNameNot.Text;
+            room.RoomNameNA = selectRoomNameNot.Text;
+            room.Description = description.Text;
+            room.Day = datePick.Text.ToString();
+            room.From = timeFrom.Text.ToString();
+            room.To = timeTo.Text.ToString();
+
+            RoomNotAvailableDAO.insertRoomNotAvailable(room);
+            PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+        }
+
+
+        private void PopulateTableRoomNotAvailable(List<RoomNotAvailable> list)
+        {
+
+            var observableList = new ObservableCollection<RoomNotAvailable>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewNotAvailableRoom.ItemsSource = observableList;
         }
     }
 }
