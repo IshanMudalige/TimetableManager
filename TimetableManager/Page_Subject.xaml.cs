@@ -50,21 +50,25 @@ namespace TimetableManager
 
         private void btnSubAdd_Click(object sender, RoutedEventArgs e)
         {
-            Subject subject = new Subject();
+            if(Validate())
+            {
+                Subject subject = new Subject();
 
-            subject.Year = cmbYear.Text;
-            subject.Semester = cmbSem.Text;
-            subject.SubName = txtSub.Text;
-            subject.SubCode = txtCode.Text;
-            subject.LecHrs = double.Parse(txtLecHrs.Text);
-            subject.TuteHrs = double.Parse(txtTuteHrs.Text);
-            subject.LabHrs = double.Parse(txtLabHrs.Text);
-            subject.EvaluHrs = double.Parse(txtEvaHrs.Text);
+                subject.Year = cmbYear.Text;
+                subject.Semester = cmbSem.Text;
+                subject.SubName = txtSub.Text;
+                subject.SubCode = txtCode.Text;
+                subject.LecHrs = double.Parse(txtLecHrs.Text);
+                subject.TuteHrs = double.Parse(txtTuteHrs.Text);
+                subject.LabHrs = double.Parse(txtLabHrs.Text);
+                subject.EvaluHrs = double.Parse(txtEvaHrs.Text);
 
-            SubjectDetailsDAO.insertSubjects(subject);
-            PopulateTable(SubjectDetailsDAO.getAll());
-            clear();
+                SubjectDetailsDAO.insertSubjects(subject);
+                PopulateTable(SubjectDetailsDAO.getAll());
+                clear();
+            }
 
+        
         }
 
         public void clear()

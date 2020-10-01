@@ -59,12 +59,13 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT not_grpid,not_sub_name,not_grp_days,not_grp_time FROM  Not_Available_Groups";
+                    command.CommandText = @"SELECT not_ava_grpid,not_grpid,not_sub_name,not_grp_days,not_grp_time FROM  Not_Available_Groups";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvailableGroup notAvagrp = new NotAvailableGroup();
-                    
+
+                        notAvagrp.NotAvailableGrpID =int.Parse(reader["not_ava_grpid"].ToString());
                         notAvagrp.NotAvaGroupID = reader["not_grpid"].ToString();
                         notAvagrp.NotAvaSubname = reader["not_sub_name"].ToString();
                         notAvagrp.NotAvaGrpDay = reader["not_grp_days"].ToString();
@@ -120,6 +121,31 @@ namespace TimetableManager.Not_AvailableSessionsDAO
 
             return grpList;
 
+        }
+
+        //==================Delete Not available groups=================
+
+
+        public static void deletenotavailablegroups(int ngrpid)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+
+                    command.CommandText = "DELETE FROM Not_Available_Groups  WHERE not_ava_grpid = @n_notavasid";
+                    command.Parameters.AddWithValue("@n_notavasid", ngrpid);
+
+                    var s = command.ExecuteNonQuery();
+
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error in Deleting" + e.Message);
+                }
+            }
         }
     }
 }

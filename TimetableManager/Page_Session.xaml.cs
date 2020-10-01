@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 using TimetableManager.NormalSessionsDAO;
 using System.Collections.ObjectModel;
 using TimetableManager.Not_AvailableSessionsDAO;
+using TimetableManager.ConsecutiveSessionsDAO;
+using TimetableManager.ParallelSessionsDAO;
+using TimetableManager.NonOverlappingSessionsDAO;
 
 namespace TimetableManager
 {
@@ -30,7 +33,6 @@ namespace TimetableManager
             loadLecturerCombo();
             loadTags();
             loadGroupId();
-            loadSubjectNames();
             loadfacultyCombo();
             loaddepartmentCombo();
             
@@ -39,6 +41,19 @@ namespace TimetableManager
             loadGRPTagCombobox();
             loadSUBGRPSubjectCMB();
             loadSUBGRPTagCombobox();
+            loadConsecutiveSubject();
+            loadSessionid1cmb();
+            loadSessionid2cmb();
+            loadSubgroupidcmb();
+            loadPSessionid1cmb();
+            loadPSessionid2cmb();
+            loadPSessionid3cmb();
+            loadPSessionid4cmb();
+            loadNONSubgroupidcmb();
+            loadNSessionid1cmb();
+            loadNSessionid2cmb();
+            loadNSessionid3cmb();
+            loadNSessionid4cmb();
 
 
             PopulatenotavailableLec(NotAvaLecDao.getAll());
@@ -46,6 +61,9 @@ namespace TimetableManager
             PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
             PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
             PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+            PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+            PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+            PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
 
         }
 
@@ -133,7 +151,7 @@ namespace TimetableManager
             string grpId = "";
             if (txtGrpID.SelectedIndex >= 0)
                 grpId = txtGrpID.SelectedItem.ToString();
-            Console.WriteLine("grpid is = " + grpId);
+            
 
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -161,60 +179,52 @@ namespace TimetableManager
         //Loading subject names to normal sessions
         public void loadSubjectNames()
         {
+            string grpId = "";
+            if (txtGrpID.SelectedIndex >= 0)
+                grpId = txtGrpID.SelectedItem.ToString();
 
+            Console.WriteLine("grpid is = " + grpId);
+
+            string[] year = grpId.Split('.');
+            string year1 = "";
+
+
+            foreach (string y in year)
+            {
+                if (y.Equals("Y1"))
+                {
+                    year1 = "Y1";
+                }
+                else if (y.Equals("Y2"))
+                {
+                    year1 = "Y2";
+                }
+                else if (y.Equals("Y3"))
+                {
+                    year1 = "Y3";
+                }
+                else if (y.Equals("Y4"))
+                {
+                    year1 = "Y4";
+                }
+            }
+
+            Console.WriteLine("year is = " + year1);
 
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
-
-                /*string year = "";
-                string year1 = "Y1";
-                string year2 = "Y2";
-                string year3 = "Y3";
-                string year4 = "Y4";
-
-                string check = "";
-                if (txtGrpID.SelectedIndex >= 0)
-                    check = txtGrpID.SelectedItem.ToString();
-
-                //int length = check.Length - check.IndexOf(".") + 1;
-                string subCheck = check.Substring(1, check.IndexOf("."));
-
-
-                if (subCheck.Equals(year1))
-                {
-                    year = year1;
-                }
-                else if (subCheck.Equals(year2))
-                {
-                    year = year2;
-                }
-                else if (subCheck.Equals(year3))
-                {
-                    year = year3;
-                }
-                else
-                {
-                    year = year4;
-                }*/
-
 
                 try
                 {
 
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT sub_name FROM Subjects";
+                    command.CommandText = @"SELECT sub_name FROM Subjects WHERE offer_year='" + year1 + "'";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
 
                         string Sname = reader["sub_name"].ToString();
-                        //string Syr = reader["offer_year"].ToString();
-                        /*string[] items = new string[] {Sname +"." + Syr};
-                        foreach (string item in items)
-                        {
-                            txtSubNames.Items.Add(item);
-                        }*/
                         txtSubNames.Items.Add(Sname);
 
                     }
@@ -226,10 +236,11 @@ namespace TimetableManager
             }
         }
 
-        //Calling the losdSubGrpID method when GrpID is changing
+        //Calling the losdSubGrpID method and loadSubjectNames method when GrpID is changing
         private void txtGrpID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             loadSubGrpId();
+            loadSubjectNames();
         }
 
         //Load no of students to normal sessions
@@ -314,22 +325,27 @@ namespace TimetableManager
 
         }
 
+
         //Inserting Normal Sessions 
         private void btnSessionAdd_Click(object sender, RoutedEventArgs e)
         {
-            NormalSessions normalSessions = new NormalSessions();
+            if(ValidateNorSessions())
+            {
+                NormalSessions normalSessions = new NormalSessions();
 
-            normalSessions.Lecturers = txtLecNames.Text;
-            normalSessions.GrpID = txtGrpID.Text;
-            normalSessions.SubID = txtSubGrpID.Text;
-            normalSessions.NoStu = int.Parse(txtNoOfStudents.Text);
-            normalSessions.Sname = txtSubNames.Text;
-            normalSessions.Scode = txtSubjCode.Text;
-            normalSessions.Tag = txtTag.Text;
-            normalSessions.Duration = double.Parse(txtDuration.Text);
+                normalSessions.Lecturers = txtLecNames.Text;
+                normalSessions.GrpID = txtGrpID.Text;
+                normalSessions.SubID = txtSubGrpID.Text;
+                normalSessions.NoStu = int.Parse(txtNoOfStudents.Text);
+                normalSessions.Sname = txtSubNames.Text;
+                normalSessions.Scode = txtSubjCode.Text;
+                normalSessions.Tag = txtTag.Text;
+                normalSessions.Duration = double.Parse(txtDuration.Text);
 
-            NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
-            PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+                NorSessionsDetailsDAO.InsertNormalSessions(normalSessions);
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+                ClearNorSessions();
+            }
 
         }
 
@@ -340,6 +356,121 @@ namespace TimetableManager
             list.ForEach(x => observableList.Add(x));
 
             listViewSession.ItemsSource = observableList;
+        }
+
+        //Deleting Normal sessions
+        private void btnSesDelete_Click(object sender, RoutedEventArgs e)
+        {
+            NormalSessions normalSessions = (NormalSessions)listViewSession.SelectedItem;
+
+            if (normalSessions == null)
+            {
+                MessageBox.Show("Please Select Required subject from the Table.");
+            }
+            else
+            {
+                NorSessionsDetailsDAO.deleteNormalSessions(normalSessions.Sid);
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+
+            }
+
+        }
+
+        //Search normal sessions
+        private void searchFieldNorSess_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string type = "";
+            if(RdLec.IsChecked == true)
+            {
+                type = "lecturer";
+                
+            }
+            else if(RdSub.IsChecked == true)
+            {
+                type = "subject";
+            }
+            else if (RdGrp.IsChecked == true)
+            {
+                type = "group";
+            }
+
+
+            if (searchFieldNorSess.Text.Equals(""))
+            {
+                PopulateTableNormalSess(NorSessionsDetailsDAO.getAllSessions());
+            }
+            else
+            {
+                PopulateTableNormalSess(NorSessionsDetailsDAO.search(searchFieldNorSess.Text,type));
+            }
+        }
+
+        //Validate normal sessions
+        private Boolean ValidateNorSessions()
+        {
+            if(cmbLecNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select a Lecturer name");
+            }
+            else if(txtLecNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the selected Lecturer name to the text feild");
+            }
+            else if (txtGrpID.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a groupID");
+            }
+            else if (txtSubGrpID.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a sub-group ID");
+            }
+            else if (txtNoOfStudents.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the get the number of students related to the sub group");
+            }
+            else if (txtSubNames.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a subject");
+            }
+            else if (txtSubjCode.Text.Equals(""))
+            {
+                MessageBox.Show("Please get the subject code");
+            }
+            else if (txtTag.Text.Equals(""))
+            {
+                MessageBox.Show("Please select a tag");
+            }
+            else if (txtDuration.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter the duration");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //Clear the text feilds in normal sessions
+        public void ClearNorSessions()
+        {
+            cmbLecNames.Text = "";
+            txtLecNames.Text = "";
+            txtGrpID.Text = "";
+            txtSubGrpID.Text = "";
+            txtNoOfStudents.Text = "";
+            txtSubNames.Text = "";
+            txtSubjCode.Text = "";
+            txtTag.Text = "";
+            txtDuration.Text = "";
+
+        }
+
+        //Calling clear normal session method
+        private void btnSeClear_Click(object sender, RoutedEventArgs e)
+        {
+            ClearNorSessions();
         }
 
 
@@ -420,26 +551,54 @@ namespace TimetableManager
         //=========================================================Retrive Specific LECTUERS========================================== 
         private void submit_Click(object sender, RoutedEventArgs e)
         {
-            NotAvaLec notAvaLec = new NotAvaLec();
+            if (ValidateNotAvaLECSubmit())
+            {
+                NotAvaLec notAvaLec = new NotAvaLec();
 
-            notAvaLec.Faculty = selectfaculty.Text;
-            notAvaLec.Department = selectDepartment.Text;
-            PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department));
+                notAvaLec.Faculty = selectfaculty.Text;
+                notAvaLec.Department = selectDepartment.Text;
+                PopulateTableLectuers(NotAvaLecDao.getAllLec(notAvaLec.Faculty, notAvaLec.Department));
+            }
+           
 
         }
 
+        private Boolean ValidateNotAvaLECSubmit()
+        {
+            if (selectfaculty.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select  Faculty ");
+            }
+            if (selectDepartment.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select  Department ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         //====================================================ADD NOT Available Lectuers =================================
         private void NAL_ADD_BTN_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (Validate())
+            {
                 NotAvaLec avaLec = new NotAvaLec();
 
                 avaLec.LecID = int.Parse(txtNAID.Text);
                 avaLec.LecName = txtNAlec.Text;
                 avaLec.LecDay = selectnotavailableDay.Text;
                 avaLec.Lectime = selectnotavailabletime.Text;
-                NotAvaLecDao.insertnotAvailableLec( avaLec);
+                NotAvaLecDao.insertnotAvailableLec(avaLec);
                 PopulatenotavailableLec(NotAvaLecDao.getAll());
+            }
+            else
+            {
+                MessageBox.Show("Please select the required Lectuer from the table");
+            }
             
         }
 
@@ -506,6 +665,32 @@ namespace TimetableManager
             selectnotavailableDay.Text = "";
         }
 
+        private Boolean Validate()
+        {
+            if (txtNAID.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Lectuerid");
+            }
+            if (txtNAlec.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Lectuer Name");
+            }
+            if (selectnotavailableDay.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter Not Available Day");
+            }
+            if (selectnotavailabletime.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter  Not Available time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         //=================================---------------------------Not Available Sessions-----------------====================================================================================
 
         //==================================NOT AVAILABLE Sessions Populate Table=============================
@@ -558,11 +743,20 @@ namespace TimetableManager
         //===========================-----------------------------Retrive Normal Sessions to not availabel------------------==================================
         private void sessionsubmitBtn_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
+            if (ValidateNotAvaSessionSubmit())
+            {
+                NotAvailableSessions notAvailableSessions = new NotAvailableSessions();
 
-            notAvailableSessions.NotAvaSubject= selectsubject.Text;
-            PopulatenotavailableSessions(NotAvailableSessionDAO.getAllSesions(notAvailableSessions.NotAvaSubject));
+                notAvailableSessions.NotAvaSubject = selectsubject.Text;
+                PopulatenotavailableSessions(NotAvailableSessionDAO.getAllSesions(notAvailableSessions.NotAvaSubject));
+            }
+            else
+            {
+
+            }
         }
+
+
 
         private void listView1_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -574,23 +768,66 @@ namespace TimetableManager
               
                 selectStime.Text = avasessions.NotAvaSesionTime.ToString();
 
+                selectNotAvaDays.Text = avasessions.NotAvaSessionDay.ToString();
+
 
             }
         }
         //==============================================================ADD NOT AVAILABLE SESSIONS=======================================================
         private void AddSessionBTN_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSessions notSessions = new NotAvailableSessions();
+            if (ValidateNotAvaSession())
+            {
+                NotAvailableSessions notSessions = new NotAvailableSessions();
 
-            notSessions.NotAvaSessionID= int.Parse(txtNASessionid.Text);
-            notSessions.NotAvaSessionDay = selectNotAvaDays.Text;
-            notSessions.NotAvaSesionTime = selectStime.Text;
-            NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
-            
-            PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+                notSessions.NotAvaSessionID = int.Parse(txtNASessionid.Text);
+                notSessions.NotAvaSessionDay = selectNotAvaDays.Text;
+                notSessions.NotAvaSesionTime = selectStime.Text;
+                NotAvailableSessionDAO.insertnotAvailableSession(notSessions);
+
+                PopulateNOTASessions(NotAvailableSessionDAO.getAllNotAvailableS());
+            }
+           
         }
 
-       
+        private Boolean ValidateNotAvaSession()
+        {
+            if (txtNASessionid.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Session ID from the Table");
+            }
+            if (selectNotAvaDays.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectStime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private Boolean ValidateNotAvaSessionSubmit()
+        {
+            if (selectsubject.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+      
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -632,7 +869,7 @@ namespace TimetableManager
         }
         //===========================================================NOT Available Group======================================
 
-        //==================================NOT AVAILABLE LEC==============================
+        
 
         //============================LOAD SUBJECT COMBO BOX===============================
 
@@ -706,11 +943,33 @@ namespace TimetableManager
         }
         private void GROUP_subbtn_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableGroup notAvailableGroup = new NotAvailableGroup();
+            if (ValidateNotAvaGroupSubmit())
+            {
+                NotAvailableGroup notAvailableGroup = new NotAvailableGroup();
 
-            notAvailableGroup.NotAvaSubname = selectSubCMB.Text;
-            notAvailableGroup.NotAvaGrpTAG = selectTagCMB.Text;
-            PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAllGroups(notAvailableGroup.NotAvaSubname,notAvailableGroup.NotAvaGrpTAG));
+                notAvailableGroup.NotAvaSubname = selectSubCMB.Text;
+                notAvailableGroup.NotAvaGrpTAG = selectTagCMB.Text;
+                PopulatenotavailableGroup(NotAvailableGroupDetailsDao.getAllGroups(notAvailableGroup.NotAvaSubname, notAvailableGroup.NotAvaGrpTAG));
+            }
+        }
+
+        private Boolean ValidateNotAvaGroupSubmit()
+        {
+            if (selectSubCMB.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            if (selectTagCMB.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Tag ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void listViewGROUP_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -729,19 +988,46 @@ namespace TimetableManager
 
         private void ADDgrpbtn_Click(object sender, RoutedEventArgs e)
         {
-           NotAvailableGroup notGroups = new NotAvailableGroup();
+            if (ValidateNotAvaGroup())
+            {
+                NotAvailableGroup notGroups = new NotAvailableGroup();
 
-            notGroups.NotAvaGroupID = txtNotAvaGID.Text;
-            notGroups.NotAvaSubname = txtNotAvaGSub.Text;
-            notGroups.NotAvaGrpDay = selectgrpdayscmb.Text;
-            notGroups.NotAvaGrpTime = selectNotAvagrouptime.Text;
-            
-            NotAvailableGroupDetailsDao.insertnotAvailableGroup(notGroups);
-            PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
+                notGroups.NotAvaGroupID = txtNotAvaGID.Text;
+                notGroups.NotAvaSubname = txtNotAvaGSub.Text;
+                notGroups.NotAvaGrpDay = selectgrpdayscmb.Text;
+                notGroups.NotAvaGrpTime = selectNotAvagrouptime.Text;
 
+                NotAvailableGroupDetailsDao.insertnotAvailableGroup(notGroups);
+                PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
 
+            }
         }
 
+        private Boolean ValidateNotAvaGroup()
+        {
+            if (txtNotAvaGID.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Group from the Table");
+            }
+            if (txtNotAvaGSub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject from the Table");
+            }
+            if (selectgrpdayscmb.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectgrpdayscmb.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
         private void listViewGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NotAvailableGroup avagrp = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
@@ -750,14 +1036,37 @@ namespace TimetableManager
             {
                 txtNotAvaGID.Text = avagrp.NotAvaGroupID;
                 txtNotAvaGSub.Text = avagrp.NotAvaSubname;
-                selectNotAvaDays.Text = avagrp.NotAvaGrpDay;
+                selectgrpdayscmb.Text = avagrp.NotAvaGrpDay;
                 selectNotAvagrouptime.Text = avagrp.NotAvaGrpTime;
-
-
-
+               
             }
         }
 
+        public void clearnotavailableGroups()
+        {
+            txtNotAvaGSub.Text = "";
+            txtNotAvaGID.Text = "";
+            selectgrpdayscmb.Text = "";
+            selectNotAvagrouptime.Text = "";
+        }
+
+        //======================delete group===============================
+        private void Deletegrpbtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotAvailableGroup notAvailableGroup = (NotAvailableGroup)listViewGROUP_COPY.SelectedItem;
+
+            if (notAvailableGroup == null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvailableGroupDetailsDao.deletenotavailablegroups(notAvailableGroup.NotAvailableGrpID);
+
+                PopulateNotAVAGroup(NotAvailableGroupDetailsDao.getAll());
+                clearnotavailableGroups();
+            }
+        }
         //=====================================================----------------Not Avaiable Subgroups------------------------======================================================  
         //============================LOAD SUBJECT COMBO BOX===============================
 
@@ -848,28 +1157,80 @@ namespace TimetableManager
         }
 
         private void btnSubgroupsubmit_Click(object sender, RoutedEventArgs e)
+
         {
-            NotAvailableSubGroup notAvailablesubGroup = new NotAvailableSubGroup();
+            if (ValidateNotAvaSubGroupSubmit())
+            {
+                NotAvailableSubGroup notAvailablesubGroup = new NotAvailableSubGroup();
 
-            notAvailablesubGroup.NotAvaSubGrpSubname = cmbsub.Text;
-            notAvailablesubGroup.NotAvaSubGrpTag = cmbtag.Text;
+                notAvailablesubGroup.NotAvaSubGrpSubname = cmbsub.Text;
+                notAvailablesubGroup.NotAvaSubGrpTag = cmbtag.Text;
 
 
-            PopulatenotavailableSubGroup(NotAvailableSubGroupDAO.getAllSubGroups(notAvailablesubGroup.NotAvaSubGrpSubname,notAvailablesubGroup.NotAvaSubGrpTag));
+                PopulatenotavailableSubGroup(NotAvailableSubGroupDAO.getAllSubGroups(notAvailablesubGroup.NotAvaSubGrpSubname, notAvailablesubGroup.NotAvaSubGrpTag));
+            }
+        }
+
+        private Boolean ValidateNotAvaSubGroupSubmit()
+        {
+            if (cmbsub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            if (cmbtag.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Tag ");
+            }
+
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void btnaddsubgroups_Click(object sender, RoutedEventArgs e)
         {
-            NotAvailableSubGroup notsubGroups = new NotAvailableSubGroup();
+            if (ValidateNotAvaSubGroup())
+            {
+                NotAvailableSubGroup notsubGroups = new NotAvailableSubGroup();
 
-            notsubGroups.NotAvaSubGrpId = txtnotsubgrpid.Text;
-            notsubGroups.NotAvaSubGrpSubname = txtnotsubgrpsubname.Text;
-            notsubGroups.NotAvaSubGrpDays = selectnotavaSubgroupDays.Text;
-            notsubGroups.NotAvaSubGrpTime = selectNotavaSubgrpTime.Text;
+                notsubGroups.NotAvaSubGrpId = txtnotsubgrpid.Text;
+                notsubGroups.NotAvaSubGrpSubname = txtnotsubgrpsubname.Text;
+                notsubGroups.NotAvaSubGrpDays = selectnotavaSubgroupDays.Text;
+                notsubGroups.NotAvaSubGrpTime = selectNotavaSubgrpTime.Text;
 
 
-            NotAvailableSubGroupDAO.insertnotAvailableSubGroup(notsubGroups);
-            PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+                NotAvailableSubGroupDAO.insertnotAvailableSubGroup(notsubGroups);
+                PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+            }
+        }
+
+        private Boolean ValidateNotAvaSubGroup()
+        {
+            if (txtnotsubgrpid.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  SubGroup from the Table");
+            }
+            if (txtnotsubgrpsubname.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject from the Table");
+            }
+            if (selectnotavaSubgroupDays.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Day");
+            }
+            if (selectNotavaSubgrpTime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Not Available Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void listViewSUBGROUP_COPY_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -900,16 +1261,759 @@ namespace TimetableManager
         {
             NotAvailableSubGroup notAvaSub = (NotAvailableSubGroup)listViewSUBGROUP_COPY.SelectedItem;
 
+            if (notAvaSub==null)
+            {
+                MessageBox.Show("please select required row from the table");
+            }
+            else
+            {
+                NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvailableSubGrpId);
+                PopulateNotAVASubGroup(NotAvailableSubGroupDAO.getAll());
+                clearnotavailableSubGroups();
+
+                
+            }
+        }
+
+        //==============================--------------------------------------Consecutive Session---------------============================================
+
+        //==============---------------Load Consecutive subject========================
+        public void loadConsecutiveSubject()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subj_name"].ToString();
+                        cmbconsecutiveSub.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============Populate all c sessions =====================
+
+        private void PopulateCsession(List<ConsecutiveSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ConsecutiveSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewConsecutive.ItemsSource = observableList;
+
+        }
+
+        //=============Populate consecutive sessions =====================
+
+        private void PopulateConsecutivetable(List<ConsecutiveSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ConsecutiveSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewCONSECUTIVE_Copy.ItemsSource = observableList;
+
+        }
+
+        private void consecutivesubmitbtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateConsecutiveSubmit())
+            {
+                ConsecutiveSession consecutive = new ConsecutiveSession();
+
+                consecutive.NSubject = cmbconsecutiveSub.Text;
+                PopulateCsession(ConsecutiveSessionsDao.getAllSesions(consecutive.NSubject));
+            }
+        }
+
+        private Boolean ValidateConsecutiveSubmit()
+        {
+            if (cmbconsecutiveSub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+        //==============-------------------------------load session id1---------------------------------------======================================
+        public void loadSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        Csession1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id2---------------------------------------======================================
+        public void loadSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        Csession2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        
+        private void selectsession1tag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+
+            string s1 = Csession1.SelectedItem.ToString();
+
+                using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+                {
+
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT tag FROM Sessions WHERE session_id='"+s1+"'";
+                    
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string stag1 = reader["tag"].ToString();
+                        selectsession1tag.Text = stag1;
+                    }
+
+
+                }
+            
+        }
+
+        private void selectsession2tag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+
+            string s2 = Csession2.SelectedItem.ToString();
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT tag FROM Sessions WHERE session_id='" + s2 + "'";
+
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    string stag1 = reader["tag"].ToString();
+                    selectsession2tag.Text = stag1;
+                }
+
+
+            }
+
+        }
+
+        private void listViewConsecutive_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ConsecutiveSession csession = (ConsecutiveSession)listViewConsecutive.SelectedItem;
+
+            if (csession != null)
+            {
+                Csubname.Text = csession.NSubject;
+         
+
+
+
+            }
+        }
+
+        private void txtnewtag_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            string tag1 = selectsession1tag.Text;
+            string tag2 = selectsession2tag.Text;
+
+            txtnewtag.Text = tag1 +"/"+ tag2;
+        }
+
+        private void BTNMerged_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateConsecutive())
+            {
+
+                ConsecutiveSession cSession = new ConsecutiveSession();
+
+                cSession.SessionID1 = Csession1.Text;
+                cSession.SessionID2 = Csession2.Text;
+                cSession.ConsecutiveTag = txtnewtag.Text;
+                cSession.ConsecutiveSubject = Csubname.Text;
+                cSession.ConsecutiveDay = Cday.Text;
+                cSession.ConsecutiveTime = Ctime.Text;
+
+                ConsecutiveSessionsDao.insertConsecutivesession(cSession);
+                PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+            }
+        }
+
+        private Boolean ValidateConsecutive()
+        {
+            if (Csession1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session 1");
+            }
+            if (Csession2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session 2");
+            }
+            if (txtnewtag.Text.Equals(""))
+            {
+                MessageBox.Show("Please enter tag");
+            }
+            if (Csubname.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Subject From the table");
+            }
+            if (Cday.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Day");
+            }
+            if (Ctime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+        public void clearnotConsecutiveSessions()
+        {
+            Csession1.Text = "";
+            Csession2.Text = "";
+            txtnewtag.Text = "";
+            Csubname.Text = "";
+            Cday.Text = "";
+            Ctime.Text = "";
+
+        }
+        private void btnconsecutivedelete_Click(object sender, RoutedEventArgs e)
+        {
+            ConsecutiveSession notAvaSub = (ConsecutiveSession)listViewCONSECUTIVE_Copy.SelectedItem;
+
             if (notAvaSub == null)
             {
                 MessageBox.Show("please select required row from the table");
             }
             else
             {
-                NotAvailableSubGroupDAO.deletenotavailablesubgroups(notAvaSub.NotAvaSubGrpId);
-                NotAvailableSubGroupDAO.getAll();
-                clearnotavailableSubGroups();
+                ConsecutiveSessionsDao.deleteConsecutiveSession(notAvaSub.ConsecutiveSubject);
+                //ConsecutiveSessionsDao.getAll();
+                PopulateConsecutivetable(ConsecutiveSessionsDao.getAll());
+                clearnotConsecutiveSessions();
             }
         }
+
+        private void listViewCONSECUTIVE_Copy_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            ConsecutiveSession csession = (ConsecutiveSession)listViewCONSECUTIVE_Copy.SelectedItem;
+
+            if (csession != null)
+            {
+                Csubname.Text = csession.NSubject;
+                Csession1.Text = csession.SessionID1;
+                Csession2.Text = csession.SessionID2;
+                txtnewtag.Text = csession.ConsecutiveTag;
+                Csubname.Text = csession.ConsecutiveSubject;
+                Cday.Text = csession.ConsecutiveDay;
+                Ctime.Text = csession.ConsecutiveTime;
+
+
+            }
+        }
+
+        //========================================Parallel Sessions========================================================================
+
+        //==============-------------------------------load parallel Subgroupids---------------------------------------======================================
+        public void loadSubgroupidcmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subgrp_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subgrp_id"].ToString();
+                        txtPsubGrp.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //=============Populate Noramalp sessions =====================
+
+        private void PopulateNPsesionstable(List<ParallelSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ParallelSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewParellel.ItemsSource = observableList;
+
+        }
+
+        //=============Populate Parallel sessions =====================
+
+        private void PopulateParallelsesionstable(List<ParallelSession> list)
+        {
+
+
+            var observableList = new ObservableCollection<ParallelSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewParellelAdded.ItemsSource = observableList;
+
+        }
+
+        //Submit Parallel
+        private void btnPsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateParallelSubmit())
+            {
+                ParallelSession parallelSession = new ParallelSession();
+
+                parallelSession.NSubgroupid = txtPsubGrp.Text;
+                PopulateNPsesionstable(ParallelSessionDAO.getAllSesions(parallelSession.NSubgroupid));
+            }
+        }
+
+        private Boolean ValidateParallelSubmit()
+        {
+            if (txtPsubGrp.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //==============-------------------------------load session id1 Parallel---------------------------------------======================================
+        public void loadPSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        //==============-------------------------------load session id2 Parallel---------------------------------------======================================
+        public void loadPSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id3 Parallel---------------------------------------======================================
+        public void loadPSessionid3cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID3.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id4 Parallel---------------------------------------======================================
+        public void loadPSessionid4cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtSID4.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //===================================Parallel Sessions add================================
+        private void btnPadd_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateParallel())
+            {
+                ParallelSession Pseesions = new ParallelSession();
+
+                Pseesions.PSession1 = int.Parse(txtSID1.Text);
+                Pseesions.PSession2 = int.Parse(txtSID2.Text);
+                Pseesions.PSession3 = int.Parse(txtSID3.Text);
+                Pseesions.PSession4 = int.Parse(txtSID4.Text);
+                Pseesions.PDAY = txtPday.Text;
+                Pseesions.PTIME = txtPtime.Text;
+
+                ParallelSessionDAO.insertParallelsession(Pseesions);
+                PopulateParallelsesionstable(ParallelSessionDAO.getAllParallelSesions());
+            }
+            
+        }
+        private Boolean ValidateParallel()
+        {
+            if (txtSID1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 1");
+            }
+            if (txtSID2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 2");
+            }
+            if (txtSID3.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 3");
+            }
+            if (txtSID4.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 4");
+            }
+            if (txtPday.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Day");
+            }
+            if (txtPtime.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select Time");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        //================================================-------------------Non Overlapping Sessions--------------========================================
+
+
+        //=============Populate Noramaln sessions =====================
+
+        private void PopulatenoramalSTONONsesionstable(List<NonOverlappingSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NonOverlappingSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewNonOverlapping.ItemsSource = observableList;
+
+        }
+
+        //=============Populate Parallel sessions =====================
+
+        private void PopulateNonOverlappingsesionstable(List<NonOverlappingSessions> list)
+        {
+
+
+            var observableList = new ObservableCollection<NonOverlappingSessions>();
+            list.ForEach(x => observableList.Add(x));
+
+            listViewNonOverAdded.ItemsSource = observableList;
+
+        }
+
+        //==============-------------------------------load session id1 Non overlapping---------------------------------------======================================
+        public void loadNSessionid1cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID1.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+        //==============-------------------------------load session id2 Nonoverlaapping---------------------------------------======================================
+        public void loadNSessionid2cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID2.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id3 Nonoverlapping---------------------------------------======================================
+        public void loadNSessionid3cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID3.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load session id4 Nonoverlapping---------------------------------------======================================
+        public void loadNSessionid4cmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT session_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["session_id"].ToString();
+                        txtNonSID4.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        //==============-------------------------------load NonOverlapping Subgroupids---------------------------------------======================================
+        public void loadNONSubgroupidcmb()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT subgrp_id FROM Sessions";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string t = reader["subgrp_id"].ToString();
+                        txtNOsubGrp.Items.Add(t);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("-" + e);
+                }
+            }
+        }
+
+        private void btnNOsubmit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateNonoverlappingSubmit())
+            {
+                NonOverlappingSessions nonoverlapSession = new NonOverlappingSessions();
+
+                nonoverlapSession.NonSubgroupid = txtNOsubGrp.Text;
+                PopulatenoramalSTONONsesionstable(NonOverlappingSessionDAO.getAllSesions(nonoverlapSession.NonSubgroupid));
+            }
+        }
+
+        private Boolean ValidateNonoverlappingSubmit()
+        {
+            if (txtNOsubGrp.Text.Equals(""))
+            {
+                MessageBox.Show("Please Select required  Subject ");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void btnNonadd_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateNonOverlapping())
+            {
+                NonOverlappingSessions Nonseesions = new NonOverlappingSessions();
+
+                Nonseesions.NonSession1 = int.Parse(txtNonSID1.Text);
+                Nonseesions.NonSession2 = int.Parse(txtNonSID2.Text);
+                Nonseesions.NonSession3 = int.Parse(txtNonSID3.Text);
+                Nonseesions.NonSession4 = int.Parse(txtNonSID4.Text);
+
+
+                NonOverlappingSessionDAO.insertNonoverlappingsession(Nonseesions);
+                PopulateNonOverlappingsesionstable(NonOverlappingSessionDAO.getAllNonOverlapSesions());
+
+            }
+            
+        }
+
+        private Boolean ValidateNonOverlapping()
+        {
+            if (txtNonSID1.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 1");
+            }
+            if (txtNonSID2.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 2");
+            }
+            if (txtNonSID3.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 3");
+            }
+            if (txtNonSID4.Text.Equals(""))
+            {
+                MessageBox.Show("Please Enter Session ID 4");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+       
     }
 }

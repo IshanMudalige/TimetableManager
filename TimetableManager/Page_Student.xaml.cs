@@ -61,17 +61,20 @@ namespace TimetableManager
         //============Add Student===================================================================
         private void addstudent_Click(object sender, RoutedEventArgs e)
         {
-            Student student = new Student();
+            if (ValidatedFields())
+            {
+                Student student = new Student();
 
-            student.Year = txtyear.Text;
-            student.Semester = txtsem.Text;
-            student.Programme = txtProgramm.Text;
-            student.Programmid = txtProid.Text;
+                student.Year = txtyear.Text;
+                student.Semester = txtsem.Text;
+                student.Programme = txtProgramm.Text;
+                student.Programmid = txtProid.Text;
 
-            StudentDetails.insertStudent((student));
-            PopulateTableStudent(StudentDetails.getAll());
-            clear();
-
+                StudentDetails.insertStudent((student));
+                PopulateTableStudent(StudentDetails.getAll());
+                clear();
+            }
+            
 
         }
 
@@ -219,19 +222,23 @@ namespace TimetableManager
 
         private void addgroup_Click(object sender, RoutedEventArgs e)
         {
-            Groups group = new Groups();
 
+            if (Validate())
+            {
+                Groups group = new Groups();
 
-            group.AcademicId = selectacdemicId.Text;
-            group.StudentCount = int.Parse(txtstudentcount.Text);
-            group.Groupno = int.Parse(txtgroupno.Text);
-            group.GroupId = txtgroupid.Text;
-            group.SubGroupno = int.Parse(txtsubgroupno.Text);
-            group.SubGroupId = txtsubgroupid.Text;
+                group.AcademicId = selectacdemicId.Text;
+                group.StudentCount = int.Parse(txtstudentcount.Text);
+                group.Groupno = int.Parse(txtgroupno.Text);
+                group.GroupId = txtgroupid.Text;
+                group.SubGroupno = int.Parse(txtsubgroupno.Text);
+                group.SubGroupId = txtsubgroupid.Text;
 
-            GroupDetailsDAO.insertgroups(group);
-            PopulateTableGroup(GroupDetailsDAO.getAll());
-            cleargrp();
+                GroupDetailsDAO.insertgroups(group);
+                PopulateTableGroup(GroupDetailsDAO.getAll());
+                cleargrp();
+            }
+            
         }
 
         public void cleargrp()
@@ -271,7 +278,7 @@ namespace TimetableManager
                 }
                 else
                 {
-                    MessageBox.Show("Please select the required Groups fromthe table");
+                    MessageBox.Show("Please select the required Groups from the table");
                 }
             }
         }

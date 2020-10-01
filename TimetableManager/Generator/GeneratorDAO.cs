@@ -12,6 +12,7 @@ namespace TimetableManager.Generator
 {
     class GeneratorDAO
     {
+        //get all sessions
         public static List<Session> getAllSessions()
         {
             List<Session> ssList = new List<Session>();
@@ -48,6 +49,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get days information
         public static Days getDays()
         {
             List<Weekday> dayList = new List<Weekday>();
@@ -110,6 +112,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get all groups
         public static List<StudentGroups> getAllGroups()
         {
             List<StudentGroups> list = new List<StudentGroups>();
@@ -140,6 +143,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get all lecturers
         public static List<Lecturers> getAllLecturers()
         {
             List<Lecturers> list = new List<Lecturers>();
@@ -170,6 +174,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get all rooms
         public static List<Hall> getAllRooms()
         {
             List<Hall> list = new List<Hall>();
@@ -202,6 +207,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get rooms by type(tag)
         public static List<Hall> getRoomsByType(string type)
         {
             List<Hall> list = new List<Hall>();
@@ -235,6 +241,7 @@ namespace TimetableManager.Generator
 
         }
 
+        //get specific subject
         public static Subject getSubject(String name)
         {
             Subject sub = new Subject();
@@ -266,6 +273,297 @@ namespace TimetableManager.Generator
             }
             return sub;
 
+        }
+
+        //get all rooms for subjects
+        public static List<Model> getSubjectRooms(string scode)
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT s_code,rs_name FROM Room_Names_Subject WHERE s_code=@scode";
+                    command.Parameters.AddWithValue("@scode",scode);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["s_code"].ToString();
+                        sg.RoomName = reader["rs_name"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //get all rooms for lecturers
+        public static List<Model> getLecturerRooms()
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT s_code,rs_name FROM Room_Names_Lecturer";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["l_name"].ToString();
+                        sg.RoomName = reader["r_name"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //get all rooms for groups
+        public static List<Model> getGroupRooms()
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT g_id,gr_name FROM Room_Names_Group";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["g_id"].ToString();
+                        sg.RoomName = reader["gr_name"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //get student timetables
+        public static List<Model> getStudentTables()
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT GroupId,Timetable FROM StudentTimetables";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["GroupId"].ToString();
+                        sg.RoomName = reader["Timetable"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //save student timetables
+        public static void insertStudentTable(Model model)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "INSERT INTO StudentTimetables(GroupId,Timetable) VALUES (@groupid,@timetable)";
+                    command.Parameters.AddWithValue("@groupid", model.Key);
+                    command.Parameters.AddWithValue("@timetable", model.RoomName);
+
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Inserting " + e.Message);
+                }
+
+            }
+        }
+
+        //get lecturer timetables
+        public static List<Model> getLecturerTables()
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT name,Timetable FROM LecturerTimetables";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["name"].ToString();
+                        sg.RoomName = reader["Timetable"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //save lecturer timetables
+        public static void insertLecturerTable(Model model)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "INSERT INTO LecturerTimetables(name,Timetable) VALUES (@name,@timetable)";
+                    command.Parameters.AddWithValue("@name", model.Key);
+                    command.Parameters.AddWithValue("@timetable", model.RoomName);
+
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Inserting " + e.Message);
+                }
+
+            }
+        }
+
+        //get rooms timetables
+        public static List<Model> getRoomsTables()
+        {
+            List<Model> list = new List<Model>();
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT name,Timetable FROM RoomTimetables";
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Model sg = new Model();
+
+                        sg.Key = reader["name"].ToString();
+                        sg.RoomName = reader["Timetable"].ToString();
+
+                        list.Add(sg);
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+            return list;
+
+        }
+
+        //save rooms timetables
+        public static void insertRoomTable(Model model)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "INSERT INTO RoomTimetables(name,Timetable) VALUES (@name,@timetable)";
+                    command.Parameters.AddWithValue("@name", model.Key);
+                    command.Parameters.AddWithValue("@timetable", model.RoomName);
+
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Inserting " + e.Message);
+                }
+
+            }
+        }
+
+        public static void clearTables()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command1 = new SQLiteCommand(conn);
+                    SQLiteCommand command2 = new SQLiteCommand(conn);
+                    SQLiteCommand command3 = new SQLiteCommand(conn);
+                    command1.CommandText = "DELETE FROM StudentTimetables";
+                    command2.CommandText = "DELETE FROM LecturerTimetables";
+                    command3.CommandText = "DELETE FROM RoomTimetables";
+
+                    var t = command1.ExecuteNonQuery();
+                    var x = command2.ExecuteNonQuery();
+                    var y = command3.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Inserting " + e.Message);
+                }
+
+            }
         }
 
     }

@@ -22,7 +22,7 @@
 
         <TabControl  Margin="15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160"  >
             <TabItem Header="Student">
-                <Grid Background="#FFE5E5E5">
+                <Grid Background="White">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="104*"/>
                         <ColumnDefinition Width="10*"/>
@@ -91,7 +91,7 @@
             </TabItem>
 
             <TabItem Header="Student Groups">
-                <Grid Background="#FFE5E5E5" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="9*"></ColumnDefinition>

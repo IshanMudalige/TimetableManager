@@ -59,12 +59,13 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT not_subgrpid,not_subgrp_subname,not_subgrp_days,not_subgrp_time FROM  Not_Available_Subgroups";
+                    command.CommandText = @"SELECT not_ava_subgrpid,not_subgrpid,not_subgrp_subname,not_subgrp_days,not_subgrp_time FROM  Not_Available_Subgroups";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
                         NotAvailableSubGroup notAvasubgrp = new NotAvailableSubGroup();
 
+                        notAvasubgrp.NotAvailableSubGrpId = int.Parse(reader["not_ava_subgrpid"].ToString());
                         notAvasubgrp.NotAvaSubGrpId = reader["not_subgrpid"].ToString();
                         notAvasubgrp.NotAvaSubGrpSubname = reader["not_subgrp_subname"].ToString();
                         notAvasubgrp.NotAvaSubGrpDays = reader["not_subgrp_days"].ToString();
@@ -125,7 +126,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
         //==================Delete Not available Subgroups=================
 
 
-        public static void deletenotavailablesubgroups(string nsubid)
+        public static void deletenotavailablesubgroups(int nsubid)
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
             {
@@ -134,7 +135,7 @@ namespace TimetableManager.Not_AvailableSessionsDAO
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
 
-                    command.CommandText = " DELETE FROM Not_Available_Subgroups  WHERE not_subgrpid = @n_notavasid";
+                    command.CommandText = " DELETE FROM Not_Available_Subgroups  WHERE not_ava_subgrpid = @n_notavasid";
                     command.Parameters.AddWithValue("@n_notavasid", nsubid);
 
                     var s = command.ExecuteNonQuery();
