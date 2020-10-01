@@ -325,6 +325,7 @@ namespace TimetableManager
 
         }
 
+
         //Inserting Normal Sessions 
         private void btnSessionAdd_Click(object sender, RoutedEventArgs e)
         {
