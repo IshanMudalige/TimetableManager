@@ -101,15 +101,18 @@ namespace TimetableManager
         //Add ZBuidling
         private void addBuildingBtn_Click(object sender, RoutedEventArgs e)
         {
-            Building building = new Building();
-            building.BuildingName = addBuildingName.Text;
+            if(ValidateLocationBuilding())
+            {
+                Building building = new Building();
+                building.BuildingName = addBuildingName.Text;
 
-            BuildingNamesDAO.insertNewBuilding(building);
-            PopulateTableBuilding(BuildingNamesDAO.getAll());
+                BuildingNamesDAO.insertNewBuilding(building);
+                PopulateTableBuilding(BuildingNamesDAO.getAll());
 
-            clearBuilding(); 
+                clearBuilding();
+            }
 
-            
+
         }
 
         //Update Building
@@ -165,6 +168,23 @@ namespace TimetableManager
 
 
 
+        private Boolean ValidateLocationBuilding()
+        {
+            if (addBuildingName.Text.Equals(""))
+            {
+                MessageBox.Show("Please Add Building name");
+            }
+            
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
 
 
         /// <summary>
@@ -184,15 +204,20 @@ namespace TimetableManager
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            Room room = new Room();
+            if(ValidateRooms())
+            { 
+                Room room = new Room();
 
-            room.BuildingName = selectBuildingName.Text;
-            room.RoomName = addRoomName.Text;
-            room.RoomType = selectRoomType.Text;
-            room.Capacity = int.Parse(capacity.Text);
+                room.BuildingName = selectBuildingName.Text;
+                room.RoomName = addRoomName.Text;
+                room.RoomType = selectRoomType.Text;
+                room.Capacity = int.Parse(capacity.Text);
 
-            RoomNamesDAO.insertNewRoom(room);
-            PopulateTableRooms(RoomNamesDAO.getAll());
+                RoomNamesDAO.insertNewRoom(room);
+                PopulateTableRooms(RoomNamesDAO.getAll());
+
+                clearRooms();
+            }
         }
 
         private void listview_SelectionChanged_Room(object sender, SelectionChangedEventArgs e)
@@ -251,6 +276,7 @@ namespace TimetableManager
             capacity.Text = "";
         }
 
+        //clear button
         private void clearRoomBtn_Click(object sender, RoutedEventArgs e)
         {
             selectBuildingName.Text = "";
@@ -259,9 +285,25 @@ namespace TimetableManager
             capacity.Text = "";
         }
 
+        //validation
+        private Boolean ValidateRooms()
+        {
+            if(selectBuildingName.Text.Equals("") || addRoomName.Text.Equals("") || selectRoomType.Text.Equals("") || capacity.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
 
 
-        //Text Fields
+
+
+            //Text Fields
 
         private void searchRoom_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -412,14 +454,20 @@ namespace TimetableManager
         //add lec room
         private void addLecturerRoom_Click(object sender, RoutedEventArgs e)
         {
-            RoomLecturer room = new RoomLecturer();
+            if(ValidateRoomLec())
+            { 
+                RoomLecturer room = new RoomLecturer();
 
-            room.LecBuildingName = selectBuildingNameLec.Text;
-            room.LecRoomName = selectRoomNameLec.Text;
-            room.LecturerName = selectLecturer.Text;
+                room.LecBuildingName = selectBuildingNameLec.Text;
+                room.LecRoomName = selectRoomNameLec.Text;
+                room.LecturerName = selectLecturer.Text;
 
-            RoomLecturerDAO.insertNewRoomLecturer(room);
-            PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
+                RoomLecturerDAO.insertNewRoomLecturer(room);
+                PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
+
+                //clearRoomLec();
+            }
+
         }
 
         private void listviewLecturerRoom_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -453,14 +501,30 @@ namespace TimetableManager
                 PopulateTableRoomLecturer(RoomLecturerDAO.getAll());
             }
         }
-
-        private void clearSubjectRoom_Click(object sender, RoutedEventArgs e)
+        /*
+        private void clearRoomLec()
         {
-            selectLecturer.Text = "";
+            selectLecturer.SelectedValue.ToString = "";
             selectBuildingNameLec.Text = "";
             locatedRoom.Text = "";
             selectRoomNameLec.Text = "";
         }
+        */
+
+        private Boolean ValidateRoomLec()
+        {
+            if (selectLecturer.Text.Equals("") || selectBuildingNameLec.Text.Equals("") || selectRoomNameLec.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
 
 
 
@@ -564,14 +628,18 @@ namespace TimetableManager
         //add subject room
         private void addSubjectRoom_Click(object sender, RoutedEventArgs e)
         {
-            RoomSubject room = new RoomSubject();
+            if(ValidateRoomSub())
+            { 
+                RoomSubject room = new RoomSubject();
 
-            room.SubjectCode = selectSubjectCode.Text;
-            room.SubBuildingName = selectBuildingSub.Text;
-            room.SubRoomName = selectRoomSub.Text;
+                room.SubjectCode = selectSubjectCode.Text;
+                room.SubBuildingName = selectBuildingSub.Text;
+                room.SubRoomName = selectRoomSub.Text;
 
-            RoomSubjectDAO.insertNewRoomSubject(room);
-            PopulateTableRoomSubject(RoomSubjectDAO.getAll());
+                RoomSubjectDAO.insertNewRoomSubject(room);
+                PopulateTableRoomSubject(RoomSubjectDAO.getAll());
+                ValidateRoomSub();
+            }
         }
 
         //get results table
@@ -610,14 +678,28 @@ namespace TimetableManager
                 selectRoomSub.Text = "";
         }*/
 
+        private Boolean ValidateRoomSub()
+        {
+            if (selectSubjectCode.Text.Equals("") || selectBuildingSub.Text.Equals("") || selectRoomSub.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
 
 
 
 
 
 
-        //-----ASSIGN SUBJECT SPECIFIC ROOM-----
-        
+
+        //-----ASSIGN GROUP SPECIFIC ROOM-----
+
 
 
 
@@ -738,15 +820,18 @@ namespace TimetableManager
         //add room button
         private void addGroupRoom_Click(object sender, RoutedEventArgs e)
         {
-            RoomGroup room = new RoomGroup();
+            if(ValidateRoomGroup())
+            {
+                RoomGroup room = new RoomGroup();
 
-            room.GroupIdRoom = selectGroupIdRoom.Text;
-            room.SubGroupIdRoom = selectSubGroupIdRoom.Text;
-            room.GroupBuildingName = selectBuildingGroup.Text;
-            room.GroupRoomName = selectRoomGroup.Text;
+                room.GroupIdRoom = selectGroupIdRoom.Text;
+                room.SubGroupIdRoom = selectSubGroupIdRoom.Text;
+                room.GroupBuildingName = selectBuildingGroup.Text;
+                room.GroupRoomName = selectRoomGroup.Text;
 
-            RoomGroupDAO.insertNewRoomGroup(room);
-            PopulateTableRoomGroups(RoomGroupDAO.getAll());
+                RoomGroupDAO.insertNewRoomGroup(room);
+                PopulateTableRoomGroups(RoomGroupDAO.getAll());
+            }
         }
 
         //fill table group_rooms
@@ -781,9 +866,25 @@ namespace TimetableManager
         }
 
 
+        private Boolean ValidateRoomGroup()
+        {
+            if (selectAcademicIdRoom.Text.Equals("") || selectGroupIdRoom.Text.Equals("") || selectSubGroupIdRoom.Text.Equals("") || selectBuildingGroup.Text.Equals("") || selectSubGroupIdRoom.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
+
 
         //======================================
-        //-----ASSIGN SUBJECT SPECIFIC ROOM-----
+        //-----ASSIGN TAG SPECIFIC ROOM-----
         //======================================
 
 
@@ -832,13 +933,16 @@ namespace TimetableManager
         //add tag
         private void addTagRoom_Click(object sender, RoutedEventArgs e)
         {
-            RoomTag room = new RoomTag();
+            if (ValidateRoomTag())
+            {
+                RoomTag room = new RoomTag();
 
-            room.Tag = selectTagRoom.Text;
-            room.RoomTypeTag = selectRoomTypeTag.Text;
+                room.Tag = selectTagRoom.Text;
+                room.RoomTypeTag = selectRoomTypeTag.Text;
 
-            RoomTagDAO.insertNewRoomTag(room);
-            PopulateTableRoomTag(RoomTagDAO.getAll());
+                RoomTagDAO.insertNewRoomTag(room);
+                PopulateTableRoomTag(RoomTagDAO.getAll());
+            }
         }
         
         //fill tables
@@ -867,6 +971,20 @@ namespace TimetableManager
             }
         }
 
+
+        private Boolean ValidateRoomTag()
+        {
+            if (selectTagRoom.Text.Equals("") || selectRoomTypeTag.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
 
 
 
@@ -1034,16 +1152,19 @@ namespace TimetableManager
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            RoomAssign room = new RoomAssign();
+            if (ValidateRoomAssign())
+            {
+                RoomAssign room = new RoomAssign();
 
-            room.Sid = int.Parse(sessionId.Text);
-            room.Scode = subjectCodeAssign.Text;
-            room.SubID = groupIdAssign.Text;
-            room.Tag = tagAssign.Text;
-            room.RoomName = selectRoomAssign.Text;
+                room.Sid = int.Parse(sessionId.Text);
+                room.Scode = subjectCodeAssign.Text;
+                room.SubID = groupIdAssign.Text;
+                room.Tag = tagAssign.Text;
+                room.RoomName = selectRoomAssign.Text;
 
-            RoomAssignDAO.insertNewRoomSessions(room);
-            PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+                RoomAssignDAO.insertNewRoomSessions(room);
+                PopulateTableRoomAssignNew(RoomAssignDAO.getAll());
+            }
         }
 
 
@@ -1071,6 +1192,20 @@ namespace TimetableManager
             }
         }
 
+
+        private Boolean ValidateRoomAssign()
+        {
+            if (selectRoomAssign.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
 
 
 
@@ -1108,17 +1243,20 @@ namespace TimetableManager
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
-            RoomNotAvailable room = new RoomNotAvailable();
+            if (ValidateRoomNotAvailable())
+            {
+                RoomNotAvailable room = new RoomNotAvailable();
 
-            room.BuildingNameNA = selectBuildingNameNot.Text;
-            room.RoomNameNA = selectRoomNameNot.Text;
-            room.Description = description.Text;
-            room.Day = datePick.Text;
-            room.From = timeFrom.Text.ToString();
-            room.To = timeTo.Text.ToString();
+                room.BuildingNameNA = selectBuildingNameNot.Text;
+                room.RoomNameNA = selectRoomNameNot.Text;
+                room.Description = description.Text;
+                room.Day = datePick.Text;
+                room.From = timeFrom.Text.ToString();
+                room.To = timeTo.Text.ToString();
 
-            RoomNotAvailableDAO.insertRoomNotAvailable(room);
-            PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+                RoomNotAvailableDAO.insertRoomNotAvailable(room);
+                PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+            }
         }
 
 
@@ -1144,6 +1282,20 @@ namespace TimetableManager
                 RoomNotAvailableDAO.deleteRoomNotAvailable(room.Nid.ToString());
                 PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
             }
+        }
+
+        private Boolean ValidateRoomNotAvailable()
+        {
+            if (selectBuildingNameNot.Text.Equals("") || selectRoomNameNot.Text.Equals("") || description.Text.Equals("") || datePick.Text.Equals("") || timeFrom.Text.Equals("") || timeTo.Text.Equals(""))
+            {
+                MessageBox.Show("Please Fill Empty Fields");
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
         }
 
 
