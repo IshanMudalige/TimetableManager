@@ -109,6 +109,8 @@
     <Compile Include="ParallelSessionsDAO\ParallelSessionDAO.cs" />
     <Compile Include="RoomsAssignSession\RoomAssign.cs" />
     <Compile Include="RoomsAssignSession\RoomAssignDAO.cs" />
+    <Compile Include="RoomsConsecutive\RoomConsecutive.cs" />
+    <Compile Include="RoomsConsecutive\RoomConsecutiveDAO.cs" />
     <Compile Include="RoomsDAO\Room.cs" />
     <Compile Include="RoomsDAO\RoomNamesDAO.cs" />
     <Compile Include="RoomsGroupDAO\RoomGroup.cs" />

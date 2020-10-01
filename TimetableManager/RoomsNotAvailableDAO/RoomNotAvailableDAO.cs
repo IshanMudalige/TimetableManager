@@ -48,11 +48,12 @@ namespace TimetableManager.RoomsNotAvailableDAO
             {
                 conn.Open();
                 SQLiteCommand command = new SQLiteCommand(conn);
-                command.CommandText = @"SELECT nab_name,nar_name,date,fromt,tot FROM Room_Names_NotAvailable";
+                command.CommandText = @"SELECT nar_id,nab_name,nar_name,date,fromt,tot FROM Room_Names_NotAvailable";
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
                     RoomNotAvailable room = new RoomNotAvailable();
+                    room.Nid = int.Parse(reader["nar_id"].ToString());
                     room.BuildingNameNA = reader["nab_name"].ToString();
                     room.RoomNameNA = reader["nar_name"].ToString();
                     room.Day = reader["date"].ToString();
@@ -66,5 +67,28 @@ namespace TimetableManager.RoomsNotAvailableDAO
 
             return roomList;
         }
+
+        
+        public static void deleteRoomNotAvailable(string nid)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = "DELETE FROM Room_Names_NotAvailable WHERE nar_id = @nid";
+                    command.Parameters.AddWithValue("@nid", nid);
+
+
+                    var t = command.ExecuteNonQuery();
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Deleting " + e.Message);
+                }
+            }
+        }
+
     }
 }

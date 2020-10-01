@@ -24,6 +24,8 @@ using TimetableManager.RoomsTag;
 using TimetableManager.NormalSessionsDAO;
 using TimetableManager.RoomsAssignSession;
 using TimetableManager.RoomsNotAvailableDAO;
+using TimetableManager.ConsecutiveSessionsDAO;
+using TimetableManager.RoomsConsecutive;
 
 namespace TimetableManager
 {
@@ -61,6 +63,13 @@ namespace TimetableManager
 
             PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
 
+
+            PopulateTableConsecutiveOld(ConsecutiveSessionsDao.getConsectiveAll());
+
+            loadRoomTypeTagComboConsc();
+
+
+            PopulateTableConsecutiveNew(RoomConsecutiveDAO.getAll());
 
         }
 
@@ -1104,7 +1113,7 @@ namespace TimetableManager
             room.BuildingNameNA = selectBuildingNameNot.Text;
             room.RoomNameNA = selectRoomNameNot.Text;
             room.Description = description.Text;
-            room.Day = datePick.Text.ToString();
+            room.Day = datePick.Text;
             room.From = timeFrom.Text.ToString();
             room.To = timeTo.Text.ToString();
 
@@ -1121,5 +1130,149 @@ namespace TimetableManager
 
             listviewNotAvailableRoom.ItemsSource = observableList;
         }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            RoomNotAvailable room = (RoomNotAvailable)listviewNotAvailableRoom.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a tag from the Table.");
+            }
+            else
+            {
+                RoomNotAvailableDAO.deleteRoomNotAvailable(room.Nid.ToString());
+                PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+            }
+        }
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+
+
+
+
+
+
+
+
+        private void PopulateTableConsecutiveOld(List<ConsecutiveSession> list)
+        {
+
+            var observableList = new ObservableCollection<ConsecutiveSession>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewSessionCons.ItemsSource = observableList;
+
+
+        }
+
+        private void listviewSessionCons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ConsecutiveSession room = (ConsecutiveSession)listviewSessionCons.SelectedItem;
+
+            if (room != null)
+            {
+                consSesId.Text = room.ConsSesId.ToString();
+                consSubName.Text = room.ConsecutiveSubject;
+                consDay.Text = room.ConsecutiveDay;
+                consTime.Text = room.ConsecutiveTime;
+                consTag.Text = room.ConsecutiveTag;
+            }
+        }
+
+
+
+        public void loadRoomTypeTagComboConsc()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(room_type) FROM Room_Names";
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string roomType = reader["room_type"].ToString();
+                    selectConsType.Items.Add(roomType);
+
+                }
+
+            }
+        }
+
+        private void selectConsType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+
+                conn.Open();
+                SQLiteCommand command = new SQLiteCommand(conn);
+                command.CommandText = @"SELECT distinct(r_name) FROM Room_Names WHERE room_type = @type";
+                command.Parameters.AddWithValue("@type", selectConsType.SelectedValue.ToString());
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    string rname = reader["r_name"].ToString();
+                    selectConsRoom.Items.Add(rname);
+                }
+            }
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            RoomConsecutive room = new RoomConsecutive();
+
+            room.ConsSesIdNew = int.Parse(consSesId.Text.ToString());
+            room.SubjectCons = consSubName.Text;
+            room.DayCons = consDay.Text;
+            room.TimeCons = consTime.Text;
+            room.TagCons = consTag.Text;
+            room.RoomCons = selectConsRoom.Text;
+
+            RoomConsecutiveDAO.insertConsecutiveRoom(room);
+            //PopulateTableRoomNotAvailable(RoomNotAvailableDAO.getAll());
+        }
+
+
+
+        private void PopulateTableConsecutiveNew(List<RoomConsecutive> list)
+        {
+
+            var observableList = new ObservableCollection<RoomConsecutive>();
+            list.ForEach(x => observableList.Add(x));
+
+            listviewConsNew.ItemsSource = observableList;
+
+
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            RoomConsecutive room = (RoomConsecutive)listviewConsNew.SelectedItem;
+
+            if (room == null)
+            {
+                MessageBox.Show("Please Select a tag from the Table.");
+            }
+            else
+            {
+                RoomConsecutiveDAO.deleteRoomCons(room.ConsSesIdNew.ToString());
+                PopulateTableConsecutiveNew(RoomConsecutiveDAO.getAll());
+            }
+        }
+
+        
     }
 }

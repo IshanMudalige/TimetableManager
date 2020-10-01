@@ -8,6 +8,7 @@ namespace TimetableManager.ConsecutiveSessionsDAO
 {
     class ConsecutiveSession
     {
+        private int csid;
         private int Nsession;
         private string Nsub;
         private   string  session_id_1;
@@ -23,8 +24,9 @@ namespace TimetableManager.ConsecutiveSessionsDAO
 
         }
 
-        public ConsecutiveSession(int  nsession,string nsub,string session1, string session2, string subname, string tag,string day, string time, string ntag)
+        public ConsecutiveSession(int csid, int  nsession,string nsub,string session1, string session2, string subname, string tag,string day, string time, string ntag)
         {
+            this.csid = csid;
             this.Nsession = nsession;
             this.Nsub = nsub;
             this.session_id_1 = session1;
@@ -37,6 +39,7 @@ namespace TimetableManager.ConsecutiveSessionsDAO
 
         }
 
+        public int ConsSesId { get => csid; set => csid = value; }
 
         public int NSession { get => Nsession; set => Nsession = value; }
         public string SessionID1 { get => session_id_1; set => session_id_1 = value; }
