@@ -34,12 +34,12 @@
                         <ColumnDefinition Width="288*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="34,48,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="34,58,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBox x:Name="addBuildingName" HorizontalAlignment="Left" Height="25" Margin="265,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" BorderThickness="1"/>
 
-                    <Button x:Name="addBuildingBtn" Content="ADD" HorizontalAlignment="Left" Margin="110,131,0,0" VerticalAlignment="Top" Width="75" Click="addBuildingBtn_Click"/>
-                    <Button x:Name="editBuildingBtn" Content="UPDATE" HorizontalAlignment="Left" Margin="363,131,0,0" VerticalAlignment="Top" Width="94" Click="editBuildingBtn_Click"/>
-                    <Button x:Name="removeBuildingBtn" Content="REMOVE" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1" Click="removeBuildingBtn_Click"/>
+                    <Button x:Name="addBuildingBtn" Content="ADD" HorizontalAlignment="Left" Margin="302,115,0,0" VerticalAlignment="Top" Width="100" Click="addBuildingBtn_Click"/>
+                    <Button x:Name="editBuildingBtn" Content="UPDATE" HorizontalAlignment="Left" Margin="427,115,0,0" VerticalAlignment="Top" Width="100" Click="editBuildingBtn_Click"/>
+                    <Button x:Name="removeBuildingBtn" Content="REMOVE" HorizontalAlignment="Left" Margin="472.6,499,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1" Click="removeBuildingBtn_Click"/>
                     <ListView x:Name="listview" Grid.Column="1" Height="463" Margin="9.6,31,0,0" VerticalAlignment="Top" Width="556" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listview_SelectionChanged_Building">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
@@ -64,21 +64,21 @@
                     <TextBlock HorizontalAlignment="Left" Margin="28,0,0,519" TextWrapping="Wrap" Text="Lecture Room Name" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
                     <TextBlock HorizontalAlignment="Left" Margin="28,168,0,0" TextWrapping="Wrap" Text="Type" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
 
-                    <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="265,31,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingName_SelectionChanged"/>
-                    <TextBox x:Name="addRoomName" Height="25" Margin="265,98,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="addRoomName_TextChanged"/>
-                    <ComboBox x:Name="selectRoomType" Margin="265,168,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" HorizontalAlignment="Left" SelectionChanged="selectRoomType_SelectionChanged">
+                    <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="249,31,0,0" VerticalAlignment="Top" Width="278" BorderThickness="1" SelectionChanged="selectBuildingName_SelectionChanged" Height="28"/>
+                    <TextBox x:Name="addRoomName" Height="28" Margin="249,98,51,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="addRoomName_TextChanged" Width="278"/>
+                    <ComboBox x:Name="selectRoomType" Margin="247,168,0,0" VerticalAlignment="Top" Width="278" BorderThickness="1" HorizontalAlignment="Left" SelectionChanged="selectRoomType_SelectionChanged" Height="28">
                         <ComboBoxItem Content="Lecture Room" VerticalAlignment="Center"/>
                         <ComboBoxItem Content="Lab" VerticalAlignment="Center"/>
                         <ComboBoxItem Content="Auditorium" VerticalAlignment="Center"/>
                     </ComboBox>
 
 
-                    <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="69,331,0,0" VerticalAlignment="Top" Width="75" Click="addRoomBtn_Click"/>
-                    <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="235,331,0,0" VerticalAlignment="Top" Width="81" Click="updateRoomBtn_Click"/>
-                    <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="415,331,0,0" VerticalAlignment="Top" Width="75" Click="clearRoomBtn_Click"/>
+                    <Button x:Name="addRoomBtn" Content="Add" HorizontalAlignment="Left" Margin="179,331,0,0" VerticalAlignment="Top" Width="100" Click="addRoomBtn_Click"/>
+                    <Button x:Name="updateRoomBtn" Content="Update" HorizontalAlignment="Left" Margin="302,331,0,0" VerticalAlignment="Top" Width="100" Click="updateRoomBtn_Click"/>
+                    <Button x:Name="clearRoomBtn" Content="Clear" HorizontalAlignment="Left" Margin="428,331,0,0" VerticalAlignment="Top" Width="100" Click="clearRoomBtn_Click"/>
 
                     <TextBlock HorizontalAlignment="Left" Margin="28,0,0,375" TextWrapping="Wrap" Text="Capacity" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="capacity" Height="25" Margin="265,242,49.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="capacity_TextChanged"/>
+                    <TextBox x:Name="capacity" Height="28" Margin="247,242,53,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="capacity_TextChanged" Width="278"/>
 
                     <ListView x:Name="listviewRoom" Grid.Column="1" Height="439" Margin="10.4,75,0,0" VerticalAlignment="Top" Width="556" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listview_SelectionChanged_Room">
                         <ListView.View>
@@ -116,7 +116,7 @@
                                 </Grid.ColumnDefinitions>
 
 
-                                <ListView x:Name="listviewSessionsOld" Height="345" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionsOld_SelectionChanged">
+                                <ListView x:Name="listviewSessionsOld" Height="327" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionsOld_SelectionChanged">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding Sid}" Header="Sid" Width="60"/>
@@ -129,28 +129,28 @@
                                     </ListView.View>
                                 </ListView>
 
-                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,188.4" TextWrapping="Wrap" Text="Session ID" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                                <TextBox x:Name="sessionId" Height="25" Margin="233,380,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,141.4" TextWrapping="Wrap" Text="Subject Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                                <TextBox x:Name="subjectCodeAssign" Height="25" Margin="233,427,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="subjectCodeAssign_TextChanged"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="11,0,0,212" TextWrapping="Wrap" Text="Session ID" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="sessionId" Height="28" Margin="169,356,118,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="278"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="11,0,0,171" TextWrapping="Wrap" Text="Subject Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="subjectCodeAssign" Height="28" Margin="169,397,118,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="subjectCodeAssign_TextChanged" Width="278"/>
 
 
-                                <TextBlock HorizontalAlignment="Left" Margin="48.4,23,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
-                                <ComboBox x:Name="selectRoomAssign" HorizontalAlignment="Left" Margin="248.4,20,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="16,23,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
+                                <ComboBox x:Name="selectRoomAssign" HorizontalAlignment="Left" Margin="148,20,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1"/>
 
-                                <TextBox x:Name="preferSubject" Height="25" Margin="391,427,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" IsReadOnly="True" Foreground="Red"/>
+                                <TextBox x:Name="preferSubject" Height="25" Margin="454,400,550,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" IsReadOnly="True" Foreground="Red" Grid.ColumnSpan="2"/>
 
-                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,95.4" TextWrapping="Wrap" Text="Group Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                                <TextBox x:Name="groupIdAssign" Height="25" Margin="233,473,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="groupIdAssign_TextChanged"/>
-                                <TextBox x:Name="noOfStudentsAssign" Height="25" Margin="391,473,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Foreground="Red"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="11,0,0,127" TextWrapping="Wrap" Text="Group Code" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="groupIdAssign" Height="28" Margin="169,441,118,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="groupIdAssign_TextChanged" Width="278"/>
+                                <TextBox x:Name="noOfStudentsAssign" Height="25" Margin="452,442,552,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Foreground="Red" Grid.ColumnSpan="2"/>
 
-                                <TextBlock HorizontalAlignment="Left" Margin="75,0,0,47.4" TextWrapping="Wrap" Text="Tag" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
-                                <TextBox x:Name="tagAssign" Height="25" Margin="233,520,208.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="tagAssign_TextChanged"/>
-                                <TextBox x:Name="preferTag" Height="25" Margin="391,520,50.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" TextChanged="preferTag_TextChanged" Foreground="Red"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="11,0,0,85" TextWrapping="Wrap" Text="Tag" Height="25" VerticalAlignment="Bottom" Width="158" FontWeight="Bold" FontSize="16"/>
+                                <TextBox x:Name="tagAssign" Height="28" Margin="169,482,118,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="tagAssign_TextChanged" Width="278"/>
+                                <TextBox x:Name="preferTag" Height="25" Margin="453,485,551,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" TextChanged="preferTag_TextChanged" Foreground="Red" Grid.ColumnSpan="2"/>
 
 
-                                <Button Content="Add Session" Grid.Column="1" HorizontalAlignment="Left" Margin="352.4,75,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_4"/>
-                                <ListView x:Name="listviewAssignedSession" Height="394" Margin="10.4,132,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="1">
+                                <Button Content="Add Session" Grid.Column="1" HorizontalAlignment="Left" Margin="434,19,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click_4"/>
+                                <ListView x:Name="listviewAssignedSession" Height="394" Margin="10,62,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="1">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding Sid}" Header="Sid" Width="50"/>
@@ -161,7 +161,7 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Button Content="Remove Session" Grid.Column="1" HorizontalAlignment="Left" Margin="394.4,552,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_5"/>
+                                <Button Content="Remove Session" Grid.Column="1" HorizontalAlignment="Left" Margin="420,480,0,0" VerticalAlignment="Top" Width="135" Click="Button_Click_5"/>
 
 
                             </Grid>
@@ -174,12 +174,13 @@
                         <TabItem Header="For Consecutive Sessions">
                             <Grid Background="White">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="289*"/>
-                                    <ColumnDefinition Width="288*"/>
+                                    <ColumnDefinition Width="101*"/>
+                                    <ColumnDefinition Width="464*"/>
+                                    <ColumnDefinition Width="563*"/>
                                 </Grid.ColumnDefinitions>
 
 
-                                <ListView x:Name="listviewSessionCons" Height="345" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionCons_SelectionChanged">
+                                <ListView x:Name="listviewSessionCons" Height="345" Margin="10,10,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewSessionCons_SelectionChanged" Grid.ColumnSpan="2">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding ConsSesId}" Header="Sid" Width="60"/>
@@ -192,19 +193,19 @@
                                 </ListView>
 
 
-                                <TextBox x:Name="consSesId" Height="25" Margin="116,392,325.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                                <TextBox x:Name="consSubName" Height="25" Margin="320,392,121.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                                <TextBox x:Name="consDay" Height="25" Margin="37,446,404.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                                <TextBox x:Name="consTime" Height="25" Margin="219,446,222.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
-                                <TextBox x:Name="consTag" Height="25" Margin="398,446,43.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                                <TextBox x:Name="consSesId" Height="25" Margin="15,392,325,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Grid.Column="1"/>
+                                <TextBox x:Name="consSubName" Height="25" Margin="219,392,121,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Grid.Column="1"/>
+                                <TextBox x:Name="consDay" Height="25" Margin="37,446,404,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Grid.ColumnSpan="2"/>
+                                <TextBox x:Name="consTime" Height="25" Margin="118,446,222,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Grid.Column="1"/>
+                                <TextBox x:Name="consTag" Height="25" Margin="297,446,43,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Grid.Column="1"/>
 
 
-                                <TextBlock HorizontalAlignment="Left" Margin="36.4,23,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
-                                <ComboBox x:Name="selectConsType" HorizontalAlignment="Left" Margin="262.4,21,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1" SelectionChanged="selectConsType_SelectionChanged"/>
-                                <TextBlock HorizontalAlignment="Left" Margin="36.4,70,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="1"/>
-                                <ComboBox x:Name="selectConsRoom" HorizontalAlignment="Left" Margin="262.4,70,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="1"/>
-                                
-                                <ListView x:Name="listviewConsNew" Height="345" Margin="7.4,177,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="1">
+                                <TextBlock HorizontalAlignment="Left" Margin="36,23,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
+                                <ComboBox x:Name="selectConsType" HorizontalAlignment="Left" Margin="262,21,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2" SelectionChanged="selectConsType_SelectionChanged"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="36,70,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16" Grid.Column="2"/>
+                                <ComboBox x:Name="selectConsRoom" HorizontalAlignment="Left" Margin="262,70,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" Grid.Column="2"/>
+
+                                <ListView x:Name="listviewConsNew" Height="294" Margin="7,177,0,0" VerticalAlignment="Top" Width="546" HorizontalAlignment="Left" BorderBrush="#896E6E6E" Grid.Column="2">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding ConsSesIdNew}" Header="Sid" Width="60"/>
@@ -216,9 +217,9 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                
-                                <Button Content="Add Session" Grid.Column="1" HorizontalAlignment="Left" Margin="366.4,122,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_7"/>
-                                <Button Content="Remove Session" Grid.Column="1" HorizontalAlignment="Left" Margin="366.4,535,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_8"/>
+
+                                <Button Content="Add Session" Grid.Column="2" HorizontalAlignment="Left" Margin="366,122,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_7"/>
+                                <Button Content="Remove Session" Grid.Column="2" HorizontalAlignment="Left" Margin="394,479,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_8"/>
 
 
 
@@ -251,10 +252,10 @@
                                 <TextBlock HorizontalAlignment="Left" Margin="34,278,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectRoomNameLec" HorizontalAlignment="Left" Margin="260,275,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
 
-                                <Button x:Name="addLecturerRoom" Content="Add" HorizontalAlignment="Left" Margin="230,374,0,0" VerticalAlignment="Top" Width="127" Click="addLecturerRoom_Click"/>
+                                <Button x:Name="addLecturerRoom" Content="Add" HorizontalAlignment="Left" Margin="418,338,0,0" VerticalAlignment="Top" Width="100" Click="addLecturerRoom_Click"/>
 
 
-                                <ListView x:Name="listviewLecturerRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
+                                <ListView x:Name="listviewLecturerRoom" Grid.Column="1" Height="417" Margin="24,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                             <GridViewColumn DisplayMemberBinding="{Binding LecturerName}" Header="Lecturer Name" Width="190"/>
@@ -263,7 +264,7 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click"/>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="442,465,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click"/>
 
                             </Grid>
                         </TabItem>
@@ -278,11 +279,11 @@
 
 
 
-                                <TextBlock HorizontalAlignment="Left" Margin="40,73,0,0" TextWrapping="Wrap" Text="Select Subject Code" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
-                                <ComboBox x:Name="selectSubjectCode" HorizontalAlignment="Left" Margin="266,70,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectSubjectCode_SelectionChanged"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="40,63,0,0" TextWrapping="Wrap" Text="Select Subject Code" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <ComboBox x:Name="selectSubjectCode" HorizontalAlignment="Left" Margin="266,64,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectSubjectCode_SelectionChanged"/>
 
 
-                                <TextBlock HorizontalAlignment="Left" Margin="87,121,0,0" TextWrapping="Wrap" Text="Subject Selected Is :-"  Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock HorizontalAlignment="Left" Margin="87,117,0,0" TextWrapping="Wrap" Text="Subject Selected Is :-"  Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
                                 <TextBox x:Name="subjectSelected" Foreground="Red" Height="25" Margin="266,121,36.6,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="0" Background="White" FontWeight="Bold" IsReadOnly="True" TextChanged="subjectSelected_TextChanged"/>
 
 
@@ -296,11 +297,11 @@
                                 <ComboBox x:Name="selectRoomSub" HorizontalAlignment="Left" Margin="266,287,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
 
 
-                                <Button x:Name="addSubjectRoom" Content="Add" HorizontalAlignment="Left" Margin="227,371,0,0" VerticalAlignment="Top" Width="127" Click="addSubjectRoom_Click"/>
+                                <Button x:Name="addSubjectRoom" Content="Add" HorizontalAlignment="Left" Margin="428,364,0,0" VerticalAlignment="Top" Width="100" Click="addSubjectRoom_Click"/>
 
 
 
-                                <ListView x:Name="listviewSubjectRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
+                                <ListView x:Name="listviewSubjectRoom" Grid.Column="1" Height="414" Margin="24,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewLecturerRoom_SelectionChanged">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                             <GridViewColumn DisplayMemberBinding="{Binding SubjectCode}" Header="Subject Code" Width="190"/>
@@ -311,7 +312,7 @@
                                 </ListView>
 
 
-                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_1"/>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="441,465,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_1"/>
                             </Grid>
                         </TabItem>
 
@@ -341,13 +342,13 @@
                                 <TextBlock HorizontalAlignment="Left" Margin="40,356,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectRoomGroup" HorizontalAlignment="Left" Margin="266,353,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
 
-                                <Button x:Name="addGroupRoom" Content="Add" HorizontalAlignment="Left" Margin="211,419,0,0" VerticalAlignment="Top" Width="127" Click="addGroupRoom_Click"/>
+                                <Button x:Name="addGroupRoom" Content="Add" HorizontalAlignment="Left" Margin="429,419,0,0" VerticalAlignment="Top" Width="100" Click="addGroupRoom_Click"/>
 
                                 <TextBlock HorizontalAlignment="Left" Margin="40,175,0,0" TextWrapping="Wrap" Text="Select Sub-Group ID" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectSubGroupIdRoom" HorizontalAlignment="Left" Margin="266,172,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectSubGroupIdRoom_SelectionChanged"/>
 
 
-                                <ListView x:Name="listviewGroupRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewGroupRoom_SelectionChanged">
+                                <ListView x:Name="listviewGroupRoom" Grid.Column="1" Height="416" Margin="24,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E" SelectionChanged="listviewGroupRoom_SelectionChanged">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding GroupIdRoom}" Header="Group ID" Width="190"/>
@@ -358,7 +359,7 @@
                                 </ListView>
 
 
-                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_2"/>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="444,463,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_2"/>
 
 
                             </Grid>
@@ -380,10 +381,10 @@
 
                                 <TextBlock HorizontalAlignment="Left" Margin="40,116,0,0" TextWrapping="Wrap" Text="Select Room Type" Height="25" VerticalAlignment="Top" Width="174" FontWeight="Bold" FontSize="16"/>
                                 <ComboBox x:Name="selectRoomTypeTag" HorizontalAlignment="Left" Margin="266,114,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
-                                <Button x:Name="addTagRoom" Content="Add" HorizontalAlignment="Left" Margin="216,214,0,0" VerticalAlignment="Top" Width="127" Click="addTagRoom_Click"/>
+                                <Button x:Name="addTagRoom" Content="Add" HorizontalAlignment="Left" Margin="429,175,0,0" VerticalAlignment="Top" Width="100" Click="addTagRoom_Click"/>
 
 
-                                <ListView x:Name="listviewTagRoom" Grid.Column="1" Height="439" Margin="24.4,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                                <ListView x:Name="listviewTagRoom" Grid.Column="1" Height="421" Margin="24,35,0,0" VerticalAlignment="Top" Width="515" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                                     <ListView.View>
                                         <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information for Groups">
                                             <GridViewColumn DisplayMemberBinding="{Binding Tag}" Header="Tag" Width="190"/>
@@ -391,7 +392,7 @@
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
-                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="428.4,505,0,0" VerticalAlignment="Top" Width="111" Click="Button_Click_3"/>
+                                <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="439,469,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_3"/>
 
 
 
@@ -414,22 +415,22 @@
 
 
 
-                    <TextBlock HorizontalAlignment="Left" Margin="57,54,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <ComboBox x:Name="selectBuildingNameNot" HorizontalAlignment="Left" Margin="253,51,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingNameNot_SelectionChanged"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="57,38,0,0" TextWrapping="Wrap" Text="Building Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <ComboBox x:Name="selectBuildingNameNot" HorizontalAlignment="Left" Margin="253,35,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1" SelectionChanged="selectBuildingNameNot_SelectionChanged"/>
 
 
 
-                    <TextBlock HorizontalAlignment="Left" Margin="57,123,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <ComboBox x:Name="selectRoomNameNot" HorizontalAlignment="Left" Margin="253,120,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="57,107,0,0" TextWrapping="Wrap" Text="Room Name" Height="25" VerticalAlignment="Top" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <ComboBox x:Name="selectRoomNameNot" HorizontalAlignment="Left" Margin="253,104,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,421.4" TextWrapping="Wrap" Text="Description" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="description" Height="106" Margin="253,196,62.4,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,445" TextWrapping="Wrap" Text="Description" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBox x:Name="description" Height="106" Margin="253,172,62,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1"/>
 
 
-                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,274.4" TextWrapping="Wrap" Text="Select Date" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
-                    
+                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,298" TextWrapping="Wrap" Text="Select Date" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
 
-                    <ComboBox x:Name="datePick" HorizontalAlignment="Left" Margin="253,343,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1">
+
+                    <ComboBox x:Name="datePick" HorizontalAlignment="Left" Margin="253,319,0,0" VerticalAlignment="Top" Width="263" BorderThickness="1">
                         <ComboBoxItem Content="Monday"></ComboBoxItem>
                         <ComboBoxItem Content="Tuesday"></ComboBoxItem>
                         <ComboBoxItem Content="Wednesday"></ComboBoxItem>
@@ -442,13 +443,13 @@
 
 
 
-                    <materialDesign:TimePicker x:Name="timeFrom" HorizontalAlignment="Left" Height="25" Margin="57,475,0,0" VerticalAlignment="Top" Width="165"/>
-                    <materialDesign:TimePicker x:Name="timeTo" HorizontalAlignment="Left" Height="25" Margin="351,475,0,0" VerticalAlignment="Top" Width="165"/>
+                    <materialDesign:TimePicker x:Name="timeFrom" HorizontalAlignment="Left" Height="25" Margin="57,443,0,0" VerticalAlignment="Top" Width="165"/>
+                    <materialDesign:TimePicker x:Name="timeTo" HorizontalAlignment="Left" Height="25" Margin="351,443,0,0" VerticalAlignment="Top" Width="165"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,190.4" TextWrapping="Wrap" Text="From" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="351,0,0,190.4" TextWrapping="Wrap" Text="To" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="57,0,0,222" TextWrapping="Wrap" Text="From" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="351,0,0,222" TextWrapping="Wrap" Text="To" Height="25" VerticalAlignment="Bottom" Width="116" FontWeight="Bold" FontSize="16"/>
 
-                    <Button Content="Add" HorizontalAlignment="Left" Margin="357,551,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_6"/>
+                    <Button Content="Add" HorizontalAlignment="Left" Margin="415,491,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_6"/>
 
                     <ListView x:Name="listviewNotAvailableRoom" Grid.Column="1" Height="439" Margin="11.6,35,0,0" VerticalAlignment="Top" Width="554" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
                         <ListView.View>
@@ -461,9 +462,9 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    
-                    <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="367.6,503,0,0" VerticalAlignment="Top" Width="159" Click="Button_Click_9"/>
-                    
+
+                    <Button Content="Remove" Grid.Column="1" HorizontalAlignment="Left" Margin="466,489,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_9"/>
+
 
 
 

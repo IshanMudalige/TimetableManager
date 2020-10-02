@@ -313,7 +313,7 @@ namespace TimetableManager
                 if (cmbLecNames.SelectedIndex >= 0)
                     LecName = cmbLecNames.SelectedItem.ToString();
 
-                string[] names = new string[] { LecName + "," };
+                string[] names = new string[] { LecName };
                 //txtLecNames.Text = LecName + ",";
 
                 foreach (string name in names)

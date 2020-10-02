@@ -13,7 +13,7 @@
 
     <Grid Background = "White" >
 
-        <TabControl Margin="10,10,30,90"  >
+        <TabControl Height="540" Margin="10,10,30,0" VerticalAlignment="Top" >
 
             <TabItem Header = "Students" >
                 <ListView x:Name="listviewStudents" Margin="10" BorderBrush="#896E6E6E">

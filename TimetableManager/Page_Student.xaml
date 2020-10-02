@@ -20,9 +20,9 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <TabControl  Margin="15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160"  >
+        <TabControl  Margin="0,0,0,30" Height="640" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160" Grid.Column="1"  >
             <TabItem Header="Student">
-                <Grid Background="White">
+                <Grid Background="White" RenderTransformOrigin="0.472,0.502">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="104*"/>
                         <ColumnDefinition Width="10*"/>
@@ -34,25 +34,25 @@
                     <!-- Year input-->
 
                     <TextBlock HorizontalAlignment="Left"  Text="Academic Year" TextWrapping="Wrap"   Margin="28,87,0,0" Height="25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="txtyear" HorizontalAlignment="Left" Height="25"  Margin="152,87,0,0"  VerticalAlignment="Top" BorderThickness="1" Width="280" Grid.Column="2" ></TextBox>
+                    <TextBox x:Name="txtyear" HorizontalAlignment="Left" Height="25"  Margin="58,87,0,0"  VerticalAlignment="Top" BorderThickness="1" Width="346" Grid.Column="2" ></TextBox>
                     <!--SEmester input-->
                     <TextBlock HorizontalAlignment="Left"  Text="Semester" TextWrapping="Wrap"   Margin="28,150,0,0" Height="25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
-                    <TextBox x:Name="txtsem" HorizontalAlignment="Left" Height="25"  Margin="152,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="280" Grid.Column="2"></TextBox>
+                    <TextBox x:Name="txtsem" HorizontalAlignment="Left" Height="25"  Margin="58,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="346" Grid.Column="2"></TextBox>
 
                     <!--Programm input-->
                     <TextBlock HorizontalAlignment="Left"  Text="Programme" TextWrapping="Wrap"   Margin="28,210,0,0" Height="25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="txtProgramm" HorizontalAlignment="Left" Height="25"  Margin="152,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="280" Grid.Column="2"></TextBox>
+                    <TextBox x:Name="txtProgramm" HorizontalAlignment="Left" Height="25"  Margin="58,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="346" Grid.Column="2"></TextBox>
 
                     <!--id input-->
                     <TextBlock HorizontalAlignment="Left"  Text="Programmeid" TextWrapping="Wrap"   Margin="28,280,0,0" Height="25" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="txtProid" HorizontalAlignment="Left" Height="25"  Margin="152,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="280" Grid.Column="2" SelectionChanged="txtProid_SelectionChanged" ></TextBox>
+                    <TextBox x:Name="txtProid" HorizontalAlignment="Left" Height="25"  Margin="58,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" Width="346" Grid.Column="2" SelectionChanged="txtProid_SelectionChanged" ></TextBox>
 
                     <!--
                     <Button x:Name="addst1" Content="ADD" HorizontalAlignment="Left" Margin="69,150,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="updatest1" Content="Update" HorizontalAlignment="Left" Margin="255,150,0,0" VerticalAlignment="Top" Width="81"/>
                     <Button x:Name="deletest1" Content="DELETE" HorizontalAlignment="Left" Margin="415,150,0,0" VerticalAlignment="Top" Width="75"/>
 -->
-                    <Grid Grid.ColumnSpan="3">
+                    <Grid Grid.ColumnSpan="3" Margin="0,0,60,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="62*"/>
                             <ColumnDefinition Width="130*"/>
@@ -60,9 +60,9 @@
                             <ColumnDefinition Width="193*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="addstudent" Margin="10,405,10,205" Grid.Column="0" Content="ADD" Grid.ColumnSpan="2" Click="addstudent_Click"/>
-                        <Button  x:Name="updatestudent" Grid.Column="2" Content="UPDATE" Grid.ColumnSpan="2" Margin="5,405,190,205" Click="updatestudent_Click"/>
-                        <Button x:Name="clearstudent" Margin="10,405,10,205" Grid.Column="3" Content="CLEAR" Click="clearstudent_Click"/>
+                        <Button x:Name="addstudent" Margin="116,405,74,175" Grid.Column="1" Content="ADD" Click="addstudent_Click" Grid.ColumnSpan="2" Width="100"/>
+                        <Button  x:Name="updatestudent" Grid.Column="2" Content="UPDATE" Grid.ColumnSpan="2" Margin="120,405,126,175" Click="updatestudent_Click" Width="100"/>
+                        <Button x:Name="clearstudent" Margin="70,405,3,175" Grid.Column="3" Content="CLEAR" Click="clearstudent_Click" Width="100"/>
                     </Grid>
 
                     <!--<DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,95,0,0" VerticalAlignment="Top" Width="556"/>-->
@@ -81,7 +81,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="btndeletestudent" Content="DELETE" Width="100" HorizontalAlignment="Right" Grid.Column="3" Margin="0,562,10,48" Click="btndeletestudent_Click"/>
+                    <Button x:Name="btndeletestudent" Content="DELETE" Width="100" HorizontalAlignment="Right" Grid.Column="3" Margin="0,493,10,84" Click="btndeletestudent_Click" Height="32"/>
                     <TextBox x:Name="searchstudent" Grid.Column="3" HorizontalAlignment="Left" Height="23" Margin="10,51,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="556" BorderThickness="1" TextChanged="searchstudent_TextChanged"/>
 
 
@@ -124,8 +124,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="addgroup"  Margin="10,435,10,175" Grid.Column="0" Content="ADD" Click="addgroup_Click" />
-                        <Button  x:Name="updategroup"  Margin="164,435,40,175" Grid.Column="1" Content="UPDATE" Grid.ColumnSpan="2" Click="updategroup_Click"/>
+                        <Button x:Name="addgroup"  Margin="113,435,172,175" Grid.Column="1" Content="ADD" Click="addgroup_Click" Width="100" Grid.ColumnSpan="2" />
+                        <Button  x:Name="updategroup"  Margin="43,435,50,175" Grid.Column="2" Content="UPDATE" Click="updategroup_Click" Width="100"/>
                     </Grid>
                     <!--<DataGrid Grid.Column="3" HorizontalAlignment="Left" Height="445" Margin="10,45,0,0" VerticalAlignment="Top" Width="556"/>-->
 

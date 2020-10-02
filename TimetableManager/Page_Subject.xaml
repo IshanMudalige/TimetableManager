@@ -127,8 +127,8 @@
         </StackPanel>
 
         <!--Right Side-->
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Width="790" Margin="0 15 0 0">
-            <materialDesign:Card Margin="20,10,10,0">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="10 15 0 0">
+            <materialDesign:Card Margin="10,10,10,0">
             <StackPanel>
 
                 <StackPanel Margin="20,10,20,0" Orientation="Horizontal">
