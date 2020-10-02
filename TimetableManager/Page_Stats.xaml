@@ -12,45 +12,32 @@
     </Page.Resources>
 
     <Grid Background = "White" >
-        <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width = "*" />
-            <ColumnDefinition Width="15"/>
-        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height = "*" />
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-
-
-        <TabControl Margin = "15,0,0,0" Grid.ColumnSpan="2" Height="670" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="1160">
+        <TabControl Margin="10,10,30,90"  >
 
             <TabItem Header = "Students" >
-                <Grid Background="White" Margin="0,0,0.4,54.4">
-                    <ListView x:Name="listviewStudents" Height="469" Margin="10,0,0,109" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
-                        <ListView.View>
-                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Student Information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="160"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="120"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Programme" Width="199"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Programmid}" Header="Programme ID" Width="150"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Student Count" Width="150"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-
-
-
-
-
-                </Grid>
+                <ListView x:Name="listviewStudents" Margin="10" BorderBrush="#896E6E6E">
+                    <ListView.View>
+                        <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Student Information">
+                            <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="160"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Semester}" Header="Semester" Width="120"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Programme}" Header="Programme" Width="199"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Programmid}" Header="Programme ID" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Count}" Header="Student Count" Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
 
             <TabItem Header = "Lecturers" >
-                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
-
-                    <ListView x:Name="listviewLecturer" Height="469" Margin="10,0,0,106" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search By Name" VerticalAlignment="Top" FontSize="14"/>
+                        <TextBox x:Name="searchLecName" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchLecName_TextChanged" BorderThickness="1" Margin="20,0,0,0"/>
+                        <TextBlock HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Search By Department" VerticalAlignment="Top" FontSize="14" Margin="50,0,0,0"/>
+                        <TextBox x:Name="searchFaculty" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchFaculty_TextChanged" BorderThickness="1" Margin="20,0,0,0"/>
+                    </StackPanel>
+                    <ListView x:Name="listviewLecturer" BorderBrush="#896E6E6E" Margin="10" Height="542">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Building Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="160"/>
@@ -63,18 +50,15 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <TextBox x:Name="searchLecName" HorizontalAlignment="Left" Height="31" Margin="183,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchLecName_TextChanged" BorderThickness="1"/>
-                    <TextBox x:Name="searchFaculty" HorizontalAlignment="Left" Height="31" Margin="585,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="searchFaculty_TextChanged" BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="70,27,0,0" TextWrapping="Wrap" Text="Search By Name" VerticalAlignment="Top" FontSize="14"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="429,27,0,0" TextWrapping="Wrap" Text="Search By Department" VerticalAlignment="Top" FontSize="14"/>
-                </Grid>
+                   
+                </StackPanel>
             </TabItem>
 
 
             <TabItem Header = "Subject" >
-                <Grid Background="White" Height="642" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1154">
+               
 
-                    <ListView x:Name="listviewSubject" Height="469" Margin="10,0,0,163" VerticalAlignment="Bottom" Width="1134" HorizontalAlignment="Left" BorderBrush="#896E6E6E">
+                    <ListView x:Name="listviewSubject" BorderBrush="#896E6E6E" Margin="10,3,10,10">
                         <ListView.View>
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Subject Information">
                                 <GridViewColumn DisplayMemberBinding="{Binding Year}" Header="Year" Width="100"/>
@@ -88,7 +72,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </Grid>
+                
             </TabItem>
 
         </TabControl>
