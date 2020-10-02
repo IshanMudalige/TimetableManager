@@ -726,11 +726,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    command.CommandText = @"SELECT sub_name FROM Subjects";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["subj_name"].ToString();
+                        string t = reader["sub_name"].ToString();
                         selectsubject.Items.Add(t);
                     }
                 }
@@ -881,11 +881,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    command.CommandText = @"SELECT sub_name FROM Subjects";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["subj_name"].ToString();
+                        string t = reader["sub_name"].ToString();
                         selectSubCMB.Items.Add(t);
                     }
                 }
@@ -906,11 +906,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT tag FROM Sessions";
+                    command.CommandText = @"SELECT tagname FROM Tag";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["tag"].ToString();
+                        string t = reader["tagname"].ToString();
                         selectTagCMB.Items.Add(t);
                     }
                 }
@@ -1078,11 +1078,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    command.CommandText = @"SELECT sub_name FROM Subjects";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["subj_name"].ToString();
+                        string t = reader["sub_name"].ToString();
                         cmbsub.Items.Add(t);
                     }
                 }
@@ -1103,11 +1103,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT tag FROM Sessions";
+                    command.CommandText = @"SELECT tagname FROM Tag";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["tag"].ToString();
+                        string t = reader["tagname"].ToString();
                         cmbtag.Items.Add(t);
                     }
                 }
@@ -1286,11 +1286,11 @@ namespace TimetableManager
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT subj_name FROM Sessions";
+                    command.CommandText = @"SELECT sub_name FROM Subjects";
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string t = reader["subj_name"].ToString();
+                        string t = reader["sub_name"].ToString();
                         cmbconsecutiveSub.Items.Add(t);
                     }
                 }
