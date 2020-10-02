@@ -1304,18 +1304,17 @@ namespace TimetableManager
 
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="list"></param>
+        
+
+
+        //======================================
+        //-----CONSECUTIVE ROOMS -----
+        //======================================
 
 
 
 
-
-
-
-
+        //consecutive old table
         private void PopulateTableConsecutiveOld(List<ConsecutiveSession> list)
         {
 
@@ -1326,6 +1325,7 @@ namespace TimetableManager
 
 
         }
+
 
         private void listviewSessionCons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
