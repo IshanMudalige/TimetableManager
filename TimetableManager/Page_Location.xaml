@@ -67,9 +67,9 @@
                     <ComboBox x:Name="selectBuildingName" HorizontalAlignment="Left" Margin="249,31,0,0" VerticalAlignment="Top" Width="278" BorderThickness="1" SelectionChanged="selectBuildingName_SelectionChanged" Height="28"/>
                     <TextBox x:Name="addRoomName" Height="28" Margin="249,98,51,0" TextWrapping="Wrap" VerticalAlignment="Top" BorderThickness="1" TextChanged="addRoomName_TextChanged" Width="278"/>
                     <ComboBox x:Name="selectRoomType" Margin="247,168,0,0" VerticalAlignment="Top" Width="278" BorderThickness="1" HorizontalAlignment="Left" SelectionChanged="selectRoomType_SelectionChanged" Height="28">
-                        <ComboBoxItem Content="Lecture Room" VerticalAlignment="Center"/>
-                        <ComboBoxItem Content="Lab" VerticalAlignment="Center"/>
-                        <ComboBoxItem Content="Auditorium" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="Lectures" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="Practical" VerticalAlignment="Center"/>
+                        <ComboBoxItem Content="Tutorial" VerticalAlignment="Center"/>
                     </ComboBox>
 
 

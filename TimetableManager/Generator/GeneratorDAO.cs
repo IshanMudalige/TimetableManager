@@ -309,7 +309,7 @@ namespace TimetableManager.Generator
         }
 
         //get all rooms for lecturers
-        public static List<Model> getLecturerRooms()
+        public static List<Model> getLecturerRooms(String name)
         {
             List<Model> list = new List<Model>();
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -318,7 +318,8 @@ namespace TimetableManager.Generator
                 {
                     conn.Open();
                     SQLiteCommand command = new SQLiteCommand(conn);
-                    command.CommandText = @"SELECT s_code,rs_name FROM Room_Names_Lecturer";
+                    command.CommandText = @"SELECT l_name,r_name FROM Room_Names_Lecturer WHERE l_name=@name ";
+                    command.Parameters.AddWithValue("@name", name);
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -540,6 +541,7 @@ namespace TimetableManager.Generator
             }
         }
 
+        //clear tables
         public static void clearTables()
         {
             using (SQLiteConnection conn = new SQLiteConnection(App.connString))
@@ -565,6 +567,103 @@ namespace TimetableManager.Generator
 
             }
         }
+
+        //get not available slots
+        public static int[] getNotAvailable(String name)
+        {
+            int[] arr = new int[2];
+            using (SQLiteConnection conn = new SQLiteConnection(App.connString))
+            {
+                
+                string date, from, to;
+                int dt=0;
+                int slot = 0;
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = @"SELECT date,fromt,tot FROM Room_Names_NotAvailable WHERE nar_name=@name";
+                    command.Parameters.AddWithValue("@name",name);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                         date = reader["date"].ToString();
+                         from = reader["fromt"].ToString();
+                         to = reader["tot"].ToString();
+
+                        if (date.Equals("Monday"))
+                        {
+                            dt = 0;
+                        }
+                        else if (date.Equals("Tuesday"))
+                        {
+                            dt = 1;
+                        }
+                        else if (date.Equals("Wednesday"))
+                        {
+                            dt = 2;
+                        }
+                        else if (date.Equals("Thursday"))
+                        {
+                            dt = 3;
+                        }
+                        else if (date.Equals("Friday"))
+                        {
+                            dt = 4;
+                        }
+
+                        if(from.Equals("8:30 AM"))
+                        {
+                            slot = 0;
+                        }
+                        else if(from.Equals("9:30 AM"))
+                        {
+                            slot = 1;
+                        }
+                        else if (from.Equals("10:30 AM"))
+                        {
+                            slot = 2;
+                        }
+                        else if (from.Equals("11:30 AM"))
+                        {
+                            slot = 3;
+                        }
+                        else if (from.Equals("12:30 PM"))
+                        {
+                            slot = 4;
+                        }
+                        else if (from.Equals("1:30 PM"))
+                        {
+                            slot = 5;
+                        }
+                        else if (from.Equals("2:30 PM"))
+                        {
+                            slot = 6;
+                        }
+                        else if (from.Equals("3:30 PM"))
+                        {
+                            slot = 7;
+                        }
+                        else if (from.Equals("4:30 PM"))
+                        {
+                            slot = 8;
+                        }
+
+                        arr[0] = dt;
+                        arr[1] = slot;
+                    }
+                }
+                catch (SQLiteException e)
+                {
+                    MessageBox.Show("Error Occured in Retrieving Data " + e.Message);
+                }
+
+            }
+
+            return arr;
+        }
+
 
     }
 }

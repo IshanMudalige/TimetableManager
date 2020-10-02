@@ -227,10 +227,16 @@ namespace TimetableManager
                     }
                 }
 
+                //=========== Rooms suitable for subject ================
                 List<Model> subRoomList = new List<Model>(); 
                 subRoomList = GeneratorDAO.getSubjectRooms(sub.SubCode);
-                
-                //========= Search and get student group=============
+
+                //=========== Rooms suitable for subject ================
+                List<Model> lecRoomList = new List<Model>();
+                lecRoomList = GeneratorDAO.getLecturerRooms(sub.SubCode);
+
+
+                //========= Search and get student group=================
                 foreach (StudentGroups std in sgList)
                 {
 
@@ -242,7 +248,7 @@ namespace TimetableManager
                         for (int i = 0; i < 8; i++)
                         {
                             int flag = 0;
-                            for (int j = 0; j < 5; j++)
+                           for (int j = 0; j < 5; j++)
                             {
                                 //========================================================= Duration 1 =============================================================
                                 if (x.Duration == 1)
@@ -259,6 +265,17 @@ namespace TimetableManager
                                                
                                                 foreach (Hall hall in hList)
                                                 {
+                                                    //========== skip not available slots ==================
+                                                    int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                    if (arr.Length > 0)
+                                                    {
+                                                        if(j==arr[0] && i == arr[1])
+                                                        {
+                                                            j++;i++;
+                                                        }
+                                                       
+                                                    }
+
                                                     Console.WriteLine(hall.HallName);
                                                     if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null)
                                                     {
@@ -277,13 +294,72 @@ namespace TimetableManager
                                                     break;
                                             }
                                         }
-                                        else //No specific room for subject
+                                        if(lecRoomList != null && lecRoomList.Count > 0)//lecturer has spesific room
+                                        {
+                                            WriteLn("Lecturer has preffered rooms");
+                                            foreach (Model m in lecRoomList)
+                                            {
+
+                                                foreach (Hall hall in hList)
+                                                {
+                                                    //========== skip not available slots ==================
+                                                    int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                    if (arr.Length > 0)
+                                                    {
+                                                        if (j == arr[0] && i == arr[1])
+                                                        {
+                                                            j++; i++;
+                                                        }
+
+                                                    }
+
+                                                    Console.WriteLine(hall.HallName);
+                                                    if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null)
+                                                    {
+                                                        std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                        lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                        hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                        Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                        noOfSuccess++;
+                                                        flag = 1;
+                                                        Console.WriteLine(x.Sub_code + " saved for" + hall.HallName);
+                                                        break;
+                                                    }
+                                                }
+                                                if (flag == 1)
+                                                    break;
+                                            }
+                                        }
+                                        else //No specific room condition
                                         {
                                             
                                             foreach (Hall hall in hList)
                                             {
+                                                //========== skip not available slots ==================
+                                                int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                if (arr.Length > 0)
+                                                {
+                                                    if (j == arr[0] && i == arr[1])
+                                                    {
+                                                        j++; i++;
+                                                    }
+
+                                                }
 
                                                 if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null)
+                                                {
+                                                    std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                    lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                    hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                    Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                    WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                    noOfSuccess++;
+                                                    flag = 1;
+                                                    break;
+                                                }
+
+                                                if(x.Tag.Equals("Tutorial") && hall.Halls[i, j] == null)
                                                 {
                                                     std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
                                                     lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
@@ -307,12 +383,23 @@ namespace TimetableManager
                                     {
                                         if (std.Student[i, j] == null && lec.Lecturer[i, j] == null && std.Student[i + 1, j] == null && lec.Lecturer[i + 1, j] == null)
                                         {
-                                            if (subRoomList != null && subRoomList.Count>0)
+                                            if (subRoomList != null && subRoomList.Count>0)//subject has preffered room
                                             {
                                                 foreach (Model m in subRoomList)
                                                 {
                                                     foreach (Hall hall in hList)
                                                     {
+                                                        //========== skip not available slots ==================
+                                                        int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                        if (arr.Length > 0)
+                                                        {
+                                                            if (j == arr[0] && i == arr[1])
+                                                            {
+                                                                j++; i++;
+                                                            }
+
+                                                        }
+
                                                         if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null && hall.Halls[i + 1, j] == null)
                                                         {
                                                             std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
@@ -332,10 +419,56 @@ namespace TimetableManager
                                                         break;
                                                 }
                                             }
-                                            else
+                                            if (lecRoomList != null && lecRoomList.Count > 0)// lecturer has spesific room
+                                            {
+                                                foreach (Model m in lecRoomList)
+                                                {
+                                                    foreach (Hall hall in hList)
+                                                    {
+                                                        //========== skip not available slots ==================
+                                                        int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                        if (arr.Length > 0)
+                                                        {
+                                                            if (j == arr[0] && i == arr[1])
+                                                            {
+                                                                j++; i++;
+                                                            }
+
+                                                        }
+
+                                                        if (hall.HallName.Equals(m.RoomName) && hall.Halls[i, j] == null && hall.Halls[i + 1, j] == null)
+                                                        {
+                                                            std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                            lec.Lecturer[i, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                            hall.Halls[i, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                            std.Student[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
+                                                            lec.Lecturer[i + 1, j] = x.Sub_name + " - " + x.Sub_code + "\n" + x.Grp_id + "\n" + hall.HallName;
+                                                            hall.Halls[i + 1, j] = x.Grp_id + "\n" + x.Sub_name + " - " + x.Sub_code + "\n" + x.Lecturer;
+                                                            Console.WriteLine(std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                            WriteLn("Session -" + x.Sub_name + " " + std.GroupId + " " + lec.LecturerName + " " + hall.HallName + " Assigned Successfully");
+                                                            noOfSuccess++;
+                                                            flag = 1;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (flag == 1)
+                                                        break;
+                                                }
+                                            }
+                                            else//does not have room conditions
                                             {
                                                 foreach (Hall hall in hList)
                                                 {
+                                                    //========== skip not available slots ==================
+                                                    int[] arr = GeneratorDAO.getNotAvailable(hall.HallName);
+                                                    if (arr.Length > 0)
+                                                    {
+                                                        if (j == arr[0] && i == arr[1])
+                                                        {
+                                                            j++; i++;
+                                                        }
+
+                                                    }
                                                     if (hall.Type.Equals(x.Tag) && hall.Halls[i, j] == null && hall.Halls[i + 1, j] == null)
                                                     {
                                                         std.Student[i, j] = x.Sub_name + " - " + x.Sub_code + "(" + x.Tag + ")\n" + x.Lecturer + "\n" + hall.HallName;
